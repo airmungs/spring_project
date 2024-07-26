@@ -5,15 +5,25 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="./js/index.js?v=1"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="./js/index.js?v=3"></script>
 <link rel="stylesheet" type="text/css" href="./css/index.css">
 </head>
 <body>
 <input type="button" value="클릭" id="btn">
-<div class="box">
-메인페이지
-</div>
-<img src="./images/Allistar.png">
+
+<br><br>
+<input type="button" value="클릭" id="btn2">
+
+<br><br>
+<input type="button" value="ajaxbutton" id="btn3">
+
+<br><br>
+<input type="button" value="ajaxbutton" id="homework">
+
+
+
+
+
 </body>
 </html>
