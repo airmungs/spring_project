@@ -11,7 +11,7 @@ $(function(){
 			cache : false,
 			dataType : "json",
 			contentType : "application/json",
-			data : { alldata : $data.join(",") },
+			data : { alldata : $data },
 			success : function ($result){
 				console.log($result)
 			},error : function(){
