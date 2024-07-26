@@ -4,11 +4,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class web_Controller {
@@ -17,6 +21,28 @@ public class web_Controller {
 	//@RequestBody : GET/POST(X) JSON 기반일 경우
 	//@ResonseBody : 미디어 타입, 파라미터 타입. 단, 인자값에는 미선언 
 	//ajax 통신 cors 기반
+	
+	//HttpSession : interface 를 활용하여, 세션을 빠르게 구현하는 방식
+	@PostMapping("/loginok.do")
+	public String loginok(@RequestParam(value="",required = false)String mid,HttpSession hs) {
+		if(mid!=null) {
+		hs.setAttribute("mid", mid);
+		hs.setMaxInactiveInterval(1800);
+		}
+		return "/index3";
+	}
+	
+	/*
+	@PostMapping("/loginok.do")
+	public String loginok(String mid,HttpServletRequest req) {
+		HttpSession hs=req.getSession();
+		hs.setAttribute("mid", mid);
+		hs.setMaxInactiveInterval(1800);
+		System.out.println(mid);
+		return "/index3";
+	}
+	*/
+	
 	
 	
 	@CrossOrigin(origins="*", allowedHeaders="*")
