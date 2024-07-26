@@ -8,8 +8,15 @@ $(function(){
 		console.log($data);
 		$.ajax({
 			url : "./ajaxok.do",
-			method : "post",
-			data : { num : $data }
+			cache : false,
+			dataType : "json",
+			contentType : "application/json",
+			data : { alldata : $data.join(",") },
+			success : function ($result){
+				console.log($result)
+			},error : function(){
+				console.log(error);
+			}
 		});
 	});
 	
