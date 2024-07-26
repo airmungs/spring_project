@@ -19,7 +19,7 @@
 <input type="button" value="ajaxbutton" id="btn3">
 
 <br><br>
-<input type="button" value="ajaxbutton" id="homework">
+<input type="button" value="homework" id="homework">
 
 
 
