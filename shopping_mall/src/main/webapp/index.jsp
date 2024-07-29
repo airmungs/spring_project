@@ -16,7 +16,7 @@
 </head>
 <body class="bodycss">
     <header class="admin_title">
-        <p><img src="./images/logo.png" class="logo_sm"> ADMINISTRATOR</p>
+        <p><img src="./img/logo.png" class="logo_sm"> ADMINISTRATOR</p>
     </header>
     <section class="admin_bgcolor">
         <div class="admin_login">
