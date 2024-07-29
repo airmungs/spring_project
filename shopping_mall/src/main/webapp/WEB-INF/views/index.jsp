@@ -7,16 +7,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>관리자 페이지</title>
-    <link rel="stylesheet" type="text/css" href="./css/basic.css">
-    <link rel="stylesheet" type="text/css" href="./css/mainlogin.css?v=3">
-    <link rel="icon" href="./img/logo.png" sizes="128x128">
-    <link rel="icon" href="./img/logo.png" sizes="64x64">
-    <link rel="icon" href="./img/logo.png" sizes="32x32">
-    <link rel="icon" href="./img/logo.png" sizes="16x16">
+    <link rel="stylesheet" type="text/css" href="/resources/css/basic.css">
+    <link rel="stylesheet" type="text/css" href="/resources/css/mainlogin.css?v=3">
+    <link rel="icon" href="/resources/img/logo.png" sizes="128x128">
+    <link rel="icon" href="/resources/img/logo.png" sizes="64x64">
+    <link rel="icon" href="/resources/img/logo.png" sizes="32x32">
+    <link rel="icon" href="/resources/img/logo.png" sizes="16x16">
 </head>
 <body class="bodycss">
     <header class="admin_title">
-        <p><img src="./img/logo.png" class="logo_sm"> ADMINISTRATOR</p>
+        <p><img src="/resources/img/logo.png" class="logo_sm"> ADMINISTRATOR</p>
     </header>
     <section class="admin_bgcolor">
         <div class="admin_login">
@@ -34,7 +34,7 @@
             </span>
             <span>
                 <ol class="admin_info">
-                    <li title="신규 관리자 등록요청">신규 관리자 등록요청</li>
+                    <li title="신규 관리자 등록요청"><a href="./add_master.do">신규 관리자 등록요청</a></li>
                     <li title="아이디/패스워드 찾기">아이디/패스워드 찾기</li>
                 </ol>                
             </span>
