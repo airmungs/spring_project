@@ -49,20 +49,20 @@
                 <li>
                     <select class="add_select1">
                         <option>담당자 부서를 선택하세요</option>
-                        <option>임원</option>
-                        <option>전산팀</option>
-                        <option>디자인팀</option>
-                        <option>CS팀</option>
-                        <option>MD팀</option>
+                        <option value="임원">임원</option>
+                        <option value="전산팀">전산팀</option>
+                        <option value="디자인팀">디자인팀</option>
+                        <option value="CS팀">CS팀</option>
+                        <option value="MD팀">MD팀</option>
                     </select>
                     <select class="add_select1">
                         <option>담당자 직책을 선택하세요</option>
-                        <option>대표</option>
-                        <option>부장</option>
-                        <option>팀장</option>
-                        <option>과장</option>
-                        <option>대리</option>
-                        <option>사원</option>
+                        <option value="대표">대표</option>
+                        <option value="부장">부장</option>
+                        <option value="팀장">팀장</option>
+                        <option value="과장">과장</option>
+                        <option value="대리">대리</option>
+                        <option value="사원">사원</option>
                     </select>
                 </li>
                 <li class="font_color1">※ 가입완료 후 전산 담당자가 확인 후 로그인 할 수 있습니다.</li>

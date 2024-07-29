@@ -12,20 +12,14 @@
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
 
-	<!-- 해당 resources 태그는 해당 디렉토리를 설정하여 파일 각종 속성 파일을 로드할 수 있도록 설정하는 보안 태그 -->
+	<!-- 정적 리소스 핸들링 -->
 	<resources mapping="/resources/**" location="/resources/" />
-	<resources location="/js/" mapping="/js/**"/>
-	<resources location="/css/" mapping="/css/*.css"/>
-	<resources location="/images/" mapping="/images/**"/>
+
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="com.shopping.www" />
-	<context:component-scan base-package="shopping" />
-	<context:component-scan base-package="shopping_admin" />
-	
-	
+	<context:component-scan base-package="com.shopping.www, shopping, shopping_admin" />
 </beans:beans>
