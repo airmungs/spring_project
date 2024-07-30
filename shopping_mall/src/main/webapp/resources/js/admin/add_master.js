@@ -1,6 +1,21 @@
-document.getElementById("join_admin").addEventListener("click", function() {
-    var form = document.getElementById("admin_form");
+var form = document.getElementById("admin_form");
+document.getElementById("id_check").addEventListener("click",function(){
+    var adid = form.querySelector('input[name="adid"]').value.trim();
+    if (!adid) {
+        alert("아이디를 입력하세요.");
+        form.querySelector('input[name="adid"]').focus();
+        return;
+    }else{
+		location.href="./idcheck.do?adid="+encodeURIComponent(adid);
+	
+	}
+	
+});
 
+
+
+
+document.getElementById("join_admin").addEventListener("click", function() {
     var adid = form.querySelector('input[name="adid"]').value.trim();
     if (!adid) {
         alert("아이디를 입력하세요.");
