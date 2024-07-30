@@ -26,7 +26,7 @@
                     <li class="font_color1">아이디 및 패스워드 정보</li>
                     <li>
                         <input type="text" name="adid" class="add_input1" placeholder="생성할 관리자 아이디를 입력하세요">
-                        <button type="button" class="btn_button">중복체크</button>
+                        <button type="button" class="btn_button" id="id_check">중복체크</button>
                     </li>
                     <li>
                         <input type="password" name="adpass" class="add_input1" placeholder="접속할 패스워드를 입력하세요">

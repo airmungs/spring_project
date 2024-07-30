@@ -5,10 +5,22 @@ document.getElementById("id_check").addEventListener("click",function(){
         alert("아이디를 입력하세요.");
         form.querySelector('input[name="adid"]').focus();
         return;
-    }else{
-		location.href="./idcheck.do?adid="+encodeURIComponent(adid);
-	
-	}
+    }
+
+	fetch(`/idcheck?adid=${encodeURIComponent(adid)}`)
+	       .then(response => {
+	           if (!response.ok) {
+	               // 서버 오류 처리
+	               throw new Error('서버에서 오류가 발생했습니다.');
+	           }
+	           return response.text();
+	       })
+	       .then(data => {
+	           alert(data);
+	       })
+	       .catch(error => {
+	           alert('서버 오류 발생: ' + error.message);
+	       });
 	
 });
 
