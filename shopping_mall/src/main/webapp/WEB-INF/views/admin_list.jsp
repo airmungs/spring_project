@@ -16,7 +16,7 @@
     <link rel="icon" href="/resources/img/logo.png" sizes="16x16">
 </head>
 <body>
-<%@include file="../top.jsp"%>
+<%@include file="../top_admin.jsp"%>
 <main class="maincss">
 <section>
     <p>신규등록 관리자</p>
@@ -52,10 +52,6 @@
 <section></section>
 <section></section>
 </main>
-<footer class="main_copyright">
-    <div>
-        Copyright ⓒ 2024 shopbag All rights reserved.
-    </div>
-</footer>
+<%@include file="../copyright_admin.jsp"%>
 </body>
 </html>

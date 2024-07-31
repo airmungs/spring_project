@@ -86,10 +86,6 @@
     </div>
 </section>
 </main>
-<footer class="main_copyright">
-    <div>
-        Copyright ⓒ 2024 shopbag All rights reserved.
-    </div>
-</footer>
+<%@include file="../copyright_admin.jsp"%>
 </body>
 </html>
