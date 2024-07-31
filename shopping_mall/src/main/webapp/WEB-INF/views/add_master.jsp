@@ -82,5 +82,5 @@
         </div>
     </footer>
 </body>
-<script src="/resources/js/add_master.js?v=4"></script>
+<script src="/resources/js/admin/add_master.js?v=4"></script>
 </html>
