@@ -1,5 +1,9 @@
 package shopping_admin.dao;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -12,11 +16,31 @@ public class shopping_admin_dao {
 	@Resource(name="template2")
 	private SqlSessionTemplate sqlTemplate;
 	
+	
+	public int updateAdminStatus(String adid, String status) {
+	    Map<String, Object> params = new HashMap<>();
+	    params.put("adid", adid);
+	    params.put("status", status);
+	    return sqlTemplate.update("sailmallDB.admin_login_status", params);
+	}
+	
+	//관리자 리스트
+	public List<shopping_admin_dto> adminList() {
+        return sqlTemplate.selectList("sailmallDB.admin_list");
+    }
+	
+	//관리자 로그인
+	public shopping_admin_dto adminLogin(String adid, String hashedPassword) {
+		Map<String, String> params = new HashMap<>();
+        params.put("adid", adid);
+        params.put("adpass", hashedPassword);
+        return sqlTemplate.selectOne("sailmallDB.admin_login", params);
+	}
+	
 	// 관리자 등록
-    public int insert_admin(shopping_admin_dto adminDTO) {
+    public int insertAdmin(shopping_admin_dto adminDTO) {
         return sqlTemplate.insert("sailmallDB.admin_insert", adminDTO);
     }
-
     // 아이디 중복 체크
     public shopping_admin_dto selectAdminById(String adid) {
         return sqlTemplate.selectOne("sailmallDB.admin_idcheck", adid);

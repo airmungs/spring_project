@@ -15,6 +15,7 @@
     <link rel="icon" href="/resources/img/logo.png" sizes="16x16">
 </head>
 <body class="bodycss">
+<form id="adminlogin_form">
     <header class="admin_title">
         <p><img src="/resources/img/logo.png" class="logo_sm"> ADMINISTRATOR</p>
     </header>
@@ -23,12 +24,12 @@
             <span>
                 <div class="left_div">
                 <ul>
-                <li><input type="text" class="input_text1" placeholder="관리자 아이디를 입력하세요"></li>
-                <li><input type="password" class="input_text1" placeholder="관리자 패스워드를 입력하세요"></li>
+                <li><input type="text" class="input_text1" name="adid" placeholder="관리자 아이디를 입력하세요"></li>
+                <li><input type="password" class="input_text1" name="adpass" placeholder="관리자 패스워드를 입력하세요"></li>
                 </ul>
                 </div>
                 <div class="right_div">
-                    <button type="submit" class="btn_submit" title="MASTER LOGIN">MASTER LOGIN</button>
+                    <button type="submit" class="btn_submit" title="MASTER LOGIN" id="admin_login">MASTER LOGIN</button>
                 </div>
                 <em class="alert_msg">※ 본 사이트는 관리자 외에는 접근을 금합니다. 페이지 접근에 대한 접속 정보는 모두 기록 됩니다.</em>
             </span>
@@ -45,5 +46,7 @@
             Copyright ⓒ 2024 shopbag All rights reserved.
         </div>
     </footer>
+</form>
 </body>
+<script src="/resources/js/admin/login_admin.js?v=2"></script>
 </html>

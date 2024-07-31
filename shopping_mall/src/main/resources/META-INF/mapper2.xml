@@ -2,6 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="sailmallDB">
 
+<!-- 관리자 로그인 승인 -->
+<update id="admin_login_status">
+UPDATE adminJoin SET login = #{status} WHERE adid = #{adid}
+</update>
+
+<!-- 관리자 리스트 -->
+<select id="admin_list" resultType="shopping_admin.model.shopping_admin_dto">
+	SELECT*FROM adminJoin WHERE adidx!=1;
+</select>
+
+<!-- 관리자 로그인 -->
+<select id="admin_login" parameterType="map" resultType="shopping_admin.model.shopping_admin_dto">
+    SELECT * FROM adminJoin WHERE adid = #{adid} AND adpass = #{adpass}
+</select>
+
 <!-- 관리자 등록 신청 insert -->
 <insert id="admin_insert" parameterType="shopping_admin.model.shopping_admin_dto">
 INSERT INTO adminJoin (adid, adpass, adname, ademail, adtel, adpart, adposition, addate)

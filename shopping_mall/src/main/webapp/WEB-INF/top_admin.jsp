@@ -1,9 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="shopping_admin.model.shopping_admin_dto" %>
+<%
+    shopping_admin_dto admin = (shopping_admin_dto) session.getAttribute("admin");
+%>
 <header class="headercss">
     <div class="header_div">
         <p><img src="/resources/img/logo.png" class="logo_sm"> ADMINISTRATOR</p>
-        <p>홍길동 관리자 <a href="#">[개인정보 수정]</a> <a href="#">[로그아웃]</a></p>
+        <p><%=admin.getAdname() %> <a href="#">[개인정보 수정]</a> <a href="./admin_logout">[로그아웃]</a></p>
     </div>
 </header>
 <nav class="navcss">

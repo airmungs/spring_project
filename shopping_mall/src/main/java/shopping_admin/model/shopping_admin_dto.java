@@ -7,5 +7,5 @@ import lombok.Setter;
 @Setter
 public class shopping_admin_dto {
 int adidx;
-String adid,adpass,adname,ademail,adtel,adpart,adposition,addate;
+String adid,adpass,adname,ademail,adtel,adpart,adposition,addate,login;
 }
