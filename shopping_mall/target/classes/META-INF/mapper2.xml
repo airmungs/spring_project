@@ -9,8 +9,8 @@ VALUES (#{adid}, #{adpass}, #{adname}, #{ademail}, #{adtel}, #{adpart}, #{adposi
 </insert>
 
 <!-- 관리자 등록 신청 ID중복체크 -->
-<select id="admin_idcheck" parameterType="string" resultType="shopping_admin.model.shopping_admin_dto" >
-SELECT FROM adminJoin WHERE adid=#{adid}
+<select id="admin_idcheck" parameterType="String" resultType="shopping_admin.model.shopping_admin_dto" >
+SELECT * FROM adminJoin WHERE adid=#{adid}
 </select>
 
 </mapper>

@@ -1,5 +1,8 @@
 var form = document.getElementById("admin_form");
-document.getElementById("id_check").addEventListener("click",function(){
+var isIdAvailable = false;  // 중복 체크 결과를 저장할 변수
+
+// 중복 체크 버튼 클릭 핸들러
+document.getElementById("id_check").addEventListener("click", function() {
     var adid = form.querySelector('input[name="adid"]').value.trim();
     if (!adid) {
         alert("아이디를 입력하세요.");
@@ -7,27 +10,50 @@ document.getElementById("id_check").addEventListener("click",function(){
         return;
     }
 
-	fetch(`/idcheck?adid=${encodeURIComponent(adid)}`)
-	       .then(response => {
-	           if (!response.ok) {
-	               // 서버 오류 처리
-	               throw new Error('서버에서 오류가 발생했습니다.');
-	           }
-	           return response.text();
-	       })
-	       .then(data => {
-	           alert(data);
-	       })
-	       .catch(error => {
-	           alert('서버 오류 발생: ' + error.message);
-	       });
-	
+    fetch(`./idcheck?adid=${encodeURIComponent(adid)}`, {
+        headers: {
+            'Content-Type': 'text/plain; charset=UTF-8'
+        }
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.text();
+        } else if (response.status === 409) {
+            return response.text().then(data => { throw new Error(data); });
+        } else {
+            throw new Error('서버에서 오류가 발생했습니다.');
+        }
+    })
+    .then(data => {
+        alert(data);
+        isIdAvailable = data === "사용 가능한 아이디입니다.";  // 아이디 사용 가능 여부 설정
+    })
+    .catch(error => {
+        alert(error.message);
+    });
 });
 
+document.querySelector('input[name="adid"]').addEventListener("input", function() {
+    isIdAvailable = false;
+});
 
+//핸드폰번호 maxlength
+function limitInputLength(inputElement, maxLength) {
+    inputElement.addEventListener('input', function() {
+        const value = inputElement.value;
+        if (value.length > maxLength) {
+            inputElement.value = value.slice(0, maxLength);
+        }
+    });
+}
 
-
+// 회원가입 버튼 클릭 핸들러
 document.getElementById("join_admin").addEventListener("click", function() {
+    if (!isIdAvailable) {
+        alert("아이디 중복 체크를 완료하고, 사용 가능한 아이디인지 확인하세요.");
+        return;
+    }
+
     var adid = form.querySelector('input[name="adid"]').value.trim();
     if (!adid) {
         alert("아이디를 입력하세요.");
@@ -77,6 +103,12 @@ document.getElementById("join_admin").addEventListener("click", function() {
         }
         return;
     }
+	var isNumber = /^[0-9]+$/;
+    if (!isNumber.test(hp1) || !isNumber.test(hp2) || !isNumber.test(hp3)) {
+        alert("휴대폰 번호는 숫자만 입력 가능합니다.");
+        return;
+    }
+
     var phoneNumber = `${hp1}${hp2}${hp3}`;
 
     var adpart = form.querySelector('select[name="adpart"]').value;
@@ -103,6 +135,7 @@ document.getElementById("join_admin").addEventListener("click", function() {
     });
     jsonData['adtel'] = phoneNumber;
     var jsonString = JSON.stringify(jsonData);
+    
     fetch('./add_masterok.do', {
         method: 'POST',
         headers: {
@@ -115,6 +148,7 @@ document.getElementById("join_admin").addEventListener("click", function() {
         if (data.success) {
             alert('관리자 등록 요청이 완료되었습니다. 전산 담당자 승인 후 로그인 할 수 있습니다.');
             form.reset();  // 폼 리셋
+            isIdAvailable = false;
         } else {
             alert('관리자 등록 실패: ' + data.message);
         }
