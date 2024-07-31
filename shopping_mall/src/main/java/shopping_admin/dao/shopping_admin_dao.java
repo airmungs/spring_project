@@ -1,5 +1,8 @@
 package shopping_admin.dao;
 
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
+
 import javax.annotation.Resource;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -12,8 +15,13 @@ public class shopping_admin_dao {
 	@Resource(name="template2")
 	private SqlSessionTemplate sst;
 	
-	public int shoppingInsert(shopping_admin_dto admin_dto) {
-		int result=sst.insert("sailmallDB.admin_insert",admin_dto);
-		return result;
-	}
+	// 관리자 등록
+    public int insert_admin(shopping_admin_dto adminDTO) {
+        return sst.insert("sailmallDB.admin_insert", adminDTO);
+    }
+
+    // 아이디 중복 체크
+    public shopping_admin_dto selectAdminById(String adid) {
+        return sst.selectOne("sailmallDB.admin_idcheck", adid);
+    }
 }
