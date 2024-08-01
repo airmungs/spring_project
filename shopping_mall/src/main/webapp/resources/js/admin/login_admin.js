@@ -24,8 +24,14 @@ document.getElementById("adminlogin_form").addEventListener("submit", function(e
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            alert('로그인 성공');
-			location.href="./admin_list.do";
+            // adname을 확인하여 리디렉션할 URL을 결정
+            if (data.adname === 'master') {
+                alert('로그인 성공');
+                location.href = "./admin_list.do";
+            } else {
+                alert('로그인 성공');
+                location.href = "./shop_member_list.do";
+            }
         } else {
             alert(data.message);
         }

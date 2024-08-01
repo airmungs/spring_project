@@ -27,6 +27,24 @@ public class shopping_admin_controller {
 	@Autowired
 	private shopping_admin_service adminService;
 	
+	//쇼핑몰 상품관리
+	@GetMapping("/product_list.do")
+	public String product_list(){
+		return "product_list";
+	}
+	
+	
+	//쇼핑몰 기본설정
+	@GetMapping("/admin_siteinfo.do")
+	public String admin_siteinfo(){
+		return "admin_siteinfo";
+	}
+	
+	//쇼핑몰 회원관리
+	@GetMapping("/shop_member_list.do")
+	public String shop_member_list(){
+		return "shop_member_list";
+	}
 	
 	//카테고리 리스트 페이지
 	@GetMapping("/cate_list.do")
