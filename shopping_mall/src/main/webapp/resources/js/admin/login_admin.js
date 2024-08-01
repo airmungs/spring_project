@@ -35,10 +35,4 @@ document.getElementById("adminlogin_form").addEventListener("submit", function(e
     });
 });
 
-//다른페이지에 임의로 접속하려고 할 시 차단
-document.addEventListener("DOMContentLoaded", function() {
-    var urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('error') === 'access_denied') {
-        alert('접근권한 없음');
-    }
-});
+

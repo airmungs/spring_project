@@ -2,6 +2,18 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
+<%
+	//임의로 다른 경로 접속 차단 alert
+    String error = request.getParameter("error");
+    if ("access_denied".equals(error)) {
+%>
+    <script>
+        alert('접근권한 없음');
+        window.location.href = "<%= request.getContextPath() %>/";
+    </script>
+<%
+    }
+%>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
