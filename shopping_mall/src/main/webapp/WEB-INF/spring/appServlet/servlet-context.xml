@@ -3,22 +3,37 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:beans="http://www.springframework.org/schema/beans"
     xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
     xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
         http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
-    <!-- Enables the Spring MVC @Controller programming model -->
-    <annotation-driven />
+    <!-- @Controller 로 웹 애플리케이션 정의할 수 있게 해주는 태그 -->
+    <mvc:annotation-driven />
 
-    <!-- Static resource handling -->
-    <resources mapping="/resources/**" location="/resources/" />
+    <!-- 정적 자원 핸들링 -->
+    <mvc:resources mapping="/resources/**" location="/resources/" />
 
-    <!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
-    <beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    <!-- MVC에서 views의 jsp를 출력 -->
+    <beans:bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <beans:property name="prefix" value="/WEB-INF/views/" />
         <beans:property name="suffix" value=".jsp" />
     </beans:bean>
-
-    <!-- Component scan for specified packages -->
+	
+	<!-- @이 붙은 클래스를 bean으로 자동 등록 -->
     <context:component-scan base-package="shopping_admin" />
+    
+    <!-- 인터셉터 -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**" />
+            <mvc:exclude-mapping path="/" />
+            <mvc:exclude-mapping path="/login" />
+            <mvc:exclude-mapping path="/add_master.do" />
+            <mvc:exclude-mapping path="/add_masterok.do" />
+            <mvc:exclude-mapping path="/idcheck" />
+            <mvc:exclude-mapping path="/resources/**" />
+            <beans:bean class="shopping_admin.interceptor.AdminLoginInterceptor" />
+        </mvc:interceptor>
+    </mvc:interceptors>
 </beans:beans>

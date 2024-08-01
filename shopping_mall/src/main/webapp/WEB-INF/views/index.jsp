@@ -48,5 +48,5 @@
     </footer>
 </form>
 </body>
-<script src="/resources/js/admin/login_admin.js?v=2"></script>
+<script src="/resources/js/admin/login_admin.js?v=3"></script>
 </html>

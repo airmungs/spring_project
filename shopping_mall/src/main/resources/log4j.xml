@@ -14,7 +14,7 @@
 	<logger name="com.shopping.www">
 		<level value="info" />
 	</logger>
-	
+	<logger name="org.springframework" level="DEBUG"/>
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">
 		<level value="info" />
