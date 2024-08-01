@@ -27,6 +27,13 @@ public class shopping_admin_controller {
 	@Autowired
 	private shopping_admin_service adminService;
 	
+	
+	//카테고리 리스트 페이지
+	@GetMapping("/cate_list.do")
+    public String cate_list() {
+        return "cate_list";
+    }
+	
 	//관리자 로그인 승인
 	@GetMapping("/update_admin_status.do")
 	public ResponseEntity<Map<String, Object>> updateAdminStatus(
@@ -48,7 +55,7 @@ public class shopping_admin_controller {
 	    return ResponseEntity.ok(response);
 	}
 	
-	//admin로그인 페이지
+	//admin로그인 index 페이지
     @GetMapping("/")
     public String admin_login() {
         return "index";
@@ -64,14 +71,14 @@ public class shopping_admin_controller {
     public String add_master() {
     	return "add_master";
     }
-    
+    //admin 로그아웃
     @GetMapping("/admin_logout")
     public String logout(HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.invalidate();
         return "redirect:/"; // 로그인 페이지로 리다이렉트
     }
-    
+    //admin 로그인
     @PostMapping("/login")
     public ResponseEntity<Map<String,Object>> adminLoginok (@RequestBody Map<String, String> loginData, HttpServletRequest request){
     	Map<String,Object> response=new HashMap<>();

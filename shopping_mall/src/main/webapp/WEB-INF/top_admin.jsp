@@ -13,7 +13,9 @@
 <nav class="navcss">
     <div class="nav_div">
         <ol>
+        <%if(admin.getAdname().equals("최고관리자")){ %>
             <li title="쇼핑몰 상품관리">쇼핑몰 관리자 리스트</li>
+        <%} %>    
             <li title="쇼핑몰 회원관리">쇼핑몰 회원관리</li>
             <li title="쇼핑몰 상품관리">쇼핑몰 상품관리</li>
             <li title="쇼핑몰 기본설정">쇼핑몰 기본설정</li>

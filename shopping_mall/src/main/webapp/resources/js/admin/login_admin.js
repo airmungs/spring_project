@@ -1,5 +1,5 @@
 document.getElementById("adminlogin_form").addEventListener("submit", function(event){
-    event.preventDefault(); // 폼의 기본 제출 동작을 막습니다.
+    event.preventDefault(); // 폼의 기본 제출 동작을 막기
             
     var form = event.target;
 	var adid = form.querySelector('input[name="adid"]').value.trim();
