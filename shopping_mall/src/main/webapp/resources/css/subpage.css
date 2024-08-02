@@ -1,59 +1,65 @@
 @charset "utf-8";
 .subpage_view { 
-    width: inherit;
+    width: 100%;
     height: auto;
     margin-bottom: 50px;
+    padding: 0 10px; /* 필요에 따라 추가적인 여백 조정 가능 */
 }
+
 .subpage_view > .info_form, .subpage_view > .info_form2 {
-    width: inherit;
-    height: 40px;
-    border-top:1px solid rgb(81, 61, 61);
+    width: 100%;
+    height: auto; /* 'auto'로 설정하여 내용에 따라 크기 조정 */
+    border-top: 1px solid rgb(81, 61, 61);
+    margin-bottom: 10px; /* 항목 사이에 여백 추가 */
 }
-.subpage_view > .info_form > li, .subpage_view > .info_form2 > li{
+
+.subpage_view > .info_form > li, .subpage_view > .info_form2 > li {
     float: left;
     font-size: 13px;
     font-family: 'Noto Sans KR', sans-serif;
+    margin-right: 10px; /* 항목 간의 간격 추가 */
 }
-.subpage_view > .info_form > li:nth-of-type(1), .subpage_view > .info_form2 > li:nth-of-type(1){
+
+.subpage_view > .info_form > li:nth-of-type(1), .subpage_view > .info_form2 > li:nth-of-type(1) {
     width: 150px;
     height: 40px;
     line-height: 40px;
     text-indent: 5px;
 }
-/* 환경설정 입력 파트 */
-.subpage_view > .info_form > li > input[type="text"], .subpage_view > .info_form2 > li > input[type="text"]{
-    height: 30px;
-    border:1px solid rgb(81, 61, 61);
-    border-radius: 2px;
-    text-indent: 5px;
-}
-.info_form > li:nth-of-type(2){
-    width: 950px;
+
+.info_form > li:nth-of-type(2) {
+    width: calc(100% - 150px); /* 첫 번째 항목의 너비를 제외한 나머지 공간을 차지하도록 계산 */
     padding-top: 5px;
 }
-.info_form2 > li:nth-of-type(2){
-    width: 400px;
+
+.info_form2 > li:nth-of-type(2), .info_form2 > li:nth-of-type(4) {
+    width: calc(100% - 150px); /* 첫 번째 항목의 너비를 제외한 나머지 공간을 차지하도록 계산 */
     padding-top: 5px;
 }
-.info_form2 > li:nth-of-type(3){
+
+.info_form2 > li:nth-of-type(3) {
     width: 150px;
     height: 40px;
     line-height: 40px;
     text-indent: 5px;
 }
-.info_form2 > li:nth-of-type(4){
-    width: 400px;
-    padding-top: 5px;
+
+.info_form2 > li:nth-of-type(1), .info_form2 > li:nth-of-type(3) {
+    width: 150px; /* 첫 번째 항목의 너비 */
 }
+
 .in_form0 { 
     width: 200px;
 }
+
 .in_form1 { 
     width: 250px;
 }
+
 .in_form2 { 
     width: 300px;
 }
+
 .in_form3 {
     width: 80px;
 }
@@ -62,22 +68,26 @@
     height: 40px;
     line-height: 30px;
 }
+
 .checkcss > em {
     width: 100px;
     display: block;
     float: left;
 }
+
 .ckclass { 
     vertical-align: -2px;
     margin-right: 2px;
 }
+
 .btn_div { 
-    width: inherit;
+    width: 100%;
     height: 60px;
     margin-bottom: 50px;
     line-height: 60px;
     text-align: center;
 }
+
 .sub_btn1 { 
     width: 120px;
     height: 40px;
@@ -86,6 +96,7 @@
     margin-right: 10px;
     cursor: pointer;
 }
+
 .sub_btn2 { 
     width: 120px;
     height: 40px;
