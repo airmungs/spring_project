@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="shopping_admin.model.shopping_admin_dto" %>
+<%@ page import="shopping_admin.dto.shopping_admin_dto" %>
 <%
     shopping_admin_dto admin = (shopping_admin_dto) session.getAttribute("admin");
 %>

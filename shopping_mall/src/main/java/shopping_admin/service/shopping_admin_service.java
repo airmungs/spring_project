@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import shopping_admin.dao.shopping_admin_dao;
-import shopping_admin.model.shopping_admin_dto;
+import shopping_admin.dto.shopping_admin_dto;
 
 @Service
 public class shopping_admin_service {

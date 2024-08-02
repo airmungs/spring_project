@@ -9,7 +9,7 @@ import javax.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import shopping_admin.model.shopping_admin_dto;
+import shopping_admin.dto.shopping_admin_dto;
 
 @Repository("shoppingDao")
 public class shopping_admin_dao {

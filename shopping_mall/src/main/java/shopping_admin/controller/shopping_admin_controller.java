@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import shopping_admin.model.shopping_admin_dto;
+import shopping_admin.dto.shopping_admin_dto;
 import shopping_admin.service.shopping_admin_service;
 
 @Controller
