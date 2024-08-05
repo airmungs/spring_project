@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import shopping_admin.dto.shopping_admin_dto;
+import shopping_admin.dto.shopping_siteinfo_dto;
 import shopping_admin.service.shopping_admin_service;
 
 @Controller
@@ -36,9 +37,28 @@ public class shopping_admin_controller {
 	
 	//쇼핑몰 기본설정
 	@GetMapping("/admin_siteinfo.do")
-	public String admin_siteinfo(){
+	public String admin_siteinfo(Model m){
+		m.addAttribute("siteinfo",adminService.siteinfoList());
 		return "admin_siteinfo";
 	}
+	
+    @PostMapping("/saveSiteinfo")
+    public ResponseEntity<Map<String, Object>> saveSiteinfo(@RequestBody shopping_siteinfo_dto siteDTO) {
+	    Map<String, Object> response = new HashMap<>();
+        try {
+            boolean result=adminService.saveSiteinfo(siteDTO);
+            if (result) {
+	            response.put("success", true);
+	        } else {
+	            response.put("success", false);
+	            response.put("message", "설정 저장 실패");
+	        }
+	    } catch (Exception e) {
+	        response.put("success", false);
+	        response.put("message", "서버 오류 발생: " + e.getMessage());
+	    }
+	    return ResponseEntity.ok(response);
+    }
 	
 	//쇼핑몰 회원관리
 	@GetMapping("/shop_member_list.do")
@@ -78,17 +98,20 @@ public class shopping_admin_controller {
     public String admin_login() {
         return "index";
     }
+    
     //admin 등록 승인 페이지
     @GetMapping("/admin_list.do")
     public String admin_list(Model m) {
     	m.addAttribute("adminList", adminService.adminList());
     	return "admin_list";
     }
+    
     //admin등록 신청 페이지
     @GetMapping("/add_master.do")
     public String add_master() {
     	return "add_master";
     }
+    
     //admin 로그아웃
     @GetMapping("/admin_logout")
     public String logout(HttpServletRequest request) {
@@ -96,6 +119,7 @@ public class shopping_admin_controller {
         session.invalidate();
         return "redirect:/"; // 로그인 페이지로 리다이렉트
     }
+    
     //admin 로그인
     @PostMapping("/login")
     public ResponseEntity<Map<String,Object>> adminLoginok (@RequestBody Map<String, String> loginData, HttpServletRequest request){
@@ -121,6 +145,7 @@ public class shopping_admin_controller {
         }
     	return ResponseEntity.ok(response);
     }
+    
   //admin등록 insert
     @PostMapping("/add_masterok.do")
     public ResponseEntity<Map<String,Object>> adminJoin(@RequestBody shopping_admin_dto adminDTO){
@@ -138,7 +163,6 @@ public class shopping_admin_controller {
             response.put("message", "서버 오류 발생");
 
         }
-    	
     	return ResponseEntity.ok(response);
     }
   //admin등록신청 id check

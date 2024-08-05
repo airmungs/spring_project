@@ -53,14 +53,14 @@
                     <li>${admin.adposition}</li>
                     <li>${admin.addate}</li>
                     <li>
-                        <c:choose>
-                            <c:when test="${admin.login == 'Y'}">
-                                <input type="button" value="미승인" class="new_addbtn2" title="미승인" onclick="updateApprovalStatus('${admin.adid}', 'N')">
-                            </c:when>
-                            <c:otherwise>
-                                <input type="button" value="승인" class="new_addbtn1" title="승인" onclick="updateApprovalStatus('${admin.adid}', 'Y')">
-                            </c:otherwise>
-                        </c:choose>
+						<c:choose>
+						    <c:when test="${admin.login == 'Y'}">
+						        <input type="button" value="미승인" class="new_addbtn2" title="미승인" onclick="updateApprovalStatus('${admin.adid}', 'N', '관리자 승인을 해제하시겠습니까?')">
+						    </c:when>
+						    <c:otherwise>
+						        <input type="button" value="승인" class="new_addbtn1" title="승인" onclick="updateApprovalStatus('${admin.adid}', 'Y', '관리자 승인을 진행하시겠습니까?')">
+						    </c:otherwise>
+						</c:choose>
                     </li>
                 </ol>
             </c:forEach>
@@ -72,5 +72,5 @@
 </main>
 <%@ include file="../copyright_admin.jsp" %>
 </body>
-<script src="/resources/js/admin/admin_list.js?v=2"></script>
+<script src="/resources/js/admin/admin_list.js?v=3"></script>
 </html>

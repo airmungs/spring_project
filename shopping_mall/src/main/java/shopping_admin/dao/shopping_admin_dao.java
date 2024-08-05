@@ -10,13 +10,23 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import shopping_admin.dto.shopping_admin_dto;
+import shopping_admin.dto.shopping_siteinfo_dto;
 
 @Repository("shoppingDao")
 public class shopping_admin_dao {
 	@Resource(name="template2")
 	private SqlSessionTemplate sqlTemplate;
 	
+	public List<shopping_siteinfo_dto> siteinfoList(){
+		return sqlTemplate.selectList("sailmallDB.saved_siteinfo");
+	}
 	
+	//쇼핑몰 기본설정
+	public int saveSiteinfo(shopping_siteinfo_dto siteDTO) {
+		return sqlTemplate.insert("sailmallDB.save_siteinfo",siteDTO);
+	}
+	
+	//관리자 승인
 	public int updateAdminStatus(String adid, String status) {
 	    Map<String, Object> params = new HashMap<>();
 	    params.put("adid", adid);

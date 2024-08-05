@@ -23,16 +23,16 @@
 <p>카테고리관리 페이지</p>
 <div class="subpage_view">
     <span>등록된 카테고리 0건</span>
-    <span>
-        <form>
-        <select class="p_select1">
-            <option>카테고리명</option>
-            <option>카테고리코드</option>
-        </select>
-        <input type="text" class="p_input1" placeholder="검색어를 입력해 주세요">
-        <input type="submit" value="검색" title="카테고리 검색" class="p_submit">
-        </form>
-    </span>
+    <form>
+    	<span>
+        	<select class="p_select1">
+            	<option>카테고리명</option>
+           	 	<option>카테고리코드</option>
+        	</select>
+        	<input type="text" class="p_input1" placeholder="검색어를 입력해 주세요">
+        	<input type="submit" value="검색" title="카테고리 검색" class="p_submit">
+    	</span>
+	</form>
 </div>
 <div class="subpage_view2">
     <ul>
@@ -61,11 +61,11 @@
 </div>
 <div class="subpage_view3">
     <ul class="pageing">
-        <li><img src="./ico/double_left.svg"></li>
-        <li><img src="./ico/left.svg"></li>
+        <li><img src="/resources/ico/double_left.svg"></li>
+        <li><img src="/resources/ico/left.svg"></li>
         <li>1</li>
-        <li><img src="./ico/right.svg"></li>
-        <li><img src="./ico/double_right.svg"></li>
+        <li><img src="/resources/ico/right.svg"></li>
+        <li><img src="/resources/ico/double_right.svg"></li>
     </ul>
 </div>
 <div class="subpage_view4">

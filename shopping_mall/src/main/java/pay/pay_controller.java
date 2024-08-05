@@ -1,6 +1,12 @@
 package pay;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +19,33 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class pay_controller {
+	
+	@GetMapping("/pay/coupon_list.do")
+	public String coupon_list(Model m) {
+		try(Connection con = new dbinfo().info();
+				PreparedStatement ps=con.prepareStatement("SELECT * FROM coupon ORDER BY cidx DESC LIMIT ?,?");
+				) {
+			int pageno=2;
+			ps.setInt(1, 0);
+			ps.setInt(2, pageno);
+			try(ResultSet rs=ps.executeQuery()){	
+				 List<Map<String, Object>> coupons = new ArrayList<>();
+	                while (rs.next()) {
+	                    Map<String, Object> coupon = new HashMap<>();
+	                    coupon.put("cidx", rs.getInt("cidx"));
+	                    coupon.put("cpname", rs.getString("cpname"));
+	                    coupon.put("cprate", rs.getString("cprate"));
+	                    coupon.put("cpuse", rs.getString("cpuse"));
+	                    coupon.put("cpdate", rs.getString("cpdate"));
+	                    coupons.add(coupon);
+	                }
+	                m.addAttribute("coupons", coupons);
+	            }
+		}catch(Exception e) {
+			e.getMessage();
+		}
+		return "/pay/coupon_list";
+	}
 	
 	@GetMapping("/pay/pay1.do")
 	public String pay1() {return "/pay/pay1";}

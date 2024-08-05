@@ -12,7 +12,8 @@ document.getElementById("id_check").addEventListener("click", function() {
 
     fetch(`./idcheck?adid=${encodeURIComponent(adid)}`, {
         headers: {
-            'Content-Type': 'text/plain; charset=UTF-8'
+            'Content-Type': 'text/plain; charset=UTF-8',
+			'X-Requested-With': 'XMLHttpRequest'
         }
     })
     .then(response => {
@@ -139,7 +140,8 @@ document.getElementById("join_admin").addEventListener("click", function() {
     fetch('./add_masterok.do', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+			'X-Requested-With': 'XMLHttpRequest'
         },
         body: jsonString
     })

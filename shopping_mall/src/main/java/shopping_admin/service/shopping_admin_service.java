@@ -9,12 +9,21 @@ import org.springframework.stereotype.Service;
 
 import shopping_admin.dao.shopping_admin_dao;
 import shopping_admin.dto.shopping_admin_dto;
+import shopping_admin.dto.shopping_siteinfo_dto;
 
 @Service
 public class shopping_admin_service {
 	 @Autowired
 	    private shopping_admin_dao adminDao;
 	 	
+	 	public List<shopping_siteinfo_dto> siteinfoList(){
+	 		return adminDao.siteinfoList();
+	 	}
+	 
+	 	//쇼핑몰 기본설정 저장
+	 	public boolean saveSiteinfo(shopping_siteinfo_dto siteDTO) {
+	 		return adminDao.saveSiteinfo(siteDTO) > 0;
+	 	}
 	 
 	 	//관리자 로그인 승인
 	    public boolean updateAdminStatus(String adid, String status) {

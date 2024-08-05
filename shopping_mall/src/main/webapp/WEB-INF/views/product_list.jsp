@@ -69,11 +69,11 @@
 </div>
 <div class="subpage_view3">
     <ul class="pageing">
-        <li><img src="./ico/double_left.svg"></li>
-        <li><img src="./ico/left.svg"></li>
+        <li><img src="/resources/ico/double_left.svg"></li>
+        <li><img src="/resources/ico/left.svg"></li>
         <li>1</li>
-        <li><img src="./ico/right.svg"></li>
-        <li><img src="./ico/double_right.svg"></li>
+        <li><img src="/resources/ico/right.svg"></li>
+        <li><img src="/resources/ico/double_right.svg"></li>
     </ul>
 </div>
 <div class="subpage_view4">
