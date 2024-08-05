@@ -60,5 +60,5 @@
     </footer>
 </form>
 </body>
-<script src="/resources/js/admin/login_admin.js?v=3"></script>
+<script src="/resources/js/admin/login_admin.js?v=4"></script>
 </html>

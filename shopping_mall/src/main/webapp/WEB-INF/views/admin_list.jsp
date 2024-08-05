@@ -72,5 +72,5 @@
 </main>
 <%@ include file="../copyright_admin.jsp" %>
 </body>
-<script src="/resources/js/admin/admin_list.js?v=1"></script>
+<script src="/resources/js/admin/admin_list.js?v=2"></script>
 </html>

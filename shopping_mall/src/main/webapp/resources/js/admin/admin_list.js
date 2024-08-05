@@ -1,4 +1,5 @@
 function updateApprovalStatus(adid, newStatus) {
+	if(confirm("관리자 승인을 진행하시겠습니까?")){
 	fetch(`/update_admin_status.do?adid=${adid}&status=${newStatus}`, {
 		method: 'GET',
 	})
@@ -14,4 +15,7 @@ function updateApprovalStatus(adid, newStatus) {
 	.catch(error => {
 		alert('서버 오류 발생: ' + error);
 	});
+	}else{
+		return false;
+	}
 }

@@ -25,8 +25,8 @@ document.getElementById("adminlogin_form").addEventListener("submit", function(e
     .then(data => {
         if (data.success) {
             // adname을 확인하여 리디렉션할 URL을 결정
-            if (data.adname.equals('master')) {
-                alert('로그인 성공');
+            if (data.adname === "최고관리자") {
+                alert('로그인 성공1');
                 location.href = "./admin_list.do";
             } else {
                 alert('로그인 성공');

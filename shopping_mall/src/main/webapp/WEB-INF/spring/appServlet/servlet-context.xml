@@ -21,7 +21,7 @@
     </beans:bean>
 	
 	<!-- @이 붙은 클래스를 bean으로 자동 등록 -->
-    <context:component-scan base-package="shopping_admin" />
+    <context:component-scan base-package="shopping_admin,pay" />
     
     <!-- 인터셉터 -->
     <mvc:interceptors>

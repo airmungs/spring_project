@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>결제 승인 및 결제 실패원인 출력 페이지</title>
 </head>
 <body>
 

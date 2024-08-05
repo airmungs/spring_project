@@ -15,6 +15,8 @@ public class shopping_admin_service {
 	 @Autowired
 	    private shopping_admin_dao adminDao;
 	 	
+	 
+	 	//관리자 로그인 승인
 	    public boolean updateAdminStatus(String adid, String status) {
 	        return adminDao.updateAdminStatus(adid, status) > 0;
 	    }
