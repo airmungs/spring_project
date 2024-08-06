@@ -17,6 +17,7 @@
 </head>
 <body>
 <%@ include file="../top_admin.jsp" %>
+<form id="siteinfoForm">
 <main class="maincss">
 <section>
     <p>홈페이지 가입환경 설정</p>
@@ -77,11 +78,11 @@
         <ul class="info_form2">
             <li>통신판매업 신고번호</li>
             <li>
-                <input type="text" name="telecommunicationSalesNumber" class="in_form0" value="${siteinfo.telecommunicationSalesNumber != null ? siteinfo.telecommunicationSalesNumber : ''}"> 
+                <input type="text" name="telecommunicationSalesNumber" class="in_form0" placeholder="필수아님" value="${siteinfo.telecommunicationSalesNumber != null ? siteinfo.telecommunicationSalesNumber : ''}"> 
             </li>
             <li>부가통신 사업자번호</li>
             <li>
-                <input type="text" name="additionalTelecommunicationNumber" class="in_form0" value="${siteinfo.additionalTelecommunicationNumber != null ? siteinfo.additionalTelecommunicationNumber : ''}"> 
+                <input type="text" name="additionalTelecommunicationNumber" class="in_form0" placeholder="필수아님" value="${siteinfo.additionalTelecommunicationNumber != null ? siteinfo.additionalTelecommunicationNumber : ''}"> 
             </li>
         </ul>
         <ul class="info_form2">
@@ -115,6 +116,7 @@
             <li>은행계좌번호</li>
             <li>
                 <input type="text" name="bankAccountNumber" class="in_form1" value="${siteinfo.bankAccountNumber != null ? siteinfo.bankAccountNumber : ''}"> 
+                ※ " - " 포함 입력
             </li>
         </ul>
         <ul class="info_form">
@@ -185,7 +187,8 @@
     </div>
 </section>
 </main>
+</form>
 <%@ include file="../copyright_admin.jsp" %>
 </body>
-<script src="/resources/js/admin/admin_siteinfo.js?v=1"></script>
+<script src="/resources/js/admin/admin_siteinfo.js?v=2"></script>
 </html>

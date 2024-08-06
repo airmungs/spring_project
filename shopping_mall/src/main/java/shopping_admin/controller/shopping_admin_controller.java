@@ -1,6 +1,8 @@
 package shopping_admin.controller;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -38,7 +40,11 @@ public class shopping_admin_controller {
 	//쇼핑몰 기본설정
 	@GetMapping("/admin_siteinfo.do")
 	public String admin_siteinfo(Model m){
-		m.addAttribute("siteinfo",adminService.siteinfoList());
+		 List<shopping_siteinfo_dto> siteinfoList = adminService.siteinfoList();
+		    if (siteinfoList != null && !siteinfoList.isEmpty()) {
+		        shopping_siteinfo_dto siteinfo = siteinfoList.get(0);
+		        m.addAttribute("siteinfo", siteinfo);
+		    }
 		return "admin_siteinfo";
 	}
 	
