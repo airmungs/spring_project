@@ -30,12 +30,29 @@ public class shopping_admin_controller {
 	@Autowired
 	private shopping_admin_service adminService;
 	
+	//쇼핑몰 상품관리 - 카테고리등록
+	@GetMapping("/cate_write.do")
+	public String cate_write(){
+		return "cate_write";
+	}
+
+	//쇼핑몰 상품관리 - 카테고리등록
+	@GetMapping("/cate_list.do")
+	public String cate_list(){
+		return "cate_list";
+	}
+	
+	//쇼핑몰 상품관리 - 신규상품등록
+	@GetMapping("/product_write.do")
+	public String product_write(){
+		return "product_write";
+	}
+	
 	//쇼핑몰 상품관리
 	@GetMapping("/product_list.do")
 	public String product_list(){
 		return "product_list";
 	}
-	
 	
 	//쇼핑몰 기본설정
 	@GetMapping("/admin_siteinfo.do")
@@ -72,11 +89,6 @@ public class shopping_admin_controller {
 		return "shop_member_list";
 	}
 	
-	//카테고리 리스트 페이지
-	@GetMapping("/cate_list.do")
-    public String cate_list() {
-        return "cate_list";
-    }
 	
 	//관리자 로그인 승인
 	@GetMapping("/update_admin_status.do")

@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -23,20 +22,20 @@
 <p>상품관리 페이지</p>
 <div class="subpage_view">
     <span>등록된 상품 0건</span>
-        <form>
-    <span>
-        <select class="p_select1">
-            <option>상품명</option>
-            <option>상품코드</option>
-        </select>
-        <input type="text" class="p_input1" placeholder="검색어를 입력해 주세요">
-        <input type="submit" value="검색" title="상품검색" class="p_submit">
-    </span>
-        </form>
+    <form id="searchForm">
+        <span>
+            <select name="searchType" class="p_select1">
+                <option value="name">상품명</option>
+                <option value="code">상품코드</option>
+            </select>
+            <input type="text" name="searchKeyword" class="p_input1" placeholder="검색어를 입력해 주세요">
+            <input type="submit" value="검색" title="상품검색" class="p_submit">
+        </span>
+    </form>
 </div>
 <div class="subpage_view2">
     <ul>
-        <li><input type="checkbox"></li>
+        <li><input type="checkbox" name="selectAll" onclick="selectAllItems(this)"></li>
         <li>코드</li>
         <li>이미지</li>
         <li>상품명</li>
@@ -50,18 +49,18 @@
         <li>관리</li>
     </ul>
     <ul>
-        <li><input type="checkbox"></li>
+        <li><input type="checkbox" name="productCheckbox" value="product1"></li>
         <li>상품코드</li>
-        <li>이미지</li>
+        <li><a href="/resources/product/product1.jpg">첨부파일</a></li>
         <li>상품명</li>
-        <li>카테고리 분류</li>
+        <li>카테고리</li>
         <li>34,000</li>
         <li>30,000</li>
         <li>11%</li>
         <li>100</li>
         <li>Y</li>
         <li>N</li>
-        <li>관리</li>
+        <li><button onclick="editProduct('product1')">관리</button></li>
     </ul>
     <ul>
         <li style="width: 100%;">등록된 상품이 없습니다.</li>
@@ -69,22 +68,23 @@
 </div>
 <div class="subpage_view3">
     <ul class="pageing">
-        <li><img src="/resources/ico/double_left.svg"></li>
-        <li><img src="/resources/ico/left.svg"></li>
+        <li><img src="/resources/ico/double_left.svg" onclick="goToPage(1)"></li>
+        <li><img src="/resources/ico/left.svg" onclick="goToPage(currentPage - 1)"></li>
         <li>1</li>
-        <li><img src="/resources/ico/right.svg"></li>
-        <li><img src="/resources/ico/double_right.svg"></li>
+        <li><img src="/resources/ico/right.svg" onclick="goToPage(currentPage + 1)"></li>
+        <li><img src="/resources/ico/double_right.svg" onclick="goToPage(totalPages)"></li>
     </ul>
 </div>
 <div class="subpage_view4">
-    <input type="button" value="선택상품 삭제" title="선택상품 삭제" class="p_button">
+    <input type="button" value="선택상품 삭제" title="선택한 상품을 삭제합니다" class="p_button" onclick="deleteSelectedItems()">
     <span style="float: right;">
-    <input type="button" value="신규상품 등록" title="신규상품 등록" class="p_button p_button_color1">
-    <input type="button" value="카테고리 등록" title="카테고리 등록" class="p_button p_button_color2">
+    <input type="button" value="신규상품 등록" title="신규상품 등록 페이지로 이동합니다" class="p_button p_button_color1" onclick="location.href='product_write.do'">
+    <input type="button" value="카테고리 목록" title="카테고리 관리 페이지로 이동합니다" class="p_button p_button_color2" onclick="location.href='cate_list.do'">
     </span>
 </div>
 </section>
 </main>
 <%@include file="../copyright_admin.jsp"%>
 </body>
+<script src="/resources/js/admin/product_list.js?v=1"></script>
 </html>

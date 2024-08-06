@@ -69,10 +69,10 @@
     </ul>
 </div>
 <div class="subpage_view4">
-    <input type="button" value="카테고리 삭제" title="카테고리 삭제" class="p_button">
+    <input type="button" value="카테고리 삭제" title="선택한 카테고리를 삭제합니다" class="p_button">
     <span style="float: right;">
-    <input type="button" value="상품 리스트" title="상품 리스트" class="p_button p_button_color1">
-    <input type="button" value="카테고리 등록" title="카테고리 등록" class="p_button p_button_color2">
+    <input type="button" value="상품 리스트" title="상품 관리 페이지로 이동합니다" class="p_button p_button_color1" onclick="location.href='product_list.do'">
+    <input type="button" value="카테고리 등록" title="카테고리 등록 페이지로 이동합니다" class="p_button p_button_color2" onclick="location.href='cate_write.do'">
     </span>
 </div>
 </section>
