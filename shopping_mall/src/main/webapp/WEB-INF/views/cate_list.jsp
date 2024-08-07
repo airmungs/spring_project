@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -19,24 +20,24 @@
 <body>
 <%@ include file="../top_admin.jsp" %>
 <main class="maincss">
-    <section>    
+<section>    
 <p>카테고리관리 페이지</p>
 <div class="subpage_view">
-    <span>등록된 카테고리 0건</span>
+    <span>등록된 카테고리 ${cate_list.size()}건</span>
     <form>
-    	<span>
-        	<select class="p_select1">
-            	<option>카테고리명</option>
-           	 	<option>카테고리코드</option>
-        	</select>
-        	<input type="text" class="p_input1" placeholder="검색어를 입력해 주세요">
-        	<input type="submit" value="검색" title="카테고리 검색" class="p_submit">
-    	</span>
-	</form>
+        <span>
+            <select class="p_select1">
+                <option value="name">카테고리명</option>
+                <option value="code">카테고리코드</option>
+            </select>
+            <input type="text" class="p_input1" placeholder="검색어를 입력해 주세요">
+            <input type="submit" value="검색" title="카테고리 검색" class="p_submit">
+        </span>
+    </form>
 </div>
 <div class="subpage_view2">
-    <ul>
-        <li><input type="checkbox"></li>
+<ul>
+        <li><input type="checkbox" id="selectAll"></li>
         <li>분류코드</li>
         <li>대메뉴 코드</li>
         <li>대메뉴명</li>
@@ -45,27 +46,31 @@
         <li>사용 유/무</li>
         <li>관리</li>
     </ul>
-    <ul>
-        <li><input type="checkbox"></li>
-        <li style="text-align: left; text-indent: 5px;">분류코드</li>
-        <li>대메뉴 코드</li>
-        <li style="text-align: left; text-indent: 5px;">대메뉴명</li>
-        <li>-</li>
-        <li style="text-align: left; text-indent: 5px;">-</li>
-        <li>Y</li>
-        <li>[수정]</li>
-    </ul>
-    <ul>
-        <li style="width: 100%;">등록된 카테고리가 없습니다.</li>
-    </ul>
+    <c:forEach var="cate" items="${cate_list}">
+        <ul>
+            <li><input type="checkbox" class="cateCheckbox"></li>
+            <li style="text-align: left; text-indent: 5px;">${cate.categoryCode}</li>
+            <li>${cate.lgMenuCode}</li>
+            <li style="text-align: left; text-indent: 5px;">${cate.cateName}</li>
+            <li>-</li>
+            <li style="text-align: left; text-indent: 5px;">-</li>
+            <li>${cate.useYn}</li>
+            <li><a href="cate_edit.do?idx=${cate.idx}">[수정]</a></li>
+        </ul>
+    </c:forEach>
+    <c:if test="${empty cate_list}">
+        <ul>
+            <li style="width: 100%;">등록된 카테고리가 없습니다.</li>
+        </ul>
+    </c:if>
 </div>
 <div class="subpage_view3">
     <ul class="pageing">
-        <li><img src="/resources/ico/double_left.svg"></li>
-        <li><img src="/resources/ico/left.svg"></li>
+        <li><img src="/resources/ico/double_left.svg" onclick="goToPage(1)"></li>
+        <li><img src="/resources/ico/left.svg" onclick="goToPage(currentPage - 1)"></li>
         <li>1</li>
-        <li><img src="/resources/ico/right.svg"></li>
-        <li><img src="/resources/ico/double_right.svg"></li>
+        <li><img src="/resources/ico/right.svg" onclick="goToPage(currentPage + 1)"></li>
+        <li><img src="/resources/ico/double_right.svg" onclick="goToPage(totalPages)"></li>
     </ul>
 </div>
 <div class="subpage_view4">
@@ -79,4 +84,5 @@
 </main>
 <%@include file="../copyright_admin.jsp"%>
 </body>
+<script src="/resources/js/admin/cate_list.js?v=3"></script>
 </html>

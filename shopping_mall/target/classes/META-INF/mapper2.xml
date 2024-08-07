@@ -2,11 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="sailmallDB">
 
+<!-- 카테고리 리스트 -->
+<select id="cate_list" resultType="shopping_admin.dto.shopping_cate_dto">
+	SELECT*FROM categories ORDER BY updated_at DESC;
+</select>
+
+<!-- 카테고리 생성 -->
+<insert id="create_cate" parameterType="shopping_admin.dto.shopping_cate_dto">
+    INSERT INTO categories (category_code, lg_menu_code, cate_name, use_yn)
+    VALUES (#{categoryCode}, #{lgMenuCode}, #{cateName}, #{useYn});
+</insert>
+
 <!-- 쇼핑몰 환경설정 불러오기 -->
 <select id="saved_siteinfo" resultType="shopping_admin.dto.shopping_siteinfo_dto">
 	SELECT * FROM siteinfo ORDER BY updated_at DESC LIMIT 1;
 </select>
-
 
 <!-- 쇼핑몰 환경설정 저장 -->
 <insert id="save_siteinfo" parameterType="shopping_admin.dto.shopping_siteinfo_dto">
@@ -38,7 +48,7 @@
 
 <!-- 관리자 리스트 -->
 <select id="admin_list" resultType="shopping_admin.dto.shopping_admin_dto">
-	SELECT*FROM adminJoin WHERE adidx!=1;
+	SELECT*FROM adminJoin WHERE adidx!=1 ORDER BY adidx DESC;
 </select>
 
 <!-- 관리자 로그인 -->

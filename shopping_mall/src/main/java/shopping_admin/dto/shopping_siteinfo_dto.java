@@ -1,11 +1,14 @@
 package shopping_admin.dto;
 
+import java.sql.Timestamp;
+
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 public class shopping_siteinfo_dto {
+	private int idx;
 	private String siteTitle;
     private String adminEmail;
     private boolean usePoints;
@@ -32,4 +35,6 @@ public class shopping_siteinfo_dto {
     private String deliveryCompany;
     private int deliveryFee;
     private boolean useDesiredDeliveryDate;
+    private Timestamp updated_at;
+    
 }

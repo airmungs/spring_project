@@ -149,7 +149,7 @@ document.getElementById("join_admin").addEventListener("click", function() {
     .then(data => {
         if (data.success) {
             alert('관리자 등록 요청이 완료되었습니다. 전산 담당자 승인 후 로그인 할 수 있습니다.');
-            form.reset();  // 폼 리셋
+            location.href = "./";
             isIdAvailable = false;
         } else {
             alert('관리자 등록 실패: ' + data.message);

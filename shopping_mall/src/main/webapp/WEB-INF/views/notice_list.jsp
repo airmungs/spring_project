@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="/resources/css/basic.css">
     <link rel="stylesheet" type="text/css" href="/resources/css/login.css?v=1">
     <link rel="stylesheet" type="text/css" href="/resources/css/main.css?v=1">
-    <link rel="stylesheet" type="text/css" href="/resources/css/notice.css?v=10">
+    <link rel="stylesheet" type="text/css" href="/resources/css/notice.css?v=11">
     <link rel="icon" href="/resources/img/logo.png" sizes="128x128">
     <link rel="icon" href="/resources/img/logo.png" sizes="64x64">
     <link rel="icon" href="/resources/img/logo.png" sizes="32x32">
@@ -42,10 +42,6 @@
         <li>등록된 공지 내용이 없습니다.</li>
     </ol>
     </div>
-    <div class="board_btn">
-        <button class="border_del">공지삭제</button>
-        <button class="border_add">공지등록</button>
-    </div>
     <div class="border_page">
         <ul class="pageing">
         <li><img src="/resources/ico/double_left.svg"></li>
@@ -54,6 +50,12 @@
         <li><img src="/resources/ico/right.svg"></li>
         <li><img src="/resources/ico/double_right.svg"></li>
         </ul>
+    </div>
+    <div class="board_btn">
+        <button class="border_del">선택삭제</button>
+        <span style="float: right;">
+        <button class="border_add">공지등록</button>
+        </span>
     </div>
 </section>
 </main>

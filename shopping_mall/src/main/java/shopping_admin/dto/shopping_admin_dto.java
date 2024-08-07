@@ -1,5 +1,7 @@
 package shopping_admin.dto;
 
+import java.sql.Timestamp;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,6 +16,6 @@ private String ademail;
 private String adtel;
 private String adpart;
 private String adposition;
-private String addate;
+private Timestamp addate;
 private String login;
 }

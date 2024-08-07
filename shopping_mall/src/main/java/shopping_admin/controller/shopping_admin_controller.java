@@ -1,6 +1,5 @@
 package shopping_admin.controller;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import shopping_admin.dto.shopping_admin_dto;
+import shopping_admin.dto.shopping_cate_dto;
 import shopping_admin.dto.shopping_siteinfo_dto;
 import shopping_admin.service.shopping_admin_service;
 
@@ -30,6 +30,32 @@ public class shopping_admin_controller {
 	@Autowired
 	private shopping_admin_service adminService;
 	
+	@GetMapping("/notice_list.do")
+	public String notice_list(){
+		return "notice_list";
+	}
+	
+	
+	//카테고리 생성
+	@PostMapping("/create_cate")
+	public ResponseEntity<Map<String, Object>> create_cate(@RequestBody shopping_cate_dto cateDTO){
+		Map<String, Object> response=new HashMap<>();
+		try {
+            boolean result=adminService.createCate(cateDTO);
+            if (result) {
+	            response.put("success", true);
+	        } else {
+	            response.put("success", false);
+	            response.put("message", "카테고리 생성 실패");
+	        }
+	    } catch (Exception e) {
+	        response.put("success", false);
+	        response.put("message", "서버 오류 발생: " + e.getMessage());
+	    }
+	    return ResponseEntity.ok(response);
+	}
+	
+	
 	//쇼핑몰 상품관리 - 카테고리등록
 	@GetMapping("/cate_write.do")
 	public String cate_write(){
@@ -38,7 +64,9 @@ public class shopping_admin_controller {
 
 	//쇼핑몰 상품관리 - 카테고리등록
 	@GetMapping("/cate_list.do")
-	public String cate_list(){
+	public String cate_list(Model m){
+		List<shopping_cate_dto> cate_list=adminService.cateList();
+		m.addAttribute("cate_list",cate_list);
 		return "cate_list";
 	}
 	
@@ -57,16 +85,16 @@ public class shopping_admin_controller {
 	//쇼핑몰 기본설정
 	@GetMapping("/admin_siteinfo.do")
 	public String admin_siteinfo(Model m){
-		 List<shopping_siteinfo_dto> siteinfoList = adminService.siteinfoList();
-		    if (siteinfoList != null && !siteinfoList.isEmpty()) {
-		        shopping_siteinfo_dto siteinfo = siteinfoList.get(0);
+		 List<shopping_siteinfo_dto> siteinfo_list = adminService.siteinfoList();
+		    if (siteinfo_list != null && !siteinfo_list.isEmpty()) {
+		        shopping_siteinfo_dto siteinfo = siteinfo_list.get(0);
 		        m.addAttribute("siteinfo", siteinfo);
 		    }
 		return "admin_siteinfo";
 	}
 	
     @PostMapping("/saveSiteinfo")
-    public ResponseEntity<Map<String, Object>> saveSiteinfo(@RequestBody shopping_siteinfo_dto siteDTO) {
+    public ResponseEntity<Map<String, Object>> save_siteinfo(@RequestBody shopping_siteinfo_dto siteDTO) {
 	    Map<String, Object> response = new HashMap<>();
         try {
             boolean result=adminService.saveSiteinfo(siteDTO);
@@ -92,7 +120,7 @@ public class shopping_admin_controller {
 	
 	//관리자 로그인 승인
 	@GetMapping("/update_admin_status.do")
-	public ResponseEntity<Map<String, Object>> updateAdminStatus(
+	public ResponseEntity<Map<String, Object>> update_admin_status(
 	        @RequestParam("adid") String adid,
 	        @RequestParam("status") String status) {
 	    Map<String, Object> response = new HashMap<>();
@@ -140,7 +168,7 @@ public class shopping_admin_controller {
     
     //admin 로그인
     @PostMapping("/login")
-    public ResponseEntity<Map<String,Object>> adminLoginok (@RequestBody Map<String, String> loginData, HttpServletRequest request){
+    public ResponseEntity<Map<String,Object>> admin_loginok (@RequestBody Map<String, String> loginData, HttpServletRequest request){
     	Map<String,Object> response=new HashMap<>();
     	String adid = loginData.get("adid");
         String adpass = loginData.get("adpass");
@@ -166,7 +194,7 @@ public class shopping_admin_controller {
     
   //admin등록 insert
     @PostMapping("/add_masterok.do")
-    public ResponseEntity<Map<String,Object>> adminJoin(@RequestBody shopping_admin_dto adminDTO){
+    public ResponseEntity<Map<String,Object>> admin_join(@RequestBody shopping_admin_dto adminDTO){
     	Map<String,Object> response=new HashMap<>();
     	try {
 	    	boolean result=adminService.registerAdmin(adminDTO);
@@ -185,7 +213,7 @@ public class shopping_admin_controller {
     }
   //admin등록신청 id check
     @GetMapping("/idcheck")
-    public ResponseEntity<String> checkId(@RequestParam("adid") String adid) {
+    public ResponseEntity<String> check_id(@RequestParam("adid") String adid) {
         try {
             boolean isAvailable = adminService.isIdAvailable(adid);
             HttpHeaders headers = new HttpHeaders();

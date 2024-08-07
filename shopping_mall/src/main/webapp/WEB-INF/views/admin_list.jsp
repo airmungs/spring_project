@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -51,7 +52,9 @@
                     <li>${admin.ademail}</li>
                     <li>${admin.adpart}</li>
                     <li>${admin.adposition}</li>
-                    <li>${admin.addate}</li>
+                    <li>
+ 					<fmt:formatDate value="${admin.addate}" pattern="yyyy-MM-dd"/>
+					</li>
                     <li>
 						<c:choose>
 						    <c:when test="${admin.login == 'Y'}">

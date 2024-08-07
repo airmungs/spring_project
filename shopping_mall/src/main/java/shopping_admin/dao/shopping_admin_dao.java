@@ -10,12 +10,23 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import shopping_admin.dto.shopping_admin_dto;
+import shopping_admin.dto.shopping_cate_dto;
 import shopping_admin.dto.shopping_siteinfo_dto;
 
 @Repository("shoppingDao")
 public class shopping_admin_dao {
 	@Resource(name="template2")
 	private SqlSessionTemplate sqlTemplate;
+	
+	//카테고리 리스트
+	public List<shopping_cate_dto> cateList () {
+		return sqlTemplate.selectList("sailmallDB.cate_list");
+	}
+	
+	//카테고리 생성
+	public int createCate (shopping_cate_dto cateDTO) {
+		return sqlTemplate.insert("sailmallDB.create_cate",cateDTO);
+	}
 	
 	public List<shopping_siteinfo_dto> siteinfoList(){
 		return sqlTemplate.selectList("sailmallDB.saved_siteinfo");

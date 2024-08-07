@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="/resources/css/basic.css">
     <link rel="stylesheet" type="text/css" href="/resources/css/login.css?v=1">
     <link rel="stylesheet" type="text/css" href="/resources/css/main.css?v=1">
-    <link rel="stylesheet" type="text/css" href="/resources/css/product.css?v=5">
+    <link rel="stylesheet" type="text/css" href="/resources/css/product.css?v=6">
     <link rel="icon" href="/resources/img/logo.png" sizes="128x128">
     <link rel="icon" href="/resources/img/logo.png" sizes="64x64">
     <link rel="icon" href="/resources/img/logo.png" sizes="32x32">
@@ -27,7 +27,7 @@
             <select name="mainCategory" id="mainCategory" class="product_input1">
                 <option></option>
             </select>
-            <input type="button" value="카테고리 등록" title="카테고리 등록" class="product_btn" onclick="location.href='cate_list.do'">
+            <input type="button" value="카테고리 관리" title="카테고리 관리 페이지로 이동합니다" class="product_btn" onclick="location.href='cate_list.do'">
             <span class="help_text">※ 해당 카테고리가 없을 경우 신규 등록하시길 바랍니다.</span>
         </li>
     </ul>
@@ -56,14 +56,14 @@
     <ul>
         <li>판매가격</li>
         <li>
-            <input type="text" name="salePrice" id="salePrice" class="product_input3" maxlength="7"> 
+            <input type="text" name="salePrice" id="salePrice" class="product_input3" maxlength="7" placeholder="0"> 
             <span class="help_text">※ , 없이 숫자만 입력하세요 최대 7자리</span>
         </li>
     </ul>
     <ul>
         <li>할인율</li>
         <li>
-            <input type="text" name="discountRate" id="discountRate" class="product_input3" maxlength="2" value="0"> % 
+            <input type="text" name="discountRate" id="discountRate" class="product_input3" maxlength="2" placeholder="0"> % 
             <span class="help_text">※ 숫자만 입력하세요</span>
         </li>
     </ul>
@@ -71,7 +71,7 @@
         <li>할인가격</li>
         <li>
             <input type="text" name="discountedPrice" id="discountedPrice" class="product_input3" maxlength="7" value="0" readonly> 
-            <span class="help_text">※ 할인율이 0%일 경우 할인가격은 0으로 처리 합니다.</span>
+            <span class="help_text">※ 할인율이 0%일 경우 할인가격은 0으로 처리 합니다. (소수점 이하 반올림)</span>
         </li>
     </ul>
     <ul>
@@ -140,5 +140,5 @@
 </main>
 <%@include file="../copyright_admin.jsp"%>
 </body>
-<script src="/resources/js/admin/product_write.js?v=1"></script>
+<script src="/resources/js/admin/product_write.js?v=2"></script>
 </html>

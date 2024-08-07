@@ -25,7 +25,7 @@ function calculateDiscountedPrice() {
     const salePrice = parseFloat(document.getElementById('salePrice').value.replace(/,/g, '')) || 0;
     const discountRate = parseFloat(document.getElementById('discountRate').value) || 0;
     const discountedPrice = salePrice * (1 - (discountRate / 100));
-    document.getElementById('discountedPrice').value = discountedPrice.toFixed(2);
+    document.getElementById('discountedPrice').value =  Math.round(discountedPrice);
 }
 
 // 상품코드 중복 확인 함수 (서버와 연동 필요)

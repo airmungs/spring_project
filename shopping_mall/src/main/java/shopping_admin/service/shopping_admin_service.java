@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import shopping_admin.dao.shopping_admin_dao;
 import shopping_admin.dto.shopping_admin_dto;
+import shopping_admin.dto.shopping_cate_dto;
 import shopping_admin.dto.shopping_siteinfo_dto;
 
 @Service
@@ -16,6 +17,16 @@ public class shopping_admin_service {
 	 @Autowired
 	    private shopping_admin_dao adminDao;
 	 	
+	 	public List<shopping_cate_dto> cateList(){
+	 		return adminDao.cateList();
+	 	}
+	 
+	 	//카레고리 생성
+	 	public boolean createCate(shopping_cate_dto cateDTO) {
+	 		return adminDao.createCate(cateDTO)>0;
+	 	}
+	 	
+	 	//쇼핑몰 설정 리스트
 	 	public List<shopping_siteinfo_dto> siteinfoList(){
 	 		return adminDao.siteinfoList();
 	 	}
