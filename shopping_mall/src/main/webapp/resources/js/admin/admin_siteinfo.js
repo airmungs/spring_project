@@ -108,7 +108,7 @@ function save_info() {
     }
 
     // 폼 데이터를 서버에 전송합니다.
-    fetch('./saveSiteinfo', {
+    fetch('./save_siteinfo', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

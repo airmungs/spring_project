@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import shopping_admin.dao.shopping_admin_dao;
 import shopping_admin.dto.shopping_admin_dto;
 import shopping_admin.dto.shopping_cate_dto;
+import shopping_admin.dto.shopping_product_dto;
 import shopping_admin.dto.shopping_siteinfo_dto;
 
 @Service
@@ -17,6 +18,17 @@ public class shopping_admin_service {
 	 @Autowired
 	    private shopping_admin_dao adminDao;
 	 	
+	 	//상품등록하기
+	 	public boolean saveProduct(shopping_product_dto productDTO) {
+	 		return adminDao.saveProduct(productDTO)>0;
+	 	}
+	 	
+	 	//상품등록 페이지의 대메뉴코드
+	 	public List<shopping_cate_dto> lgMenuCode(){
+	 		return adminDao.lgMenuCode();
+	 	}
+	 	
+	 	//카테고리 리스트
 	 	public List<shopping_cate_dto> cateList(){
 	 		return adminDao.cateList();
 	 	}

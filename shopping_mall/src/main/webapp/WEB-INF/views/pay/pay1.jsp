@@ -20,7 +20,7 @@
 <body>
 <form id="frm" method="post" action="./pay2.do" enctype="application/x-www-form-urlencoded">
 상품코드(숫자 난수 6자리) : <input type="text" name="product_code" readonly="readonly" value="<%=pgcode%>"><br>
-상품명 : <input type="text" name="product_nm" readonly="readonly" value="중앙 컴퓨터"><br>
+상품명 : <input type="text" name="product_nm" readonly="readonly" value="치이카와의 발길질"><br>
 상품금액 : <input type="text" name="product_money" readonly="readonly" value="99999999999999999"><br>
 상품수량 : <select name="product_ea" onchange="select_ea(this.value)">
 <option value="1">1 EA </option>

@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const lgMenuInput = document.querySelector('.cate_input2');
     const cateCodeInput = document.querySelector('.cate_input1');
     const cateNameInput = document.querySelector('.cate_input3');
-    const useRadio = document.querySelector('input[name="useYn"]:checked');
+    const useRadio = document.querySelector('input[name="use_yn"]:checked');
 
     document.querySelector('input[value="카테고리 생성"]').addEventListener('click', function() {
 		const cateCode = cateCodeInput.value.trim();
@@ -29,10 +29,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         const data = {
-			categoryCode: cateCode,
-            lgMenuCode: lgMenuCode,
-            cateName: cateName,
-            useYn: useYn
+			category_code: cateCode,
+            lg_menu_code: lgMenuCode,
+            cate_name: cateName,
+            use_yn: useYn
         };
 
         fetch('./create_cate', {

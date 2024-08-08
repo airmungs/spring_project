@@ -11,12 +11,23 @@ import org.springframework.stereotype.Repository;
 
 import shopping_admin.dto.shopping_admin_dto;
 import shopping_admin.dto.shopping_cate_dto;
+import shopping_admin.dto.shopping_product_dto;
 import shopping_admin.dto.shopping_siteinfo_dto;
 
 @Repository("shoppingDao")
 public class shopping_admin_dao {
 	@Resource(name="template2")
 	private SqlSessionTemplate sqlTemplate;
+	
+	//상품등록하기
+	public int saveProduct(shopping_product_dto productDTO) {
+		return sqlTemplate.insert("sailmallDB.save_product",productDTO);
+	}
+	
+	//상품등록페이지의 대메뉴 코드
+	public List<shopping_cate_dto> lgMenuCode () {
+		return sqlTemplate.selectList("sailmallDB.lg_menu_code");
+	}
 	
 	//카테고리 리스트
 	public List<shopping_cate_dto> cateList () {

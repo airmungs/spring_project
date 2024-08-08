@@ -190,5 +190,5 @@
 </form>
 <%@ include file="../copyright_admin.jsp" %>
 </body>
-<script src="/resources/js/admin/admin_siteinfo.js?v=2"></script>
+<script src="/resources/js/admin/admin_siteinfo.js?v=3"></script>
 </html>

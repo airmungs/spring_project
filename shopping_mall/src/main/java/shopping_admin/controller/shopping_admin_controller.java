@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import shopping_admin.dto.shopping_admin_dto;
 import shopping_admin.dto.shopping_cate_dto;
+import shopping_admin.dto.shopping_product_dto;
 import shopping_admin.dto.shopping_siteinfo_dto;
 import shopping_admin.service.shopping_admin_service;
 
@@ -72,9 +73,29 @@ public class shopping_admin_controller {
 	
 	//쇼핑몰 상품관리 - 신규상품등록
 	@GetMapping("/product_write.do")
-	public String product_write(){
+	public String product_write(Model m){
+		List<shopping_cate_dto> codes=adminService.lgMenuCode();
+		m.addAttribute("codes",codes);
 		return "product_write";
 	}
+	//신규상품등록
+	@PostMapping("/save_product")
+	public ResponseEntity<Map<String, Object>> save_product(@RequestBody shopping_product_dto productDTO) {
+	    Map<String, Object> response = new HashMap<>();
+        try {
+            boolean result=adminService.saveProduct(productDTO);
+            if (result) {
+	            response.put("success", true);
+	        } else {
+	            response.put("success", false);
+	            response.put("message", "상품 등록 실패");
+	        }
+	    } catch (Exception e) {
+	        response.put("success", false);
+	        response.put("message", "서버 오류 발생: " + e.getMessage());
+	    }
+	    return ResponseEntity.ok(response);
+    }
 	
 	//쇼핑몰 상품관리
 	@GetMapping("/product_list.do")
@@ -93,7 +114,7 @@ public class shopping_admin_controller {
 		return "admin_siteinfo";
 	}
 	
-    @PostMapping("/saveSiteinfo")
+    @PostMapping("/save_siteinfo")
     public ResponseEntity<Map<String, Object>> save_siteinfo(@RequestBody shopping_siteinfo_dto siteDTO) {
 	    Map<String, Object> response = new HashMap<>();
         try {

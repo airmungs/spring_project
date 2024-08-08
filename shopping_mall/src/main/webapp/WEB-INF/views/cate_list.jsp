@@ -46,16 +46,16 @@
         <li>사용 유/무</li>
         <li>관리</li>
     </ul>
-    <c:forEach var="cate" items="${cate_list}">
+    <c:forEach var="cate_list" items="${cate_list}">
         <ul>
             <li><input type="checkbox" class="cateCheckbox"></li>
-            <li style="text-align: left; text-indent: 5px;">${cate.categoryCode}</li>
-            <li>${cate.lgMenuCode}</li>
-            <li style="text-align: left; text-indent: 5px;">${cate.cateName}</li>
+            <li style="text-align: left; text-indent: 5px;">${cate_list.category_code}</li>
+            <li>${cate_list.lg_menu_code}</li>
+            <li style="text-align: left; text-indent: 5px;">${cate_list.cate_name}</li>
             <li>-</li>
             <li style="text-align: left; text-indent: 5px;">-</li>
-            <li>${cate.useYn}</li>
-            <li><a href="cate_edit.do?idx=${cate.idx}">[수정]</a></li>
+            <li>${cate_list.use_yn}</li>
+            <li><a href="cate_edit.do?idx=${cate_list.idx}">[수정]</a></li>
         </ul>
     </c:forEach>
     <c:if test="${empty cate_list}">

@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -17,6 +18,7 @@
 </head>
 <body>
 <%@ include file="../top_admin.jsp" %>
+<form id="submitProductForm">
 <main class="maincss">
 <section>
 <p>상품 등록 페이지</p>
@@ -25,7 +27,12 @@
         <li>대메뉴 카테고리</li>
         <li>
             <select name="mainCategory" id="mainCategory" class="product_input1">
-                <option></option>
+            	<c:forEach var="code" items="${codes }">
+                <option value="${code.lg_menu_code }">${code.lg_menu_code } (${code.cate_name })</option>
+                </c:forEach>
+                <c:if test="${empty codes }">
+                <option value="">카테고리를 등록해주세요</option>
+                </c:if>
             </select>
             <input type="button" value="카테고리 관리" title="카테고리 관리 페이지로 이동합니다" class="product_btn" onclick="location.href='cate_list.do'">
             <span class="help_text">※ 해당 카테고리가 없을 경우 신규 등록하시길 바랍니다.</span>
@@ -133,12 +140,13 @@
 <div class="subpage_view4" style="text-align:center; margin-bottom: 100px;">
     <span>
         <input type="button" value="상품 리스트" title="상품 관리 페이지로 이동합니다" class="p_button p_button_color1" style="margin-right: 5px;" onclick="location.href='product_list.do'">
-        <input type="button" value="상품 등록" title="상품 등록 페이지로 이동합니다" class="p_button p_button_color2" onclick="submitProduct()">
+        <input type="button" value="상품 등록" title="상품 등록" class="p_button p_button_color2" onclick="submitProduct()">
     </span>
 </div>
 </section>
 </main>
+</form>
 <%@include file="../copyright_admin.jsp"%>
 </body>
-<script src="/resources/js/admin/product_write.js?v=2"></script>
+<script src="/resources/js/admin/product_write.js?v=3"></script>
 </html>
