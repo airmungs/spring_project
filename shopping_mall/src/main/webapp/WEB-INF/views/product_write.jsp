@@ -92,10 +92,10 @@
         <li>판매 유/무</li>
         <li>
             <label class="product_label">
-                <input type="radio" name="saleStatus" value="start" checked> 판매시작
+                <input type="radio" name="saleStatus" value="Y" checked> 판매시작
             </label>
             <label class="product_label">
-                <input type="radio" name="saleStatus" value="end"> 판매종료
+                <input type="radio" name="saleStatus" value="N"> 판매종료
             </label> 
             <span class="help_text">※ 숫자만 입력하세요. 재고가 0일 경우 soldout이 됩니다.</span>
         </li>
@@ -104,10 +104,10 @@
         <li>조기품절</li>
         <li>
             <label class="product_label">
-                <input type="radio" name="earlySoldOut" value="use"> 사용
+                <input type="radio" name="earlySoldOut" value="Y"> 사용
             </label>
             <label class="product_label">
-                <input type="radio" name="earlySoldOut" value="notUse" checked> 미사용
+                <input type="radio" name="earlySoldOut" value="N" checked> 미사용
             </label>
         </li>
     </ul>

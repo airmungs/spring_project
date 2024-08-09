@@ -13,6 +13,7 @@
 
     <!-- 정적 자원 핸들링 -->
     <mvc:resources mapping="/resources/**" location="/resources/" />
+    <mvc:resources mapping="/upload/**" location="/upload/" />
 
     <!-- MVC에서 views의 jsp를 출력 -->
     <beans:bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">

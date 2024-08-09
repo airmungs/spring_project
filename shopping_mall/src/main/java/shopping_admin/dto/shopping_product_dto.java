@@ -20,7 +20,10 @@ public class shopping_product_dto {
     private String saleStatus;
     private String earlySoldOut;
     private String mainImage;
+    private String mainImagePath;
     private String additionalImage1;
+    private String additionalImage1Path;
     private String additionalImage2;
+    private String additionalImage2Path;
     private String productDetails;
 }

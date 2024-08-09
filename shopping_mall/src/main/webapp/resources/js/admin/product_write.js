@@ -1,3 +1,39 @@
+document.addEventListener('DOMContentLoaded', function() {
+    // 페이지 로드 시 상품코드 자동 생성
+    generateProductCode();
+
+    // 할인율 또는 판매가격 입력 시 할인가격 자동 계산
+    document.getElementById('discountRate').addEventListener('input', calculateDiscountedPrice);
+    document.getElementById('salePrice').addEventListener('input', calculateDiscountedPrice);
+});
+
+// 상품코드 자동 생성
+function generateProductCode() {
+    const productCodeField = document.getElementById('productCode');
+    if (productCodeField) {
+        const randomCode = Math.floor(1000000 + Math.random() * 9000000); // 7자리 난수 생성
+        productCodeField.value = randomCode;
+    } else {
+        console.error('상품 코드 입력 필드를 찾을 수 없습니다.');
+    }
+}
+
+// 할인율에 따라 할인가격 자동 계산
+function calculateDiscountedPrice() {
+    const salePriceField = document.getElementById('salePrice');
+    const discountRateField = document.getElementById('discountRate');
+    const discountedPriceField = document.getElementById('discountedPrice');
+
+    if (salePriceField && discountRateField && discountedPriceField) {
+        const salePrice = parseFloat(salePriceField.value.replace(/,/g, '')) || 0;
+        const discountRate = parseFloat(discountRateField.value) || 0;
+        const discountedPrice = discountRate > 0 ? salePrice * (1 - (discountRate / 100)) : salePrice;
+        discountedPriceField.value = Math.round(discountedPrice);
+    } else {
+        console.error('할인율, 판매가격 또는 할인가격 필드를 찾을 수 없습니다.');
+    }
+}
+
 // 상품 등록 폼 제출 함수
 function submitProduct() {
     const form = document.getElementById('submitProductForm');
@@ -10,7 +46,6 @@ function submitProduct() {
 
     // 입력값 유효성 검사
     if (!data.productCode) {
-        // 상품코드가 비어 있으면 자동 생성
         generateProductCode();
         data.productCode = document.getElementById('productCode').value;
     }
@@ -46,24 +81,26 @@ function submitProduct() {
     }
 
     // 할인가격 자동 계산 및 검증
-    if (data.discountRate && !data.discountedPrice) {
+    if (formData.get('discountRate') && !formData.get('discountedPrice')) {
         calculateDiscountedPrice();
+        formData.set('discountedPrice', document.getElementById('discountedPrice').value);
     }
 
     // 폼 데이터를 서버에 전송합니다.
-    fetch('/save_product', {
+     fetch('./save_product', {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-Requested-With': 'XMLHttpRequest'
-        },
-        body: JSON.stringify(data)
+        body: formData
     })
-    .then(response => response.json())
+    .then(response => {
+	    if (response.ok) {
+	        return response.json(); // JSON 응답을 처리
+	    }
+	    throw new Error('통신오류');
+	})
     .then(responseData => {
         if (responseData.success) {
             alert('상품 등록 완료');
-            window.location.reload(); // 페이지를 새로고쳐서 입력된 값을 반영합니다.
+            location.href = "./product_list.do";
         } else {
             alert('상품 등록 실패: ' + responseData.message);
         }
@@ -72,19 +109,4 @@ function submitProduct() {
         console.error('Error:', error);
         alert('상품 등록 중 오류 발생');
     });
-}
-
-// 상품코드 자동 생성
-function generateProductCode() {
-    const productCodeField = document.getElementById('productCode');
-    const randomCode = Math.floor(1000000 + Math.random() * 9000000); // 7자리 난수 생성
-    productCodeField.value = randomCode;
-}
-
-// 할인율에 따라 할인가격 자동 계산
-function calculateDiscountedPrice() {
-    const salePrice = parseFloat(document.getElementById('salePrice').value.replace(/,/g, '')) || 0;
-    const discountRate = parseFloat(document.getElementById('discountRate').value) || 0;
-    const discountedPrice = salePrice * (1 - (discountRate / 100));
-    document.getElementById('discountedPrice').value = Math.round(discountedPrice);
 }

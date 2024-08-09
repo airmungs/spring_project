@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -38,8 +39,8 @@
         <li><input type="checkbox" name="selectAll" onclick="selectAllItems(this)"></li>
         <li>코드</li>
         <li>이미지</li>
-        <li>상품명</li>
         <li>카테고리 분류</li>
+        <li>상품명</li>
         <li>판매가격</li>
         <li>할인가격</li>
         <li>할인율</li>
@@ -48,23 +49,27 @@
         <li>품절</li>
         <li>관리</li>
     </ul>
+    <c:forEach var="product" items="${product_list }">
     <ul>
-        <li><input type="checkbox" name="productCheckbox" value="product1"></li>
-        <li>상품코드</li>
-        <li><a href="/resources/product/product1.jpg">첨부파일</a></li>
-        <li>상품명</li>
-        <li>카테고리</li>
-        <li>34,000</li>
-        <li>30,000</li>
-        <li>11%</li>
-        <li>100</li>
-        <li>Y</li>
-        <li>N</li>
-        <li><button onclick="editProduct('product1')">관리</button></li>
+        <li><input type="checkbox" name="productCheckbox" value="${product.idx }"></li>
+        <li>${product.productCode }</li>
+        <li><a href="${product.mainImagePath }">첨부파일</a></li>
+        <li>${product.mainCategory }</li>
+        <li>${product.productName }</li>
+        <li>${product.salePrice }</li>
+        <li>${product.discountedPrice }</li>
+        <li>${product.discountRate }</li>
+        <li>${product.stockQuantity }</li>
+        <li>${product.saleStatus }</li>
+        <li>${product.earlySoldOut }</li>
+        <li><button onclick="editProduct(${product.idx })">관리</button></li>
     </ul>
-    <ul>
-        <li style="width: 100%;">등록된 상품이 없습니다.</li>
-    </ul>
+    </c:forEach>
+    <c:if test="${empty product_list}">
+        <ul>
+            <li style="width: 100%;">등록된 상품이 없습니다.</li>
+        </ul>
+    </c:if>
 </div>
 <div class="subpage_view3">
     <ul class="pageing">

@@ -1,5 +1,6 @@
 package shopping_admin.controller;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import shopping_admin.dto.shopping_admin_dto;
 import shopping_admin.dto.shopping_cate_dto;
@@ -80,10 +82,12 @@ public class shopping_admin_controller {
 	}
 	//신규상품등록
 	@PostMapping("/save_product")
-	public ResponseEntity<Map<String, Object>> save_product(@RequestBody shopping_product_dto productDTO) {
+	public ResponseEntity<Map<String, Object>> save_product(@RequestParam("productName") String productName, @RequestParam("productCode") String productCode, @RequestParam("productDescription") String productDescription, @RequestParam("productDetails") String productDetails, @RequestParam("discountRate") int discountRate, @RequestParam("salePrice") BigDecimal salePrice, @RequestParam("discountedPrice") BigDecimal discountedPrice, @RequestParam("saleStatus") String saleStatus, @RequestParam("stockQuantity") int stockQuantity, @RequestParam("mainCategory") String mainCategory, @RequestParam("earlySoldOut") String earlySoldOut, @RequestParam("mainImage") MultipartFile mainImage, @RequestParam("additionalImage1") MultipartFile additionalImage1, @RequestParam("additionalImage2") MultipartFile additionalImage2) {
 	    Map<String, Object> response = new HashMap<>();
+	    shopping_product_dto productDTO = new shopping_product_dto();
+	    productDTO.setProductName(productName); productDTO.setProductCode(productCode); productDTO.setProductDescription(productDescription); productDTO.setProductDetails(productDetails); productDTO.setDiscountRate(discountRate); productDTO.setSalePrice(salePrice); productDTO.setDiscountedPrice(discountedPrice); productDTO.setSaleStatus(saleStatus); productDTO.setStockQuantity(stockQuantity); productDTO.setMainCategory(mainCategory); productDTO.setEarlySoldOut(earlySoldOut);
         try {
-            boolean result=adminService.saveProduct(productDTO);
+            boolean result=adminService.saveProduct(productDTO,mainImage,additionalImage1,additionalImage2);
             if (result) {
 	            response.put("success", true);
 	        } else {
@@ -99,7 +103,8 @@ public class shopping_admin_controller {
 	
 	//쇼핑몰 상품관리
 	@GetMapping("/product_list.do")
-	public String product_list(){
+	public String product_list(Model m){
+		m.addAttribute("product_list", adminService.productList());
 		return "product_list";
 	}
 	

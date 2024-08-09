@@ -19,6 +19,11 @@ public class shopping_admin_dao {
 	@Resource(name="template2")
 	private SqlSessionTemplate sqlTemplate;
 	
+	//상품 리스트 출력
+	public List<shopping_product_dto> productList(){
+		return sqlTemplate.selectList("sailmallDB.product_list");
+	}
+	
 	//상품등록하기
 	public int saveProduct(shopping_product_dto productDTO) {
 		return sqlTemplate.insert("sailmallDB.save_product",productDTO);
