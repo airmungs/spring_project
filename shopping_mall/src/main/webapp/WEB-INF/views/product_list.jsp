@@ -22,8 +22,8 @@
 <section>
 <p>상품관리 페이지</p>
 <div class="subpage_view">
-    <span>등록된 상품 0건</span>
-    <form id="searchForm">
+    <span>등록된 상품 ${product_list.size() }건</span>
+    <form id="searchForm"> 
         <span>
             <select name="searchType" class="p_select1">
                 <option value="name">상품명</option>
@@ -53,7 +53,7 @@
     <ul>
         <li><input type="checkbox" name="productCheckbox" value="${product.idx }"></li>
         <li>${product.productCode }</li>
-        <li><a href="${product.mainImagePath }">첨부파일</a></li>
+        <li><a href="javascript:void(0);" onclick="openImagePopup('${product.mainImagePath }')">첨부파일</a></li>
         <li>${product.mainCategory }</li>
         <li>${product.productName }</li>
         <li>${product.salePrice }</li>
@@ -91,5 +91,5 @@
 </main>
 <%@include file="../copyright_admin.jsp"%>
 </body>
-<script src="/resources/js/admin/product_list.js?v=1"></script>
+<script src="/resources/js/admin/product_list.js?v=2"></script>
 </html>

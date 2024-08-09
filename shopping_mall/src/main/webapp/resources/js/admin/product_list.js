@@ -32,6 +32,13 @@ function deleteSelectedItems() {
     }
 }
 
+function openImagePopup(imageUrl) {
+	const width = 600;
+	const height = 400;
+	const left = (screen.width - width) / 2;
+	const top = (screen.height - height) / 2;
+	window.open(imageUrl, '_blank', `width=${width},height=${height},top=${top},left=${left},resizable=yes`);
+}
 // 전체 선택/해제
 function selectAllItems(checkbox) {
     const isChecked = checkbox.checked;
