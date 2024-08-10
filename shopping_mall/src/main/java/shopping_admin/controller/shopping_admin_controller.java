@@ -66,7 +66,6 @@ public class shopping_admin_controller {
 	    return ResponseEntity.ok(response);
 	}
 	
-	
 	//쇼핑몰 상품관리 - 카테고리등록 페이지
 	@GetMapping("/cate_write.do")
 	public String cate_write(){
@@ -80,6 +79,7 @@ public class shopping_admin_controller {
 		model.addAttribute("cate_list",cate_list);
 		return "cate_list";
 	}
+	
 	//상품 검색
 	@PostMapping("/search_product")
 	public String searchProduct(@RequestParam("searchType") String searchType,
@@ -89,6 +89,7 @@ public class shopping_admin_controller {
 	    model.addAttribute("product_list", productList);
 	    return "product_list";
 	}
+	
 	//쇼핑몰 상품관리 - 신규상품등록
 	@GetMapping("/product_write.do")
 	public String product_write(Model model){
@@ -96,6 +97,7 @@ public class shopping_admin_controller {
 		model.addAttribute("codes",codes);
 		return "product_write";
 	}
+	
 	//신규상품등록하기
 	@PostMapping("/save_product")
 	public ResponseEntity<Map<String, Object>> save_product(@RequestParam("productName") String productName, @RequestParam("productCode") String productCode, @RequestParam("productDescription") String productDescription, @RequestParam("productDetails") String productDetails, @RequestParam("discountRate") int discountRate, @RequestParam("salePrice") BigDecimal salePrice, @RequestParam("discountedPrice") BigDecimal discountedPrice, @RequestParam("saleStatus") String saleStatus, @RequestParam("stockQuantity") int stockQuantity, @RequestParam("mainCategory") String mainCategory, @RequestParam("earlySoldOut") String earlySoldOut, @RequestParam("mainImage") MultipartFile mainImage, @RequestParam("additionalImage1") MultipartFile additionalImage1, @RequestParam("additionalImage2") MultipartFile additionalImage2) {
