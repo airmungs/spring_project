@@ -30,6 +30,10 @@ public class shopping_admin_service {
 	@Autowired
 	private shopping_admin_dao adminDao;
 	
+		//상품 검색
+		public List<shopping_product_dto> searchProducts(String searchType, String searchKeyword){
+			return adminDao.searchProducts(searchType,searchKeyword);
+		}
 		//등록된 상품 리스트
 		public List<shopping_product_dto > productList(){
 			return adminDao.productList(); 
@@ -82,6 +86,11 @@ public class shopping_admin_service {
 	 	//상품등록 페이지 대메뉴코드 출력
 	 	public List<shopping_cate_dto> lgMenuCode(){
 	 		return adminDao.lgMenuCode();
+	 	}
+	 	
+	 	//카테고리 검색
+	 	public List<shopping_cate_dto> searchCategories(String searchType, String searchKeyword){
+	 		return adminDao.searchCategories(searchType,searchKeyword);
 	 	}
 	 	
 	 	//카테고리 리스트

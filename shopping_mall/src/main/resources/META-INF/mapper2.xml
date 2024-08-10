@@ -2,6 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="sailmallDB">
 
+
+<!-- 상품 검색 -->
+<select id="search_product" parameterType="map" resultType="shopping_admin.dto.shopping_product_dto">
+        SELECT * FROM products WHERE
+            <choose>
+                <when test="searchType == 'name'">
+                    productName LIKE CONCAT('%', #{searchKeyword}, '%')
+                </when>
+                <when test="searchType == 'code'">
+                    mainCategory LIKE CONCAT('%', #{searchKeyword}, '%')
+                </when>
+                <otherwise>
+                    1 = 1 <!-- 전체 출력 -->
+                </otherwise>
+            </choose>
+</select>
+
 <!-- 상품 리스트  -->
 <select id="product_list" resultType="shopping_admin.dto.shopping_product_dto">
 	SELECT * FROM products ORDER BY updatedAt DESC;
@@ -25,6 +42,22 @@
 <!-- 상품등록 페이지 (대메뉴코드 가져오기) -->
 <select id="lg_menu_code" resultType="shopping_admin.dto.shopping_cate_dto">
 	SELECT lg_menu_code, cate_name FROM categories;
+</select>
+
+<!-- 카테고리 검색 -->
+<select id="search_category" parameterType="map" resultType="shopping_admin.dto.shopping_cate_dto">
+        SELECT * FROM categories WHERE
+            <choose>
+                <when test="searchType == 'name'">
+                    cate_name LIKE CONCAT('%', #{searchKeyword}, '%')
+                </when>
+                <when test="searchType == 'code'">
+                    lg_menu_code LIKE CONCAT('%', #{searchKeyword}, '%')
+                </when>
+                <otherwise>
+                    1 = 1 <!-- 전체 출력 -->
+                </otherwise>
+            </choose>
 </select>
 
 <!-- 카테고리 리스트 -->

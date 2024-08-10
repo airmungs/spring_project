@@ -1,3 +1,23 @@
+//검색
+function searchProducts(event) {
+    event.preventDefault(); // 폼의 기본 동작(페이지 리로드)을 막음
+
+    var form = document.getElementById('searchForm');
+    var formData = new FormData(form);
+
+    fetch('/search_product', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.text())
+    .then(html => {
+		document.getElementById('productList').innerHTML = html; 
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
 // 선택된 상품 삭제
 function deleteSelectedItems() {
     const checkboxes = document.querySelectorAll('input[name="productCheckbox"]:checked');
@@ -31,19 +51,27 @@ function deleteSelectedItems() {
         });
     }
 }
-
-function openImagePopup(imageUrl) {
-	const width = 600;
-	const height = 400;
-	const left = (screen.width - width) / 2;
-	const top = (screen.height - height) / 2;
-	window.open(imageUrl, '_blank', `width=${width},height=${height},top=${top},left=${left},resizable=yes`);
+//첨부파일 이미지 팝업
+function openImagePopup(imagePath) {
+    window.open(imagePath, 'popupImage', 'width=600,height=400,scrollbars=yes');
 }
-// 전체 선택/해제
+
+// 체크박스 핸들링
+ const checkboxes = document.querySelectorAll('input[name="productCheckbox"]');
 function selectAllItems(checkbox) {
     const isChecked = checkbox.checked;
-    const checkboxes = document.querySelectorAll('input[name="productCheckbox"]');
     checkboxes.forEach(cb => cb.checked = isChecked);
+
+    // 개별 체크박스에 이벤트 핸들러
+    checkboxes.forEach(cb => {
+        cb.addEventListener('change', updateSelectAllCheckbox);
+    });
+}
+function updateSelectAllCheckbox() {
+    const selectAllCheckbox = document.querySelector('input[name="selectAll"]');
+    // 전체 체크박스 중 하나라도 체크되지 않은 경우, 전체 선택 체크박스를 해제
+    const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+    selectAllCheckbox.checked = allChecked;
 }
 
 // 페이지 이동
@@ -57,13 +85,3 @@ function goToPage(pageNumber) {
 function editProduct(productId) {
     location.href = `product_edit.do?id=${productId}`;
 }
-
-// 검색 폼 제출
-document.getElementById('searchForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // 기본 제출 동작을 막음
-
-    const formData = new FormData(this);
-    const params = new URLSearchParams(formData).toString();
-
-    location.href = `product_search.do?${params}`;
-});

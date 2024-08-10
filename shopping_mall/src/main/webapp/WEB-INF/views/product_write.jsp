@@ -28,7 +28,9 @@
         <li>
             <select name="mainCategory" id="mainCategory" class="product_input1">
             	<c:forEach var="code" items="${codes }">
-                <option value="${code.lg_menu_code }">${code.lg_menu_code } (${code.cate_name })</option>
+                <option value="${code.lg_menu_code } (${code.cate_name })">
+                ${code.lg_menu_code } (${code.cate_name })
+                </option>
                 </c:forEach>
                 <c:if test="${empty codes }">
                 <option value="">카테고리를 등록해주세요</option>

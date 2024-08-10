@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -17,22 +18,23 @@
     <link rel="icon" href="/resources/img/logo.png" sizes="16x16">
 </head>
 <body>
+<div id="productList">
 <%@ include file="../top_admin.jsp" %>
 <main class="maincss">
 <section>
 <p>상품관리 페이지</p>
 <div class="subpage_view">
     <span>등록된 상품 ${product_list.size() }건</span>
-    <form id="searchForm"> 
-        <span>
-            <select name="searchType" class="p_select1">
-                <option value="name">상품명</option>
-                <option value="code">상품코드</option>
-            </select>
-            <input type="text" name="searchKeyword" class="p_input1" placeholder="검색어를 입력해 주세요">
-            <input type="submit" value="검색" title="상품검색" class="p_submit">
-        </span>
-    </form>
+	<form id="searchForm" onsubmit="return searchProducts(event);">
+	    <span>
+	        <select name="searchType" class="p_select1">
+	            <option value="name">상품명</option>
+	            <option value="code">상품코드</option>
+	        </select>
+	        <input type="text" name="searchKeyword" class="p_input1" placeholder="검색어를 입력해 주세요">
+	        <input type="submit" value="검색" title="상품검색" class="p_submit">
+	    </span>
+	</form>
 </div>
 <div class="subpage_view2">
     <ul>
@@ -56,10 +58,17 @@
         <li><a href="javascript:void(0);" onclick="openImagePopup('${product.mainImagePath }')">첨부파일</a></li>
         <li>${product.mainCategory }</li>
         <li>${product.productName }</li>
-        <li>${product.salePrice }</li>
-        <li>${product.discountedPrice }</li>
-        <li>${product.discountRate }</li>
-        <li>${product.stockQuantity }</li>
+		<li><fmt:formatNumber value="${product.salePrice}" type="number" maxFractionDigits="0" />원</li>
+		<li><fmt:formatNumber value="${product.discountedPrice}" type="number" maxFractionDigits="0" />원</li>
+        <li>${product.discountRate }%</li>
+        <c:choose>
+            <c:when test="${product.stockQuantity == 0}">
+                <li>품절</li>
+            </c:when>
+            <c:otherwise>
+                <li>${product.stockQuantity } EA</li>
+            </c:otherwise>
+        </c:choose>
         <li>${product.saleStatus }</li>
         <li>${product.earlySoldOut }</li>
         <li><button onclick="editProduct(${product.idx })">관리</button></li>
@@ -90,6 +99,7 @@
 </section>
 </main>
 <%@include file="../copyright_admin.jsp"%>
+</div>
 </body>
-<script src="/resources/js/admin/product_list.js?v=2"></script>
+<script src="/resources/js/admin/product_list.js?v=4"></script>
 </html>

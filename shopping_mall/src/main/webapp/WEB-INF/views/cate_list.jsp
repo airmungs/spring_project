@@ -18,46 +18,47 @@
     <link rel="icon" href="/resources/img/logo.png" sizes="16x16">
 </head>
 <body>
+<div id="cateList">
 <%@ include file="../top_admin.jsp" %>
 <main class="maincss">
 <section>    
 <p>카테고리관리 페이지</p>
 <div class="subpage_view">
     <span>등록된 카테고리 ${cate_list.size()}건</span>
-    <form>
-        <span>
-            <select class="p_select1">
-                <option value="name">카테고리명</option>
-                <option value="code">카테고리코드</option>
-            </select>
-            <input type="text" class="p_input1" placeholder="검색어를 입력해 주세요">
-            <input type="submit" value="검색" title="카테고리 검색" class="p_submit">
-        </span>
-    </form>
+	<form id="searchForm" onsubmit="return searchCategories(event);">
+	    <span>
+	        <select name="searchType" class="p_select1">
+	            <option value="name">대메뉴명</option>
+	            <option value="code">대메뉴코드</option>
+	        </select>
+	        <input type="text" name="searchKeyword" class="p_input1" placeholder="검색어를 입력해 주세요">
+	        <input type="submit" value="검색" title="상품검색" class="p_submit">
+	    </span>
+	</form>    
 </div>
 <div class="subpage_view2">
-<ul>
-        <li><input type="checkbox" id="selectAll"></li>
-        <li>분류코드</li>
-        <li>대메뉴 코드</li>
-        <li>대메뉴명</li>
-        <li>소메뉴 코드(사용안함)</li>
-        <li>소메뉴명(사용안함)</li>
-        <li>사용 유/무</li>
-        <li>관리</li>
-    </ul>
-    <c:forEach var="cate_list" items="${cate_list}">
-        <ul>
-            <li><input type="checkbox" class="cateCheckbox"></li>
-            <li style="text-align: left; text-indent: 5px;">${cate_list.category_code}</li>
-            <li>${cate_list.lg_menu_code}</li>
-            <li style="text-align: left; text-indent: 5px;">${cate_list.cate_name}</li>
-            <li>-</li>
-            <li style="text-align: left; text-indent: 5px;">-</li>
-            <li>${cate_list.use_yn}</li>
-            <li><a href="cate_edit.do?idx=${cate_list.idx}">[수정]</a></li>
-        </ul>
-    </c:forEach>
+	<ul>
+	    <li><input type="checkbox" id="selectAll" onclick="selectAllItems(this)"></li>
+	    <li>분류코드</li>
+	    <li>대메뉴 코드</li>
+	    <li>대메뉴명</li>
+	    <li>소메뉴 코드(사용안함)</li>
+	    <li>소메뉴명(사용안함)</li>
+	    <li>사용 유/무</li>
+	    <li>관리</li>
+	</ul>
+	<c:forEach var="cate_list" items="${cate_list}">
+	    <ul>
+	        <li><input type="checkbox" class="cateCheckbox" onchange="updateSelectAllCheckbox()"></li>
+	        <li style="text-align: left; text-indent: 5px;">${cate_list.category_code}</li>
+	        <li>${cate_list.lg_menu_code}</li>
+	        <li style="text-align: left; text-indent: 5px;">${cate_list.cate_name}</li>
+	        <li>-</li>
+	        <li style="text-align: left; text-indent: 5px;">-</li>
+	        <li>${cate_list.use_yn}</li>
+	        <li><a href="cate_edit.do?idx=${cate_list.idx}">[수정]</a></li>
+	    </ul>
+	</c:forEach>
     <c:if test="${empty cate_list}">
         <ul>
             <li style="width: 100%;">등록된 카테고리가 없습니다.</li>
@@ -83,6 +84,7 @@
 </section>
 </main>
 <%@include file="../copyright_admin.jsp"%>
+</div>
 </body>
-<script src="/resources/js/admin/cate_list.js?v=3"></script>
+<script src="/resources/js/admin/cate_list.js?v=4"></script>
 </html>

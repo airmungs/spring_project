@@ -38,6 +38,14 @@ public class shopping_admin_controller {
 		return "notice_list";
 	}
 	
+	@PostMapping("/search_category")
+	public String searchCategory(@RequestParam("searchType") String searchType,
+	                            @RequestParam("searchKeyword") String searchKeyword,
+	                            Model model) {
+	    List<shopping_cate_dto> cateList = adminService.searchCategories(searchType, searchKeyword);
+	    model.addAttribute("cate_list", cateList);
+	    return "cate_list";
+	}
 	
 	//카테고리 생성
 	@PostMapping("/create_cate")
@@ -59,28 +67,36 @@ public class shopping_admin_controller {
 	}
 	
 	
-	//쇼핑몰 상품관리 - 카테고리등록
+	//쇼핑몰 상품관리 - 카테고리등록 페이지
 	@GetMapping("/cate_write.do")
 	public String cate_write(){
 		return "cate_write";
 	}
 
-	//쇼핑몰 상품관리 - 카테고리등록
+	//쇼핑몰 상품관리 - 카테고리 리스트
 	@GetMapping("/cate_list.do")
-	public String cate_list(Model m){
+	public String cate_list(Model model){
 		List<shopping_cate_dto> cate_list=adminService.cateList();
-		m.addAttribute("cate_list",cate_list);
+		model.addAttribute("cate_list",cate_list);
 		return "cate_list";
 	}
-	
+	//상품 검색
+	@PostMapping("/search_product")
+	public String searchProduct(@RequestParam("searchType") String searchType,
+	                            @RequestParam("searchKeyword") String searchKeyword,
+	                            Model model) {
+	    List<shopping_product_dto> productList = adminService.searchProducts(searchType, searchKeyword);
+	    model.addAttribute("product_list", productList);
+	    return "product_list";
+	}
 	//쇼핑몰 상품관리 - 신규상품등록
 	@GetMapping("/product_write.do")
-	public String product_write(Model m){
+	public String product_write(Model model){
 		List<shopping_cate_dto> codes=adminService.lgMenuCode();
-		m.addAttribute("codes",codes);
+		model.addAttribute("codes",codes);
 		return "product_write";
 	}
-	//신규상품등록
+	//신규상품등록하기
 	@PostMapping("/save_product")
 	public ResponseEntity<Map<String, Object>> save_product(@RequestParam("productName") String productName, @RequestParam("productCode") String productCode, @RequestParam("productDescription") String productDescription, @RequestParam("productDetails") String productDetails, @RequestParam("discountRate") int discountRate, @RequestParam("salePrice") BigDecimal salePrice, @RequestParam("discountedPrice") BigDecimal discountedPrice, @RequestParam("saleStatus") String saleStatus, @RequestParam("stockQuantity") int stockQuantity, @RequestParam("mainCategory") String mainCategory, @RequestParam("earlySoldOut") String earlySoldOut, @RequestParam("mainImage") MultipartFile mainImage, @RequestParam("additionalImage1") MultipartFile additionalImage1, @RequestParam("additionalImage2") MultipartFile additionalImage2) {
 	    Map<String, Object> response = new HashMap<>();
@@ -103,18 +119,18 @@ public class shopping_admin_controller {
 	
 	//쇼핑몰 상품관리
 	@GetMapping("/product_list.do")
-	public String product_list(Model m){
-		m.addAttribute("product_list", adminService.productList());
+	public String product_list(Model model){
+		model.addAttribute("product_list", adminService.productList());
 		return "product_list";
 	}
 	
 	//쇼핑몰 기본설정
 	@GetMapping("/admin_siteinfo.do")
-	public String admin_siteinfo(Model m){
+	public String admin_siteinfo(Model model){
 		 List<shopping_siteinfo_dto> siteinfo_list = adminService.siteinfoList();
 		    if (siteinfo_list != null && !siteinfo_list.isEmpty()) {
 		        shopping_siteinfo_dto siteinfo = siteinfo_list.get(0);
-		        m.addAttribute("siteinfo", siteinfo);
+		        model.addAttribute("siteinfo", siteinfo);
 		    }
 		return "admin_siteinfo";
 	}

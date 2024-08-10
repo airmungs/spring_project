@@ -1,26 +1,24 @@
+//검색
+function searchCategories(event) {
+    event.preventDefault(); // 폼의 기본 동작(페이지 리로드)을 막음
+
+    var form = document.getElementById('searchForm');
+    var formData = new FormData(form);
+
+    fetch('/search_category', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.text())
+    .then(html => {
+		document.getElementById('catetList').innerHTML = html; 
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
 document.addEventListener('DOMContentLoaded', function() {
-    // 카테고리 검색
-    document.querySelector('.p_submit').addEventListener('click', function(event) {
-        event.preventDefault();
-        const searchCategory = document.querySelector('.p_select1').value;
-        const searchKeyword = document.querySelector('.p_input1').value.trim();
-                
-        if (searchKeyword) {
-            // TODO: 검색 로직 구현
-            console.log(`Search by ${searchCategory} with keyword: ${searchKeyword}`);
-        } else {
-            alert("검색어를 입력해 주세요");
-        }
-    });
-
-    // 전체 선택/해제
-    document.querySelector('#selectAll').addEventListener('change', function(event) {
-        const checkboxes = document.querySelectorAll('.cateCheckbox');
-        checkboxes.forEach(checkbox => {
-            checkbox.checked = event.target.checked;
-        });
-    });
-
     // 카테고리 삭제
     document.querySelector('input[value="카테고리 삭제"]').addEventListener('click', function() {
         const checkboxes = document.querySelectorAll('.subpage_view2 .cateCheckbox');
@@ -46,4 +44,25 @@ document.addEventListener('DOMContentLoaded', function() {
 // 페이지 이동 로직 구현
 function goToPage(pageNumber) {
     location.href = `product_list.do?page=${pageNumber}`;
+}
+
+// 체크박스 핸들링
+function selectAllItems(checkbox) {
+    const isChecked = checkbox.checked;
+    const checkboxes = document.querySelectorAll('.cateCheckbox');
+    checkboxes.forEach(cb => cb.checked = isChecked);
+
+    // 개별 체크박스에 이벤트 핸들러
+    checkboxes.forEach(cb => {
+        cb.addEventListener('change', updateSelectAllCheckbox);
+    });
+}
+
+// 개별 체크박스 상태에 따라 전체 선택 체크박스 업데이트
+function updateSelectAllCheckbox() {
+    const checkboxes = document.querySelectorAll('.cateCheckbox');
+    const selectAllCheckbox = document.getElementById('selectAll');
+
+    const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+    selectAllCheckbox.checked = allChecked;
 }
