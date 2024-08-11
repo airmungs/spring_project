@@ -11,7 +11,7 @@ function searchCategories(event) {
     })
     .then(response => response.text())
     .then(html => {
-		document.getElementById('catetList').innerHTML = html; 
+		document.getElementById('cateList').innerHTML = html; 
     })
     .catch(error => {
         console.error('Error:', error);

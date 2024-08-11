@@ -86,5 +86,5 @@
 <%@include file="../copyright_admin.jsp"%>
 </div>
 </body>
-<script src="/resources/js/admin/cate_list.js?v=4"></script>
+<script src="/resources/js/admin/cate_list.js?v=5"></script>
 </html>
