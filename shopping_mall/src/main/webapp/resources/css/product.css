@@ -133,6 +133,17 @@
     object-fit: cover;
     vertical-align: middle;
 }
+.subpage_view3 > .pageing > li > a {
+	color: #333333;
+    opacity: 1;
+}
+.subpage_view3 > .pageing > li > .active {
+	width: 12px;
+    height: 12px;
+    font-weight: bold;
+    background-color: rgb(123, 102, 102); 
+    color: white; 
+}
 .subpage_view4 {
     width: inherit;
     height: auto;
@@ -157,7 +168,6 @@
 .subpage_view4 {
     margin-bottom: 30px;
 }
-
 /* 상품 입력 페이지 */
 
 .product_insert { 

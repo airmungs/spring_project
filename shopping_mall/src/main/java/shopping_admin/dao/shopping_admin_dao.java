@@ -19,18 +19,21 @@ public class shopping_admin_dao {
 	@Resource(name="template2")
 	private SqlSessionTemplate sqlTemplate;
 	
+	//상품 리스트 페이징
+	public int countTotalProducts(String searchType, String searchKeyword) {
+        Map<String, Object> params = Map.of("searchType", searchType, "searchKeyword", searchKeyword);
+        return sqlTemplate.selectOne("sailmallDB.count_total_products", params);
+    }
 	//상품검색
-	public List<shopping_product_dto> searchProducts(String searchType, String searchKeyword){
-		Map<String, Object> params = new HashMap<>();
-	    params.put("searchType", searchType);
-	    params.put("searchKeyword", searchKeyword);
-		return sqlTemplate.selectList("sailmallDB.search_product",params);
-	}
+    public List<shopping_product_dto> searchProducts(int offset, int pageSize, String searchType, String searchKeyword) {
+        Map<String, Object> params = Map.of("offset", offset, "pageSize", pageSize, "searchType", searchType, "searchKeyword", searchKeyword);
+        return sqlTemplate.selectList("sailmallDB.search_products",params);
+    }
 	
 	//상품 리스트 출력
-	public List<shopping_product_dto> productList(){
-		return sqlTemplate.selectList("sailmallDB.product_list");
-	}
+    public List<shopping_product_dto> getAllProducts() {
+        return sqlTemplate.selectList("sailmallDB.get_all_products");
+    }
 	
 	//상품등록하기
 	public int saveProduct(shopping_product_dto productDTO) {

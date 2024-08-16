@@ -57,8 +57,6 @@ function selectAllItems(checkbox) {
         cb.addEventListener('change', updateSelectAllCheckbox);
     });
 }
-
-// 개별 체크박스 상태에 따라 전체 선택 체크박스 업데이트
 function updateSelectAllCheckbox() {
     const checkboxes = document.querySelectorAll('.cateCheckbox');
     const selectAllCheckbox = document.getElementById('selectAll');

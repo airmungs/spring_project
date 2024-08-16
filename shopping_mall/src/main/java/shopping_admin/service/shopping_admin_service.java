@@ -7,7 +7,9 @@ import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
@@ -29,15 +31,24 @@ public class shopping_admin_service {
 	
 	@Autowired
 	private shopping_admin_dao adminDao;
+		
+
+		//상품 리스트 페이징
+		public Map<String, Object> getProductsByPage(int page, int pageSize, String searchType, String searchKeyword) {
+	        int offset = (page - 1) * pageSize;
+	        int totalProducts = adminDao.countTotalProducts(searchType, searchKeyword);
+	        int totalPages = (int) Math.ceil((double) totalProducts / pageSize);
 	
-		//상품 검색
-		public List<shopping_product_dto> searchProducts(String searchType, String searchKeyword){
-			return adminDao.searchProducts(searchType,searchKeyword);
-		}
-		//등록된 상품 리스트
-		public List<shopping_product_dto > productList(){
-			return adminDao.productList(); 
-		}
+	        List<shopping_product_dto> productList = adminDao.searchProducts(offset, pageSize, searchType, searchKeyword);
+	
+	        Map<String, Object> result = new HashMap<>();
+	        result.put("productList", productList);
+	        result.put("currentPage", page);
+	        result.put("totalPages", totalPages);
+	        result.put("totalProducts", totalProducts);
+	        return result;
+	    }
+	
 	
 		//상품등록 첨부파일 저장 경로
     public shopping_admin_service(ServletContext servletContext) {

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import shopping_admin.dto.shopping_admin_dto;
@@ -80,15 +81,39 @@ public class shopping_admin_controller {
 		return "cate_list";
 	}
 	
+    // 상품 리스트 페이징
+    @GetMapping("/product_list.do")
+    public String showProductList(@RequestParam(defaultValue = "1") int page, 
+                                  @RequestParam(defaultValue = "") String searchType, 
+                                  @RequestParam(defaultValue = "") String searchKeyword, 
+                                  Model model) {
+        int pageSize = 5; // 한 페이지에 보여줄 항목 수
+        Map<String, Object> productData = adminService.getProductsByPage(page, pageSize, searchType, searchKeyword);
+
+        model.addAttribute("productList", productData.get("productList"));
+        model.addAttribute("currentPage", productData.get("currentPage"));
+        model.addAttribute("totalPages", productData.get("totalPages"));
+        model.addAttribute("totalProducts",productData.get("totalProducts"));
+
+        return "product_list";
+    }
+	
 	//상품 검색
-	@PostMapping("/search_product")
-	public String searchProduct(@RequestParam("searchType") String searchType,
-	                            @RequestParam("searchKeyword") String searchKeyword,
-	                            Model model) {
-	    List<shopping_product_dto> productList = adminService.searchProducts(searchType, searchKeyword);
-	    model.addAttribute("product_list", productList);
-	    return "product_list";
-	}
+    @PostMapping("/search_product")
+    public String searchProduct(@RequestParam(defaultValue = "1") int page, 
+														     @RequestParam(defaultValue = "") String searchType, 
+														     @RequestParam(defaultValue = "") String searchKeyword,
+														     Model model) {
+        int pageSize = 5; // 한 페이지에 보여줄 항목 수
+        Map<String, Object> productData = adminService.getProductsByPage(page, pageSize, searchType, searchKeyword);
+        
+        model.addAttribute("productList", productData.get("productList"));
+        model.addAttribute("currentPage", productData.get("currentPage"));
+        model.addAttribute("totalPages", productData.get("totalPages"));
+        model.addAttribute("totalProducts",productData.get("totalProducts"));
+        
+        return "product_list";
+    }
 	
 	//쇼핑몰 상품관리 - 신규상품등록
 	@GetMapping("/product_write.do")
@@ -119,12 +144,6 @@ public class shopping_admin_controller {
 	    return ResponseEntity.ok(response);
     }
 	
-	//쇼핑몰 상품관리
-	@GetMapping("/product_list.do")
-	public String product_list(Model model){
-		model.addAttribute("product_list", adminService.productList());
-		return "product_list";
-	}
 	
 	//쇼핑몰 기본설정
 	@GetMapping("/admin_siteinfo.do")

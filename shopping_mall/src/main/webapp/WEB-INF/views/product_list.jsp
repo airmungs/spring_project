@@ -11,7 +11,7 @@
     <link rel="stylesheet" type="text/css" href="/resources/css/basic.css">
     <link rel="stylesheet" type="text/css" href="/resources/css/login.css?v=1">
     <link rel="stylesheet" type="text/css" href="/resources/css/main.css?v=1">
-    <link rel="stylesheet" type="text/css" href="/resources/css/product.css?v=5">
+    <link rel="stylesheet" type="text/css" href="/resources/css/product.css?v=7">
     <link rel="icon" href="/resources/img/logo.png" sizes="128x128">
     <link rel="icon" href="/resources/img/logo.png" sizes="64x64">
     <link rel="icon" href="/resources/img/logo.png" sizes="32x32">
@@ -24,12 +24,12 @@
 <section>
 <p>상품관리 페이지</p>
 <div class="subpage_view">
-    <span>등록된 상품 ${product_list.size() }건</span>
+    <span>등록된 상품 ${totalProducts }건</span>
 	<form id="searchForm" onsubmit="return searchProducts(event);">
 	    <span>
 	        <select name="searchType" class="p_select1">
 	            <option value="name">상품명</option>
-	            <option value="code">상품코드</option>
+	            <option value="code">카테고리</option>
 	        </select>
 	        <input type="text" name="searchKeyword" class="p_input1" placeholder="검색어를 입력해 주세요">
 	        <input type="submit" value="검색" title="상품검색" class="p_submit">
@@ -51,7 +51,7 @@
         <li>품절</li>
         <li>관리</li>
     </ul>
-    <c:forEach var="product" items="${product_list }">
+    <c:forEach var="product" items="${productList }">
     <ul>
         <li><input type="checkbox" name="productCheckbox" value="${product.idx }"></li>
         <li>${product.productCode }</li>
@@ -74,20 +74,22 @@
         <li><button onclick="editProduct(${product.idx })">관리</button></li>
     </ul>
     </c:forEach>
-    <c:if test="${empty product_list}">
+    <c:if test="${empty productList}">
         <ul>
             <li style="width: 100%;">등록된 상품이 없습니다.</li>
         </ul>
     </c:if>
 </div>
+<input type="hidden" id="currentPage" value="${currentPage}">
+<input type="hidden" id="totalPages" value="${totalPages}">
 <div class="subpage_view3">
-    <ul class="pageing">
-        <li><img src="/resources/ico/double_left.svg" onclick="goToPage(1)"></li>
-        <li><img src="/resources/ico/left.svg" onclick="goToPage(currentPage - 1)"></li>
-        <li>1</li>
-        <li><img src="/resources/ico/right.svg" onclick="goToPage(currentPage + 1)"></li>
-        <li><img src="/resources/ico/double_right.svg" onclick="goToPage(totalPages)"></li>
-    </ul>
+<ul id="pagination" class="pageing">
+    <li id="goFirstPage"><img src="/resources/ico/double_left.svg" onclick="goToPage(1)" /></li>
+    <li id="leftArrow"><img src="/resources/ico/left.svg" onclick="goToPage(${currentPage - 1})" /></li>
+    <!-- 페이지 버튼 추가 -->
+    <li id="rightArrow"><img src="/resources/ico/right.svg" onclick="goToPage(${currentPage + 1})" /></li>
+    <li id="goLastPage"><img src="/resources/ico/double_right.svg" onclick="goToPage(${totalPages})" /></li>
+</ul>
 </div>
 <div class="subpage_view4">
     <input type="button" value="선택상품 삭제" title="선택한 상품을 삭제합니다" class="p_button" onclick="deleteSelectedItems()">
@@ -101,5 +103,5 @@
 <%@include file="../copyright_admin.jsp"%>
 </div>
 </body>
-<script src="/resources/js/admin/product_list.js?v=4"></script>
+<script src="/resources/js/admin/product_list.js?v=5"></script>
 </html>
