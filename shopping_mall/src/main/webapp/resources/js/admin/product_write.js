@@ -17,6 +17,36 @@ function generateProductCode() {
         console.error('상품 코드 입력 필드를 찾을 수 없습니다.');
     }
 }
+//상품코드 중복확인
+let isProductCodeAvailable = false;
+function checkProductCode(){
+	fetch('/checkProductCode', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams({
+            productCode: productCode
+        }).toString()
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.exists) {
+            alert('중복된 상품 코드입니다. 다른 코드를 입력해 주세요.');
+            generateProductCode(); // 중복된 코드일 경우 새로운 코드 생성
+        } else {
+            alert('사용 가능한 상품 코드입니다.');
+			isProductCodeAvailable = true;
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('상품 코드 중복 확인 중 오류 발생');
+    });
+}
+document.querySelector('input[name="productCode"]').addEventListener("input", function() {
+    isProductCodeAvailable = false;
+});
 
 // 할인율에 따라 할인가격 자동 계산
 function calculateDiscountedPrice() {
@@ -45,6 +75,11 @@ function submitProduct() {
     });
 
     // 입력값 유효성 검사
+    if (!isProductCodeAvailable) {
+        alert("상품 코드 중복 체크를 완료하고, 사용 가능한 상품 코드인지 확인하세요.");
+        return;
+    }
+
     if (!data.productCode) {
         generateProductCode();
         data.productCode = document.getElementById('productCode').value;

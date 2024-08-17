@@ -150,5 +150,5 @@
 </form>
 <%@include file="../copyright_admin.jsp"%>
 </body>
-<script src="/resources/js/admin/product_write.js?v=3"></script>
+<script src="/resources/js/admin/product_write.js?v=4"></script>
 </html>

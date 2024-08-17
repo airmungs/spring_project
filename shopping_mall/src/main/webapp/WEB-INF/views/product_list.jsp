@@ -18,6 +18,8 @@
     <link rel="icon" href="/resources/img/logo.png" sizes="16x16">
 </head>
 <body>
+<input type="hidden" id="currentPage" value="${currentPage}">
+<input type="hidden" id="totalPages" value="${totalPages}">
 <div id="productList">
 <%@ include file="../top_admin.jsp" %>
 <main class="maincss">
@@ -36,7 +38,7 @@
 	    </span>
 	</form>
 </div>
-<div class="subpage_view2">
+<div class="subpage_view2" id="productItems">
     <ul>
         <li><input type="checkbox" name="selectAll" onclick="selectAllItems(this)"></li>
         <li>코드</li>
@@ -80,8 +82,6 @@
         </ul>
     </c:if>
 </div>
-<input type="hidden" id="currentPage" value="${currentPage}">
-<input type="hidden" id="totalPages" value="${totalPages}">
 <div class="subpage_view3">
 <ul id="pagination" class="pageing">
     <li id="goFirstPage"><img src="/resources/ico/double_left.svg" onclick="goToPage(1)" /></li>
@@ -103,5 +103,5 @@
 <%@include file="../copyright_admin.jsp"%>
 </div>
 </body>
-<script src="/resources/js/admin/product_list.js?v=5"></script>
+<script src="/resources/js/admin/product_list.js?v=6"></script>
 </html>

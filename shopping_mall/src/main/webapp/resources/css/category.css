@@ -162,6 +162,15 @@
     border-bottom: 1px solid #fff;
     font-size: 13px;
 }
+.cate_insert > ul > li > input.cate_btn{
+	margin-left: 10px;
+	height: 30px;
+    background-color: rgb(81, 61, 61);
+    border:0;
+    width:80px;
+    color:white;
+    cursor: pointer;
+}
 .cate_insert > ul > li:nth-of-type(1){
     text-indent: 5px;
     width: 15%;
@@ -201,4 +210,17 @@
 .rmargin > input[type="radio"]{
     vertical-align: -1px;
     margin-right: 5px;
+}
+.message {
+    font-size: 0.875em; /* 작은 글씨 */
+    margin-left: 10px;
+    display: inline-block;
+}
+
+.message.success {
+    color: #007bff; /* 파란색 */
+}
+
+.message.error {
+    color: #dc3545; /* 빨간색 */
 }

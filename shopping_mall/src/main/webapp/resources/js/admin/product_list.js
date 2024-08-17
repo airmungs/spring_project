@@ -8,21 +8,26 @@ document.addEventListener('DOMContentLoaded', () => {
 function searchProducts(event) {
     event.preventDefault(); // 폼의 기본 동작(페이지 리로드)을 막음
 
-    const form = document.getElementById('searchForm');
-    const formData = new FormData(form);
+    var form = document.getElementById('searchForm');
+    var formData = new FormData(form);
 
     fetch('/search_product', {
         method: 'POST',
         body: formData
     })
-    .then(response => response.json()) // JSON 응답을 받음
-    .then(data => {
-        document.getElementById('productListContainer').innerHTML = data.html; 
-        updatePagingControls(data.currentPage, data.totalPages);
+    .then(response => response.text())  // JSON이 아니라 HTML을 받아옴
+    .then(html => {
+        document.getElementById('productList').innerHTML = html; 
+
+        // 현재 페이지와 총 페이지 수를 hidden input에서 가져옴
+        const currentPage = parseInt(document.getElementById("currentPage").value, 10);
+        const totalPages = parseInt(document.getElementById("totalPages").value, 10);
+        updatePagingControls(currentPage, totalPages); // 페이징 업데이트
     })
     .catch(error => {
         console.error('Error:', error);
     });
+//goToPage(1);
 }
 
 // 선택된 상품 삭제
@@ -88,20 +93,46 @@ function editProduct(productId) {
 function goToPage(pageNumber) {
     const formData = new FormData();
     formData.append('page', pageNumber);
+    formData.append('searchType', document.querySelector('select[name="searchType"]').value);
+    formData.append('searchKeyword', document.querySelector('input[name="searchKeyword"]').value);
 
     fetch('/get_products_by_page', {
         method: 'POST',
         body: formData
     })
-    .then(response => response.json()) // 서버에서 JSON 응답을 받음
-    .then(data => {
-        document.getElementById('productListContainer').innerHTML = data.html; // HTML 업데이트
-        updatePagingControls(data.currentPage, data.totalPages); // 페이징 업데이트
+    .then(response => response.text())
+    .then(html => {
+        // 상품 목록 업데이트
+        document.getElementById('productList').innerHTML = html;
+		
+		const currentPage = parseInt(document.getElementById("currentPage").value, 10);
+        const totalPages = parseInt(document.getElementById("totalPages").value, 10);
+		
+        // 페이징 요소 업데이트
+        const pagination = document.getElementById('pagination');
+        pagination.innerHTML = ''; // 기존 페이징 초기화
+
+        // 페이징 버튼 생성
+        pagination.innerHTML += `<li id="goFirstPage" ${currentPage === 1 ? 'class="disabled"' : ''}><img src="/resources/ico/double_left.svg" onclick="goToPage(1)" /></li>`;
+        pagination.innerHTML += `<li id="leftArrow" ${currentPage === 1 ? 'class="disabled"' : ''}><img src="/resources/ico/left.svg" onclick="goToPage(${currentPage - 1})" /></li>`;
+        
+        // 페이지 번호 버튼 생성
+        for (let i = 1; i <= data.totalPages; i++) {
+            pagination.innerHTML += `<li class="${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</li>`;
+        }
+
+        pagination.innerHTML += `<li id="rightArrow" ${currentPage === totalPages ? 'class="disabled"' : ''}><img src="/resources/ico/right.svg" onclick="goToPage(${currentPage + 1})" /></li>`;
+        pagination.innerHTML += `<li id="goLastPage" ${currentPage === totalPages ? 'class="disabled"' : ''}><img src="/resources/ico/double_right.svg" onclick="goToPage(${totalPages})" /></li>`;
+
+        // 현재 페이지와 총 페이지 수 갱신
+        document.getElementById('currentPage').value = currentPage;
+        document.getElementById('totalPages').value = totalPages;
     })
     .catch(error => {
         console.error('Error:', error);
     });
 }
+
 
 // 페이지 이동 버튼 핸들링
 function updatePagingControls(currentPage, totalPages) {

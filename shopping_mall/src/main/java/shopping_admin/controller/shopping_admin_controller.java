@@ -38,7 +38,7 @@ public class shopping_admin_controller {
 	public String notice_list(){
 		return "notice_list";
 	}
-	
+	//카테고리리스트 검색
 	@PostMapping("/search_category")
 	public String searchCategory(@RequestParam("searchType") String searchType,
 	                            @RequestParam("searchKeyword") String searchKeyword,
@@ -67,6 +67,18 @@ public class shopping_admin_controller {
 	    return ResponseEntity.ok(response);
 	}
 	
+	//카테고리 분류코드 중복확인
+	@PostMapping("/checkCategoryCode")
+	@ResponseBody
+	public Map<String, Object> checkCategoryCode(@RequestBody Map<String, String> requestBody) {
+	    String categoryCode = requestBody.get("categoryCode");
+	    boolean exists = adminService.checkCategoryCodeExists(categoryCode);
+
+	    Map<String, Object> response = new HashMap<>();
+	    response.put("exists", exists);
+	    return response;
+	}
+	
 	//쇼핑몰 상품관리 - 카테고리등록 페이지
 	@GetMapping("/cate_write.do")
 	public String cate_write(){
@@ -81,13 +93,35 @@ public class shopping_admin_controller {
 		return "cate_list";
 	}
 	
+    // 페이지 이동
+    @PostMapping("/get_products_by_page")
+    @ResponseBody
+    public String getProductsByPage(
+            @RequestParam("page") int page,
+            @RequestParam(value = "searchType", required = false) String searchType,
+            @RequestParam(value = "searchKeyword", required = false) String searchKeyword,
+            Model model) {
+    	int pageSize = 5;
+        Map<String, Object> productData = adminService.getProductsByPage(page, pageSize, searchType, searchKeyword);
+
+        model.addAttribute("productList", productData.get("productList"));
+        model.addAttribute("currentPage", productData.get("currentPage"));
+        model.addAttribute("totalPages", productData.get("totalPages"));
+        model.addAttribute("totalProducts",productData.get("totalProducts"));
+    	
+        return "product_list";
+    }
+	
+	
     // 상품 리스트 페이징
     @GetMapping("/product_list.do")
     public String showProductList(@RequestParam(defaultValue = "1") int page, 
                                   @RequestParam(defaultValue = "") String searchType, 
                                   @RequestParam(defaultValue = "") String searchKeyword, 
+                                  HttpSession session,
                                   Model model) {
         int pageSize = 5; // 한 페이지에 보여줄 항목 수
+        
         Map<String, Object> productData = adminService.getProductsByPage(page, pageSize, searchType, searchKeyword);
 
         model.addAttribute("productList", productData.get("productList"));
@@ -103,7 +137,8 @@ public class shopping_admin_controller {
     public String searchProduct(@RequestParam(defaultValue = "1") int page, 
 														     @RequestParam(defaultValue = "") String searchType, 
 														     @RequestParam(defaultValue = "") String searchKeyword,
-														     Model model) {
+														     Model model,
+														     HttpSession session) {
         int pageSize = 5; // 한 페이지에 보여줄 항목 수
         Map<String, Object> productData = adminService.getProductsByPage(page, pageSize, searchType, searchKeyword);
         
@@ -111,7 +146,8 @@ public class shopping_admin_controller {
         model.addAttribute("currentPage", productData.get("currentPage"));
         model.addAttribute("totalPages", productData.get("totalPages"));
         model.addAttribute("totalProducts",productData.get("totalProducts"));
-        
+        session.setAttribute("searchType", searchType);
+        session.setAttribute("searchKeyword", searchKeyword);
         return "product_list";
     }
 	
@@ -122,6 +158,16 @@ public class shopping_admin_controller {
 		model.addAttribute("codes",codes);
 		return "product_write";
 	}
+	
+    @PostMapping("/checkProductCode")
+    @ResponseBody
+    public Map<String, Object> checkProductCode(@RequestParam String productCode) {
+        boolean exists = adminService.checkProductCodeExists(productCode);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("exists", exists);
+        return response;
+    }
 	
 	//신규상품등록하기
 	@PostMapping("/save_product")

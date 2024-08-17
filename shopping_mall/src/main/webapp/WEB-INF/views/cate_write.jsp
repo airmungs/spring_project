@@ -10,12 +10,12 @@
     <link rel="stylesheet" type="text/css" href="/resources/css/basic.css">
     <link rel="stylesheet" type="text/css" href="/resources/css/login.css?v=1">
     <link rel="stylesheet" type="text/css" href="/resources/css/main.css?v=1">
-    <link rel="stylesheet" type="text/css" href="/resources/css/category.css?v=6">
+    <link rel="stylesheet" type="text/css" href="/resources/css/category.css?v=7">
     <link rel="icon" href="/resources/img/logo.png" sizes="128x128">
     <link rel="icon" href="/resources/img/logo.png" sizes="64x64">
     <link rel="icon" href="/resources/img/logo.png" sizes="32x32">
     <link rel="icon" href="/resources/img/logo.png" sizes="16x16">
-    <script src="/resources/js//admin/cate_write.js?v=2"></script>
+    <script src="/resources/js//admin/cate_write.js?v=3"></script>
 </head>
 <body>
 <%@ include file="../top_admin.jsp" %>
@@ -25,7 +25,10 @@
     <div class="cate_insert">
         <ul>
             <li>분류코드</li>
-            <li><input type="text" class="cate_input1" name="category_code"></li>
+            <li>
+            <input type="text" class="cate_input1" name="category_code">
+            <span id="cateCodeMessage" class="message"></span>
+            </li>
             <li>※ 분류코드에 사용할 코드 번호를 입력하세요 최소 2자 이상의 숫자로 입력하셔야 합니다.</li>
         </ul>
         <ul>

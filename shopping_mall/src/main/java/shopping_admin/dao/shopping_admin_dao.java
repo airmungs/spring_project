@@ -1,6 +1,5 @@
 package shopping_admin.dao;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -34,7 +33,12 @@ public class shopping_admin_dao {
     public List<shopping_product_dto> getAllProducts() {
         return sqlTemplate.selectList("sailmallDB.get_all_products");
     }
-	
+    
+    //상품코드 중복체크
+    public int checkProductCodeExists(String productCode) {
+    	return sqlTemplate.selectOne("sailmallDB.check_product_code_exists",productCode);
+    }
+    
 	//상품등록하기
 	public int saveProduct(shopping_product_dto productDTO) {
 		return sqlTemplate.insert("sailmallDB.save_product",productDTO);
@@ -47,9 +51,7 @@ public class shopping_admin_dao {
 	
 	//카테고리 검색
 	public List<shopping_cate_dto> searchCategories(String searchType, String searchKeyword){
-		Map<String, Object> params = new HashMap<>();
-	    params.put("searchType", searchType);
-	    params.put("searchKeyword", searchKeyword);
+	    Map<String, Object> params = Map.of("searchType",searchType, "searchKeyword",searchKeyword);
 		return sqlTemplate.selectList("sailmallDB.search_category",params);
 	}
 	
@@ -63,6 +65,12 @@ public class shopping_admin_dao {
 		return sqlTemplate.insert("sailmallDB.create_cate",cateDTO);
 	}
 	
+	//카테고리 분류코드 중복확인
+	public int checkCategoryCodeExists(String categoryCode) {
+	    return sqlTemplate.selectOne("sailmallDB.check_category_code_exists", categoryCode);
+	}
+	
+	//쇼핑몰 기본설정 정보 불러오기
 	public List<shopping_siteinfo_dto> siteinfoList(){
 		return sqlTemplate.selectList("sailmallDB.saved_siteinfo");
 	}
@@ -74,9 +82,7 @@ public class shopping_admin_dao {
 	
 	//관리자 승인
 	public int updateAdminStatus(String adid, String status) {
-	    Map<String, Object> params = new HashMap<>();
-	    params.put("adid", adid);
-	    params.put("status", status);
+	    Map<String, Object> params = Map.of("adid",adid, "status",status);
 	    return sqlTemplate.update("sailmallDB.admin_login_status", params);
 	}
 	
@@ -87,9 +93,7 @@ public class shopping_admin_dao {
 	
 	//관리자 로그인
 	public shopping_admin_dto adminLogin(String adid, String hashedPassword) {
-		Map<String, String> params = new HashMap<>();
-        params.put("adid", adid);
-        params.put("adpass", hashedPassword);
+	    Map<String, String> params = Map.of("adid",adid, "adpass",hashedPassword);
         return sqlTemplate.selectOne("sailmallDB.admin_login", params);
 	}
 	

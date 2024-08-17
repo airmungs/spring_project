@@ -33,6 +33,7 @@ public class shopping_admin_service {
 	private shopping_admin_dao adminDao;
 		
 
+	
 		//상품 리스트 페이징
 		public Map<String, Object> getProductsByPage(int page, int pageSize, String searchType, String searchKeyword) {
 	        int offset = (page - 1) * pageSize;
@@ -48,12 +49,16 @@ public class shopping_admin_service {
 	        result.put("totalProducts", totalProducts);
 	        return result;
 	    }
-	
-	
+		
+		//상품코드 중복체크
+	    public boolean checkProductCodeExists(String productCode) {
+	        return adminDao.checkProductCodeExists(productCode)>0;
+	    }
+	    
 		//상품등록 첨부파일 저장 경로
-    public shopping_admin_service(ServletContext servletContext) {
-        this.uploadDir = servletContext.getRealPath("/upload/");
-    }
+	    public shopping_admin_service(ServletContext servletContext) {
+	        this.uploadDir = servletContext.getRealPath("/upload/");
+	    }
 	    // 상품 등록 //파일 저장
 	    public boolean saveProduct(shopping_product_dto productDTO, MultipartFile mainImage, MultipartFile additionalImage1, MultipartFile additionalImage2) throws IOException {
 	        // 1. 파일 저장 처리
@@ -76,7 +81,7 @@ public class shopping_admin_service {
 	        return adminDao.saveProduct(productDTO) > 0;
 	    }
 
-	    // 파일 저장 처리 메서드
+	    // 파일 저장 처리 method
 	    private List<String> saveFile(MultipartFile file) throws IOException {
 	        if (file != null && !file.isEmpty()) {
 	            String fileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
@@ -112,6 +117,11 @@ public class shopping_admin_service {
 	 	//카레고리 생성
 	 	public boolean createCate(shopping_cate_dto cateDTO) {
 	 		return adminDao.createCate(cateDTO)>0;
+	 	}
+	 	
+	 	//카테고리 분류코드 중복확인
+	 	public boolean checkCategoryCodeExists(String categoryCode) {
+	 	    return adminDao.checkCategoryCodeExists(categoryCode) > 0;
 	 	}
 	 	
 	 	//쇼핑몰 설정 리스트
