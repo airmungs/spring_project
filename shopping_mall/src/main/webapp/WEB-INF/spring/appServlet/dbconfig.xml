@@ -17,9 +17,9 @@
 	<context:annotation-config/>
 	<bean id="dbinfo" class="org.apache.commons.dbcp.BasicDataSource">
 	<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
-	<property name="url" value="jdbc:mysql://localhost:3306/cms"/>
-	<property name="username" value="hana"/>
-	<property name="password" value="hana1234"/>
+	<property name="url" value="jdbc:mysql://localhost:3306/sailmall"/>
+	<property name="username" value="shop"/>
+	<property name="password" value="shop1234"/>
 	</bean>
 	
 	<bean id="factory" class="org.mybatis.spring.SqlSessionFactoryBean">

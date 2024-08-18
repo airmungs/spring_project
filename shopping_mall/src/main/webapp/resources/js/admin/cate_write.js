@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const lgMenuInput = document.querySelector('.cate_input2');
     const cateCodeInput = document.querySelector('.cate_input1');
     const cateNameInput = document.querySelector('.cate_input3');
-    const useRadioButtons = document.querySelectorAll('input[name="use_yn"]');
     const cateCodeMessage = document.getElementById('cateCodeMessage');
 
     // 분류 코드 입력 시 중복성 검사
@@ -24,7 +23,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const cateCode = cateCodeInput.value.trim();
         const lgMenuCode = lgMenuInput.value.trim();
         const cateName = cateNameInput.value.trim();
-        const useYn = Array.from(useRadioButtons).find(radio => radio.checked)?.value;
 		
         if (cateCode.length < 2) {
             alert("분류 코드를 최소 2자 이상 입력하세요.");

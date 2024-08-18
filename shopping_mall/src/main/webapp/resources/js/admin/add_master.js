@@ -137,7 +137,7 @@ document.getElementById("join_admin").addEventListener("click", function() {
     jsonData['adtel'] = phoneNumber;
     var jsonString = JSON.stringify(jsonData);
     
-    fetch('./add_masterok.do', {
+    fetch('./add_masterok', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

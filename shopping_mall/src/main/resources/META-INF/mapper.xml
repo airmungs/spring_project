@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ShoppingMall">
-<select id="search" parameterType="Map" resultType="userdao">
-SELECT*FROM member
-<choose>
-	<when test="part==1"> <!-- 아이디 찾기 -->
-		WHERE mname=#{mname} AND memail=#{memail}
-	</when>
-	<when test="part==2"> <!-- 패스워드 찾기 -->
-		WHERE mid=#{mid} AND mname=#{mname}
-	</when>
-	<otherwise>
-		ORDER BY idx DESC;
-	</otherwise>
-</choose>
-</select>
+
+	<!-- 쇼핑몰 회원가입 insert -->
+	<insert id="joinOk" parameterType="shopping_client.dto.shopping_clients_dto">
+		INSERT INTO clients (userId, password, name, email, phone, eventMail, eventSms)
+        VALUES (#{userId}, #{password}, #{name}, #{email}, #{phone}, #{eventMail}, #{eventSms})
+	</insert>
+	
+	<!-- 쇼핑몰 회원가입 ID중복체크 -->
+	<select id="clientIdcheck" parameterType="String" resultType="shopping_client.dto.shopping_clients_dto" >
+	SELECT * FROM clients WHERE userId=#{userId}
+	</select>
 
 </mapper>

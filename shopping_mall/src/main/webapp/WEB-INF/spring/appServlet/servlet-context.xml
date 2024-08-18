@@ -22,7 +22,7 @@
     </beans:bean>
 	
 	<!-- @이 붙은 클래스를 bean으로 자동 등록 -->
-    <context:component-scan base-package="shopping_admin,pay" />
+    <context:component-scan base-package="shopping_admin,pay,shopping_client" />
     
     <!-- 인터셉터 -->
     <mvc:interceptors>
@@ -31,8 +31,9 @@
             <mvc:exclude-mapping path="/" />
             <mvc:exclude-mapping path="/login" />
             <mvc:exclude-mapping path="/add_master.do" />
-            <mvc:exclude-mapping path="/add_masterok.do" />
+            <mvc:exclude-mapping path="/add_masterok" />
             <mvc:exclude-mapping path="/idcheck" />
+			<mvc:exclude-mapping path="/sailmall/**" />
             <mvc:exclude-mapping path="/resources/**" />
             <beans:bean class="shopping_admin.interceptor.AdminLoginInterceptor" />
         </mvc:interceptor>

@@ -302,7 +302,7 @@ public class shopping_admin_controller {
     }
     
   //admin등록 insert
-    @PostMapping("/add_masterok.do")
+    @PostMapping("/add_masterok")
     public ResponseEntity<Map<String,Object>> admin_join(@RequestBody shopping_admin_dto adminDTO){
     	Map<String,Object> response=new HashMap<>();
     	try {
