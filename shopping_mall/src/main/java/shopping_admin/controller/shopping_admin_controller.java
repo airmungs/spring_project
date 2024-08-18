@@ -158,7 +158,7 @@ public class shopping_admin_controller {
 		model.addAttribute("codes",codes);
 		return "product_write";
 	}
-	
+	//상품코드 중복체크
     @PostMapping("/checkProductCode")
     @ResponseBody
     public Map<String, Object> checkProductCode(@RequestParam String productCode) {
@@ -219,7 +219,32 @@ public class shopping_admin_controller {
 	    }
 	    return ResponseEntity.ok(response);
     }
-	
+	//
+    @PostMapping("/updateLoginStatus")
+    public ResponseEntity<Map<String, Object>> updateLoginStatus(@RequestBody Map<String, String> requestData) {
+        Map<String, Object> response = new HashMap<>();
+        try {
+            String userId = requestData.get("userId");
+            String status = requestData.get("status");
+
+            // 실제 업데이트 로직은 service에서 처리
+            boolean result = adminService.updateLoginStatus(userId, status);
+
+            if (result) {
+                response.put("success", true);
+            } else {
+                response.put("success", false);
+                response.put("message", "업데이트 실패");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.put("success", false);
+            response.put("message", "서버 오류 발생");
+        }
+        
+        return ResponseEntity.ok(response);
+    }
+    
 	//쇼핑몰 회원관리
 	@GetMapping("/shop_member_list.do")
 	public String shop_member_list(Model model){

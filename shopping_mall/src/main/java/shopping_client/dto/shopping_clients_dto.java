@@ -1,5 +1,7 @@
 package shopping_client.dto;
 
+import java.util.Date;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,8 +14,9 @@ public class shopping_clients_dto {
     private String name;
     private String email;
     private String phone;
+    private String login;
     private boolean eventMail;
     private boolean eventSms;
-    private String createdAt;
-    private String updatedAt;
+    private Date createdAt;
+    private Date updatedAt;
 }

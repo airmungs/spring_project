@@ -19,6 +19,12 @@ public class shopping_admin_dao {
 	@Resource(name="template2")
 	private SqlSessionTemplate sqlTemplate;
 	
+	
+	//클라이언트 로그인 상태 업데이트
+	public int updateLoginStatus(String userId, String status) {
+		Map<String, Object> params = Map.of("userId",userId, "status",status);
+		return sqlTemplate.update("sailmallDB.updateLoginStatus", params);
+	}
 	//클라이언트 리스트
 	public List<shopping_clients_dto> showClients() {
 		return sqlTemplate.selectList("sailmallDB.clients_list");

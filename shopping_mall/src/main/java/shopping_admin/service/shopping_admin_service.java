@@ -33,6 +33,11 @@ public class shopping_admin_service {
 	@Autowired
 	private shopping_admin_dao adminDao;
 		
+	
+		//클라이언트 정지 휴면 업데이트
+		public boolean updateLoginStatus(String userId, String status) {
+		    return adminDao.updateLoginStatus(userId, status) > 0;
+		}
 		//클라이언트 리스트
 		public List<shopping_clients_dto> showClients(){
 			return adminDao.showClients();
