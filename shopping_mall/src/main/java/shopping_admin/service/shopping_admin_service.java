@@ -23,6 +23,7 @@ import shopping_admin.dto.shopping_admin_dto;
 import shopping_admin.dto.shopping_cate_dto;
 import shopping_admin.dto.shopping_product_dto;
 import shopping_admin.dto.shopping_siteinfo_dto;
+import shopping_client.dto.shopping_clients_dto;
 
 @Service
 public class shopping_admin_service {
@@ -32,7 +33,10 @@ public class shopping_admin_service {
 	@Autowired
 	private shopping_admin_dao adminDao;
 		
-
+		//클라이언트 리스트
+		public List<shopping_clients_dto> showClients(){
+			return adminDao.showClients();
+		}
 	
 		//상품 리스트 페이징
 		public Map<String, Object> getProductsByPage(int page, int pageSize, String searchType, String searchKeyword) {

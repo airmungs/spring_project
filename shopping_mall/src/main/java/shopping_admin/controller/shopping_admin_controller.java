@@ -222,7 +222,8 @@ public class shopping_admin_controller {
 	
 	//쇼핑몰 회원관리
 	@GetMapping("/shop_member_list.do")
-	public String shop_member_list(){
+	public String shop_member_list(Model model){
+		model.addAttribute("clientList",adminService.showClients());
 		return "shop_member_list";
 	}
 	
