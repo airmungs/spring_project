@@ -34,6 +34,10 @@ public class shopping_admin_controller {
 	@Autowired
 	private shopping_admin_service adminService;
 	
+	@GetMapping("notice_write.do")
+	public String notice_write() {
+		return "notice_write";
+	}
 	@GetMapping("/notice_list.do")
 	public String notice_list(){
 		return "notice_list";

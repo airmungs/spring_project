@@ -54,7 +54,7 @@
     <div class="board_btn">
         <button class="border_del">선택삭제</button>
         <span style="float: right;">
-        <button class="border_add">공지등록</button>
+        <button class="border_add" onclick="location.href='./notice_write.do'">공지등록</button>
         </span>
     </div>
 </section>
