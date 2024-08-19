@@ -34,6 +34,46 @@ public class shopping_admin_controller {
 	@Autowired
 	private shopping_admin_service adminService;
 	
+	
+	
+	//이용 약관
+	@GetMapping("/updateUseAgree")
+	public ResponseEntity<Map<String, Object>> useAgree(@RequestParam("useAgree") String useAgree){
+		Map<String, Object> response=new HashMap<>();
+		try {
+            boolean result=adminService.useAgree(useAgree);
+            if (result) {
+	            response.put("success", true);
+	        } else {
+	            response.put("success", false);
+	            response.put("message", "카테고리 생성 실패");
+	        }
+	    } catch (Exception e) {
+	        response.put("success", false);
+	        response.put("message", "서버 오류 발생: " + e.getMessage());
+	    }
+		return ResponseEntity.ok(response);
+	}
+	
+	//개인정보 이용 약관
+	@GetMapping("/updateInfoAgree")
+	public ResponseEntity<Map<String, Object>> infoAgree(@RequestParam("infoAgree") String infoAgree){
+		Map<String, Object> response=new HashMap<>();
+		try {
+            boolean result=adminService.infoAgree(infoAgree);
+            if (result) {
+	            response.put("success", true);
+	        } else {
+	            response.put("success", false);
+	            response.put("message", "카테고리 생성 실패");
+	        }
+	    } catch (Exception e) {
+	        response.put("success", false);
+	        response.put("message", "서버 오류 발생: " + e.getMessage());
+	    }
+		return ResponseEntity.ok(response);
+	}
+	
 	@GetMapping("notice_write.do")
 	public String notice_write() {
 		return "notice_write";

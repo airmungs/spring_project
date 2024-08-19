@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="sailmallDB">
-
+	
+	
+	<!-- 고객정보이용약관 -->
+	<insert id="insertInfoAgree" parameterType="String">
+		INSERT INTO infoAgree (infoAgree) VALUES (#{infoAgree});
+	</insert>
+	
+	<!-- 이용약관 -->
+	<insert id="insertUseAgree" parameterType="String">
+		INSERT INTO useAgree (useAgree) VALUES (#{useAgree});
+	</insert>
+	
 	<!-- 클라이언트 로그인 상태 업데이트 -->
 	<update id="updateLoginStatus" parameterType="map">
 	    UPDATE clients SET login = #{status} WHERE userId = #{userId}

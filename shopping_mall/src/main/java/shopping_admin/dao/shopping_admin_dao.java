@@ -19,6 +19,14 @@ public class shopping_admin_dao {
 	@Resource(name="template2")
 	private SqlSessionTemplate sqlTemplate;
 	
+	//고객정보 이용약관
+	public int infoAgree(String infoAgree) {
+		return sqlTemplate.insert("sailmallDB.insertInfoAgree",infoAgree);
+	}
+	//이용약관
+	public int useAgree(String useAgree) {
+		return sqlTemplate.insert("sailmallDB.insertuseAgree",useAgree);
+	}
 	
 	//클라이언트 로그인 상태 업데이트
 	public int updateLoginStatus(String userId, String status) {

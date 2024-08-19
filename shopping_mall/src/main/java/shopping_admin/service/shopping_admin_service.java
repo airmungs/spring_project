@@ -34,6 +34,15 @@ public class shopping_admin_service {
 	private shopping_admin_dao adminDao;
 		
 	
+		//이용약관
+		public boolean useAgree(String useAgree) {
+			return adminDao.useAgree(useAgree)>0;
+		}
+		//고객정보 이용약관
+		public boolean infoAgree(String infoAgree) {
+			return adminDao.infoAgree(infoAgree)>0;
+		}
+	
 		//클라이언트 정지 휴면 업데이트
 		public boolean updateLoginStatus(String userId, String status) {
 		    return adminDao.updateLoginStatus(userId, status) > 0;
