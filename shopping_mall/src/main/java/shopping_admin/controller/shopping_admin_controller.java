@@ -194,6 +194,10 @@ public class shopping_admin_controller {
 	    return ResponseEntity.ok(response);
     }
 	
+	//이용약관 저장
+	
+	//개인정보 수집 및 이용 저장
+	
 	
 	//쇼핑몰 기본설정
 	@GetMapping("/admin_siteinfo.do")

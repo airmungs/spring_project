@@ -22,3 +22,10 @@ function updateLoginStatus(userId, status) {
         });
     }
 }
+
+function useAgree(){
+
+}
+function infoAgree(){
+	
+}
