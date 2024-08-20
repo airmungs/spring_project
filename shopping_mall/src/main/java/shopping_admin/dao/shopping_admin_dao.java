@@ -23,9 +23,15 @@ public class shopping_admin_dao {
 	public int infoAgree(String infoAgree) {
 		return sqlTemplate.insert("sailmallDB.insertInfoAgree",infoAgree);
 	}
+	public String selectInfoAgree() {
+		return sqlTemplate.selectOne("sailmallDB.selectInfoAgree");
+	}
 	//이용약관
 	public int useAgree(String useAgree) {
-		return sqlTemplate.insert("sailmallDB.insertuseAgree",useAgree);
+		return sqlTemplate.insert("sailmallDB.insertUseAgree",useAgree);
+	}
+	public String selectUseAgree() {
+		return sqlTemplate.selectOne("sailmallDB.selectUseAgree");
 	}
 	
 	//클라이언트 로그인 상태 업데이트

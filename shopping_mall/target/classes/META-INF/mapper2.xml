@@ -7,11 +7,18 @@
 	<insert id="insertInfoAgree" parameterType="String">
 		INSERT INTO infoAgree (infoAgree) VALUES (#{infoAgree});
 	</insert>
-	
+	<select id="selectInfoAgree" resultType="String">
+		SELECT * FROM infoAgree ORDER BY savedAt DESC LIMIT 1
+	</select>
+
 	<!-- 이용약관 -->
 	<insert id="insertUseAgree" parameterType="String">
 		INSERT INTO useAgree (useAgree) VALUES (#{useAgree});
 	</insert>
+	<select id="selectUseAgree" resultType="String">
+		SELECT * FROM useAgree ORDER BY savedAt DESC LIMIT 1
+	</select>
+	
 	
 	<!-- 클라이언트 로그인 상태 업데이트 -->
 	<update id="updateLoginStatus" parameterType="map">

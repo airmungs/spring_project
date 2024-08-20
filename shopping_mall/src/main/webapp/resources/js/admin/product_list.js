@@ -89,7 +89,6 @@ function editProduct(productId) {
     location.href = `product_edit.do?id=${productId}`;
 }
 
-// 페이지 이동
 function goToPage(pageNumber) {
     const formData = new FormData();
     formData.append('page', pageNumber);
@@ -100,14 +99,14 @@ function goToPage(pageNumber) {
         method: 'POST',
         body: formData
     })
-    .then(response => response.text())
+    .then(response => response.text()) // JSON 응답을 처리합니다.
     .then(html => {
         // 상품 목록 업데이트
-        document.getElementById('productList').innerHTML = html;
-		
-		const currentPage = parseInt(document.getElementById("currentPage").value, 10);
-        const totalPages = parseInt(document.getElementById("totalPages").value, 10);
-		
+        document.getElementById('productList').innerHTML = html; // 서버에서 반환한 HTML 조각을 사용합니다.
+        
+       // const currentPage = data.currentPage;
+       // const totalPages = data.totalPages;
+
         // 페이징 요소 업데이트
         const pagination = document.getElementById('pagination');
         pagination.innerHTML = ''; // 기존 페이징 초기화
@@ -117,7 +116,7 @@ function goToPage(pageNumber) {
         pagination.innerHTML += `<li id="leftArrow" ${currentPage === 1 ? 'class="disabled"' : ''}><img src="/resources/ico/left.svg" onclick="goToPage(${currentPage - 1})" /></li>`;
         
         // 페이지 번호 버튼 생성
-        for (let i = 1; i <= data.totalPages; i++) {
+        for (let i = 1; i <= totalPages; i++) {
             pagination.innerHTML += `<li class="${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</li>`;
         }
 

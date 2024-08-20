@@ -138,23 +138,24 @@ public class shopping_admin_controller {
 	}
 	
     // 페이지 이동
-    @PostMapping("/get_products_by_page")
-    @ResponseBody
-    public String getProductsByPage(
-            @RequestParam("page") int page,
-            @RequestParam(value = "searchType", required = false) String searchType,
-            @RequestParam(value = "searchKeyword", required = false) String searchKeyword,
-            Model model) {
-    	int pageSize = 5;
-        Map<String, Object> productData = adminService.getProductsByPage(page, pageSize, searchType, searchKeyword);
+	@PostMapping("/get_products_by_page")
+	@ResponseBody
+	public String getProductsByPage(
+	        @RequestParam("page") int page,
+	        @RequestParam(value = "searchType", required = false) String searchType,
+	        @RequestParam(value = "searchKeyword", required = false) String searchKeyword,
+	        Model model) {
+	    int pageSize = 5;
+	    Map<String, Object> productData = adminService.getProductsByPage(page, pageSize, searchType, searchKeyword);
 
-        model.addAttribute("productList", productData.get("productList"));
-        model.addAttribute("currentPage", productData.get("currentPage"));
-        model.addAttribute("totalPages", productData.get("totalPages"));
-        model.addAttribute("totalProducts",productData.get("totalProducts"));
-    	
-        return "product_list";
-    }
+	    Map<String, Object> response = new HashMap<>();
+	    response.put("productList", productData.get("productList"));
+	    response.put("currentPage", productData.get("currentPage"));
+	    response.put("totalPages", productData.get("totalPages"));
+	    model.addAttribute("productList",productData.get("productList"));
+	    
+	    return "product_list";
+	}
 	
 	
     // 상품 리스트 페이징
@@ -297,6 +298,10 @@ public class shopping_admin_controller {
 	@GetMapping("/shop_member_list.do")
 	public String shop_member_list(Model model){
 		model.addAttribute("clientList",adminService.showClients());
+		String useAgree = adminService.selectUseAgree();
+		String infoAgree = adminService.selectInfoAgree();
+		model.addAttribute("useAgree",useAgree);
+		model.addAttribute("infoAgree",infoAgree);
 		return "shop_member_list";
 	}
 	

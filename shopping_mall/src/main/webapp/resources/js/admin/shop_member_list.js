@@ -10,7 +10,6 @@ function updateLoginStatus(userId, status) {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                alert('상태가 업데이트되었습니다.');
                 location.reload();  // 페이지를 새로고침하여 상태를 반영합니다.
             } else {
                 alert('상태 업데이트에 실패했습니다: ' + data.message);

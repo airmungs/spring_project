@@ -103,5 +103,5 @@
 <%@include file="../copyright_admin.jsp"%>
 </div>
 </body>
-<script src="/resources/js/admin/product_list.js?v=6"></script>
+<script src="/resources/js/admin/product_list.js?v=7"></script>
 </html>
