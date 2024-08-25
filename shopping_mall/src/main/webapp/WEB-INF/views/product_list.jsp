@@ -11,7 +11,7 @@
     <link rel="stylesheet" type="text/css" href="/resources/css/basic.css">
     <link rel="stylesheet" type="text/css" href="/resources/css/login.css?v=1">
     <link rel="stylesheet" type="text/css" href="/resources/css/main.css?v=1">
-    <link rel="stylesheet" type="text/css" href="/resources/css/product.css?v=7">
+    <link rel="stylesheet" type="text/css" href="/resources/css/product.css?v=8">
     <link rel="icon" href="/resources/img/logo.png" sizes="128x128">
     <link rel="icon" href="/resources/img/logo.png" sizes="64x64">
     <link rel="icon" href="/resources/img/logo.png" sizes="32x32">
@@ -87,6 +87,7 @@
     <li id="goFirstPage"><img src="/resources/ico/double_left.svg" onclick="goToPage(1)" /></li>
     <li id="leftArrow"><img src="/resources/ico/left.svg" onclick="goToPage(${currentPage - 1})" /></li>
     <!-- 페이지 버튼 추가 -->
+	<div id="pageButtons"></div>
     <li id="rightArrow"><img src="/resources/ico/right.svg" onclick="goToPage(${currentPage + 1})" /></li>
     <li id="goLastPage"><img src="/resources/ico/double_right.svg" onclick="goToPage(${totalPages})" /></li>
 </ul>
@@ -103,5 +104,5 @@
 <%@include file="../copyright_admin.jsp"%>
 </div>
 </body>
-<script src="/resources/js/admin/product_list.js?v=7"></script>
+<script src="/resources/js/admin/product_list.js?v=8"></script>
 </html>

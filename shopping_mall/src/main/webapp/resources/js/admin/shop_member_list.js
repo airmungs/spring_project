@@ -23,9 +23,13 @@ function updateLoginStatus(userId, status) {
 }
 
 function useAgree() {
-    const useAgreeText = encodeURIComponent(document.querySelector('textarea[name="useAgree"]').value);
-    fetch('./updateUseAgree?useAgree=' + useAgreeText, {
-        method: "GET" // URL 쿼리 문자열을 사용하면 GET 요청이 더 적합할 수 있습니다.
+    const useAgreeText = document.querySelector('textarea[name="useAgree"]').value;
+    fetch('./updateUseAgree', {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ useAgree: useAgreeText })
     })
     .then(response => response.json())
     .then(data => {
@@ -42,9 +46,13 @@ function useAgree() {
 }
 
 function infoAgree() {
-    const infoAgreeText = encodeURIComponent(document.querySelector('textarea[name="infoAgree"]').value);
-    fetch('./updateInfoAgree?infoAgree=' + infoAgreeText, {
-        method: "GET" // URL 쿼리 문자열을 사용하면 GET 요청이 더 적합할 수 있습니다.
+    const infoAgreeText = document.querySelector('textarea[name="infoAgree"]').value;
+    fetch('./updateInfoAgree', {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ infoAgree: infoAgreeText })
     })
     .then(response => response.json())
     .then(data => {

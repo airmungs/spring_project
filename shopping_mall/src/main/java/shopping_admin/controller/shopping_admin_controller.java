@@ -35,49 +35,14 @@ public class shopping_admin_controller {
 	private shopping_admin_service adminService;
 	
 	
+
 	
-	//이용 약관
-	@GetMapping("/updateUseAgree")
-	public ResponseEntity<Map<String, Object>> useAgree(@RequestParam("useAgree") String useAgree){
-		Map<String, Object> response=new HashMap<>();
-		try {
-            boolean result=adminService.useAgree(useAgree);
-            if (result) {
-	            response.put("success", true);
-	        } else {
-	            response.put("success", false);
-	            response.put("message", "카테고리 생성 실패");
-	        }
-	    } catch (Exception e) {
-	        response.put("success", false);
-	        response.put("message", "서버 오류 발생: " + e.getMessage());
-	    }
-		return ResponseEntity.ok(response);
-	}
-	
-	//개인정보 이용 약관
-	@GetMapping("/updateInfoAgree")
-	public ResponseEntity<Map<String, Object>> infoAgree(@RequestParam("infoAgree") String infoAgree){
-		Map<String, Object> response=new HashMap<>();
-		try {
-            boolean result=adminService.infoAgree(infoAgree);
-            if (result) {
-	            response.put("success", true);
-	        } else {
-	            response.put("success", false);
-	            response.put("message", "카테고리 생성 실패");
-	        }
-	    } catch (Exception e) {
-	        response.put("success", false);
-	        response.put("message", "서버 오류 발생: " + e.getMessage());
-	    }
-		return ResponseEntity.ok(response);
-	}
-	
+	//공지사항 등록
 	@GetMapping("notice_write.do")
 	public String notice_write() {
 		return "notice_write";
 	}
+	//공지사항 목록
 	@GetMapping("/notice_list.do")
 	public String notice_list(){
 		return "notice_list";
@@ -148,53 +113,39 @@ public class shopping_admin_controller {
 	    int pageSize = 5;
 	    Map<String, Object> productData = adminService.getProductsByPage(page, pageSize, searchType, searchKeyword);
 
-	    Map<String, Object> response = new HashMap<>();
-	    response.put("productList", productData.get("productList"));
-	    response.put("currentPage", productData.get("currentPage"));
-	    response.put("totalPages", productData.get("totalPages"));
-	    model.addAttribute("productList",productData.get("productList"));
-	    
-	    return "product_list";
+	    model.addAttribute("productList", productData.get("productList"));
+	    model.addAttribute("currentPage", productData.get("currentPage"));
+	    model.addAttribute("totalPages", productData.get("totalPages"));
+	    model.addAttribute("totalProducts", productData.get("totalProducts"));
+
+	    return "partial_product_list :: #productItems"; // JSTL의 부분 업데이트를 위해
 	}
 	
-	
-    // 상품 리스트 페이징
-    @GetMapping("/product_list.do")
-    public String showProductList(@RequestParam(defaultValue = "1") int page, 
-                                  @RequestParam(defaultValue = "") String searchType, 
-                                  @RequestParam(defaultValue = "") String searchKeyword, 
-                                  HttpSession session,
-                                  Model model) {
-        int pageSize = 5; // 한 페이지에 보여줄 항목 수
-        
-        Map<String, Object> productData = adminService.getProductsByPage(page, pageSize, searchType, searchKeyword);
+	//상품리스트
+	@GetMapping("/product_list.do")
+	public String showProductList(@RequestParam(defaultValue = "1") int page, 
+	                              @RequestParam(defaultValue = "") String searchType, 
+	                              @RequestParam(defaultValue = "") String searchKeyword,
+	                              Model model) {
+	    int pageSize = 5;
+	    
+	    Map<String, Object> productData = adminService.getProductsByPage(page, pageSize, searchType, searchKeyword);
 
-        model.addAttribute("productList", productData.get("productList"));
-        model.addAttribute("currentPage", productData.get("currentPage"));
-        model.addAttribute("totalPages", productData.get("totalPages"));
-        model.addAttribute("totalProducts",productData.get("totalProducts"));
+	    model.addAttribute("productList", productData.get("productList"));
+	    model.addAttribute("currentPage", productData.get("currentPage"));
+	    model.addAttribute("totalPages", productData.get("totalPages"));
+	    model.addAttribute("totalProducts",productData.get("totalProducts"));
 
-        return "product_list";
-    }
-	
+	    return "product_list";
+	}
 	//상품 검색
-    @PostMapping("/search_product")
-    public String searchProduct(@RequestParam(defaultValue = "1") int page, 
-														     @RequestParam(defaultValue = "") String searchType, 
-														     @RequestParam(defaultValue = "") String searchKeyword,
-														     Model model,
-														     HttpSession session) {
-        int pageSize = 5; // 한 페이지에 보여줄 항목 수
-        Map<String, Object> productData = adminService.getProductsByPage(page, pageSize, searchType, searchKeyword);
-        
-        model.addAttribute("productList", productData.get("productList"));
-        model.addAttribute("currentPage", productData.get("currentPage"));
-        model.addAttribute("totalPages", productData.get("totalPages"));
-        model.addAttribute("totalProducts",productData.get("totalProducts"));
-        session.setAttribute("searchType", searchType);
-        session.setAttribute("searchKeyword", searchKeyword);
-        return "product_list";
-    }
+	@PostMapping("/search_product")
+	public String searchProduct(@RequestParam(defaultValue = "1") int page, 
+	                            @RequestParam String searchType, 
+	                            @RequestParam String searchKeyword, 
+	                            Model model) {
+	    return showProductList(page, searchType, searchKeyword, model);
+	}
 	
 	//쇼핑몰 상품관리 - 신규상품등록
 	@GetMapping("/product_write.do")
@@ -235,10 +186,46 @@ public class shopping_admin_controller {
 	    return ResponseEntity.ok(response);
     }
 	
-	//이용약관 저장
 	
-	//개인정보 수집 및 이용 저장
-	
+	// 이용 약관
+	@PostMapping("/updateUseAgree")
+	public ResponseEntity<Map<String, Object>> useAgree(@RequestBody Map<String, String> requestBody) {
+	    Map<String, Object> response = new HashMap<>();
+	    try {
+	        String useAgree = requestBody.get("useAgree");
+	        boolean result = adminService.useAgree(useAgree);
+	        if (result) {
+	            response.put("success", true);
+	        } else {
+	            response.put("success", false);
+	            response.put("message", "카테고리 생성 실패");
+	        }
+	    } catch (Exception e) {
+	        response.put("success", false);
+	        response.put("message", "서버 오류 발생: " + e.getMessage());
+	    }
+	    return ResponseEntity.ok(response);
+	}
+
+	// 개인정보 이용 약관
+	@PostMapping("/updateInfoAgree")
+	public ResponseEntity<Map<String, Object>> infoAgree(@RequestBody Map<String, String> requestBody) {
+	    Map<String, Object> response = new HashMap<>();
+	    try {
+	        String infoAgree = requestBody.get("infoAgree");
+	        boolean result = adminService.infoAgree(infoAgree);
+	        if (result) {
+	            response.put("success", true);
+	        } else {
+	            response.put("success", false);
+	            response.put("message", "카테고리 생성 실패");
+	        }
+	    } catch (Exception e) {
+	        response.put("success", false);
+	        response.put("message", "서버 오류 발생: " + e.getMessage());
+	    }
+	    return ResponseEntity.ok(response);
+	}
 	
 	//쇼핑몰 기본설정
 	@GetMapping("/admin_siteinfo.do")
@@ -250,7 +237,7 @@ public class shopping_admin_controller {
 		    }
 		return "admin_siteinfo";
 	}
-	
+	//사이트 기본설정
     @PostMapping("/save_siteinfo")
     public ResponseEntity<Map<String, Object>> save_siteinfo(@RequestBody shopping_siteinfo_dto siteDTO) {
 	    Map<String, Object> response = new HashMap<>();
@@ -268,7 +255,8 @@ public class shopping_admin_controller {
 	    }
 	    return ResponseEntity.ok(response);
     }
-	//
+    
+	//회원 로그인 상태
     @PostMapping("/updateLoginStatus")
     public ResponseEntity<Map<String, Object>> updateLoginStatus(@RequestBody Map<String, String> requestData) {
         Map<String, Object> response = new HashMap<>();

@@ -57,22 +57,25 @@ public class shopping_admin_service {
 		public List<shopping_clients_dto> showClients(){
 			return adminDao.showClients();
 		}
-	
-		//상품 리스트 페이징
+		
+		//상품리스트 업데이트
 		public Map<String, Object> getProductsByPage(int page, int pageSize, String searchType, String searchKeyword) {
-	        int offset = (page - 1) * pageSize;
-	        int totalProducts = adminDao.countTotalProducts(searchType, searchKeyword);
-	        int totalPages = (int) Math.ceil((double) totalProducts / pageSize);
-	
-	        List<shopping_product_dto> productList = adminDao.searchProducts(offset, pageSize, searchType, searchKeyword);
-	
-	        Map<String, Object> result = new HashMap<>();
-	        result.put("productList", productList);
-	        result.put("currentPage", page);
-	        result.put("totalPages", totalPages);
-	        result.put("totalProducts", totalProducts);
-	        return result;
-	    }
+		    Map<String, Object> result = new HashMap<>();
+
+		    int offset = (page - 1) * pageSize;
+		    
+		    List<shopping_product_dto> productList = adminDao.searchProducts(offset, pageSize, searchType, searchKeyword);
+		    int totalProducts = adminDao.countTotalProducts(searchType, searchKeyword);
+		    
+		    int totalPages = (int) Math.ceil((double) totalProducts / pageSize);
+
+		    result.put("productList", productList);
+		    result.put("currentPage", page);
+		    result.put("totalPages", totalPages);
+		    result.put("totalProducts", totalProducts);
+
+		    return result;
+		}
 		
 		//상품코드 중복체크
 	    public boolean checkProductCodeExists(String productCode) {
