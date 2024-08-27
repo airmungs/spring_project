@@ -8,10 +8,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>쇼핑몰 상품관리</title>
-    <link rel="stylesheet" type="text/css" href="/resources/css/basic.css">
+    <link rel="stylesheet" type="text/css" href="/resources/css/basic.css?v=1">
     <link rel="stylesheet" type="text/css" href="/resources/css/login.css?v=1">
     <link rel="stylesheet" type="text/css" href="/resources/css/main.css?v=1">
-    <link rel="stylesheet" type="text/css" href="/resources/css/product.css?v=8">
+    <link rel="stylesheet" type="text/css" href="/resources/css/product.css?v=9">
     <link rel="icon" href="/resources/img/logo.png" sizes="128x128">
     <link rel="icon" href="/resources/img/logo.png" sizes="64x64">
     <link rel="icon" href="/resources/img/logo.png" sizes="32x32">
@@ -38,7 +38,7 @@
 	    </span>
 	</form>
 </div>
-<div class="subpage_view2" id="productItems">
+<div class="subpage_view2">
     <ul>
         <li><input type="checkbox" name="selectAll" onclick="selectAllItems(this)"></li>
         <li>코드</li>
@@ -55,6 +55,7 @@
     </ul>
     <c:forEach var="product" items="${productList }">
     <ul>
+    <div id="productItems"  class="productItems">
         <li><input type="checkbox" name="productCheckbox" value="${product.idx }"></li>
         <li>${product.productCode }</li>
         <li><a href="javascript:void(0);" onclick="openImagePopup('${product.mainImagePath }')">첨부파일</a></li>
@@ -74,6 +75,7 @@
         <li>${product.saleStatus }</li>
         <li>${product.earlySoldOut }</li>
         <li><button onclick="editProduct(${product.idx })">관리</button></li>
+    </div>
     </ul>
     </c:forEach>
     <c:if test="${empty productList}">

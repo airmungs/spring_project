@@ -14,7 +14,9 @@ a:active, a:hover {text-decoration:none;}
 span,label { display: block; }
 address,caption,cite,code,dfn,em,var {font-style:normal;font-weight:normal}
 .clear {clear:both}
-
+div#pageButtons {
+    display: flex;
+}
 figure {line-height:0}
 img{vertical-align:top}
 /* reset:End */

@@ -154,7 +154,6 @@ function updateSelectAllCheckbox() {
     const checkboxes = document.querySelectorAll('input[name="productCheckbox"]');
     const allChecked = Array.from(checkboxes).every(cb => cb.checked);
     selectAllCheckbox.checked = allChecked;
-
     selectAllCheckbox.indeterminate = !allChecked && Array.from(checkboxes).some(cb => cb.checked);
 }
 

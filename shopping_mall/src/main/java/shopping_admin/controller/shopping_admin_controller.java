@@ -35,8 +35,6 @@ public class shopping_admin_controller {
 	private shopping_admin_service adminService;
 	
 	
-
-	
 	//공지사항 등록
 	@GetMapping("notice_write.do")
 	public String notice_write() {
@@ -154,6 +152,7 @@ public class shopping_admin_controller {
 		model.addAttribute("codes",codes);
 		return "product_write";
 	}
+	
 	//상품코드 중복체크
     @PostMapping("/checkProductCode")
     @ResponseBody
