@@ -17,6 +17,66 @@
     <link rel="icon" href="/resources/img/logo.png" sizes="32x32">
     <link rel="icon" href="/resources/img/logo.png" sizes="16x16">
 </head>
+<style>
+.product-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.product-table th, .product-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+}
+
+.product-table th {
+    background-color: #333;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.product-table td {
+    background-color: #f9f9f9;
+}
+
+.product-table tr:nth-child(even) td {
+    background-color: #f2f2f2;
+}
+
+.product-table tr:hover td {
+    background-color: #ddd;
+}
+
+.manage-btn {
+    padding: 5px 10px;
+    background-color: #555;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.manage-btn:hover {
+    background-color: #333;
+}
+
+.p_button {
+    padding: 10px 20px;
+    background-color: #444;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.p_button:hover {
+    background-color: #666;
+}
+
+</style>
 <body>
 <input type="hidden" id="currentPage" value="${currentPage}">
 <input type="hidden" id="totalPages" value="${totalPages}">
@@ -38,57 +98,64 @@
 	    </span>
 	</form>
 </div>
+
+<!-- 테이블 구조 시작 -->
 <div class="subpage_view2">
-    <ul>
-        <li><input type="checkbox" name="selectAll" onclick="selectAllItems(this)"></li>
-        <li>코드</li>
-        <li>이미지</li>
-        <li>카테고리 분류</li>
-        <li>상품명</li>
-        <li>판매가격</li>
-        <li>할인가격</li>
-        <li>할인율</li>
-        <li>재고현황</li>
-        <li>판매유/무</li>
-        <li>품절</li>
-        <li>관리</li>
-    </ul>
-    <c:forEach var="product" items="${productList }">
-    <ul>
-    <div id="productItems"  class="productItems">
-        <li><input type="checkbox" name="productCheckbox" value="${product.idx }"></li>
-        <li>${product.productCode }</li>
-        <li><a href="javascript:void(0);" onclick="openImagePopup('${product.mainImagePath }')">첨부파일</a></li>
-        <li>${product.mainCategory }</li>
-        <li>${product.productName }</li>
-		<li><fmt:formatNumber value="${product.salePrice}" type="number" maxFractionDigits="0" />원</li>
-		<li><fmt:formatNumber value="${product.discountedPrice}" type="number" maxFractionDigits="0" />원</li>
-        <li>${product.discountRate }%</li>
-        <c:choose>
-            <c:when test="${product.stockQuantity == 0}">
-                <li>품절</li>
-            </c:when>
-            <c:otherwise>
-                <li>${product.stockQuantity } EA</li>
-            </c:otherwise>
-        </c:choose>
-        <li>${product.saleStatus }</li>
-        <li>${product.earlySoldOut }</li>
-        <li><button onclick="editProduct(${product.idx })">관리</button></li>
-    </div>
-    </ul>
-    </c:forEach>
-    <c:if test="${empty productList}">
-        <ul>
-            <li style="width: 100%;">등록된 상품이 없습니다.</li>
-        </ul>
-    </c:if>
+    <table class="product-table">
+        <thead>
+            <tr>
+                <th><input type="checkbox" name="selectAll" onclick="selectAllItems(this)"></th>
+                <th>코드</th>
+                <th>이미지</th>
+                <th>카테고리 분류</th>
+                <th>상품명</th>
+                <th>판매가격</th>
+                <th>할인가격</th>
+                <th>할인율</th>
+                <th>재고현황</th>
+                <th>판매유/무</th>
+                <th>품절</th>
+                <th>관리</th>
+            </tr>
+        </thead>
+        <tbody>
+            <c:forEach var="product" items="${productList }">
+            <tr>
+                <td><input type="checkbox" name="productCheckbox" value="${product.idx }"></td>
+                <td>${product.productCode }</td>
+                <td><a href="javascript:void(0);" onclick="openImagePopup('${product.mainImagePath }')">첨부파일</a></td>
+                <td>${product.mainCategory }</td>
+                <td>${product.productName }</td>
+                <td><fmt:formatNumber value="${product.salePrice}" type="number" maxFractionDigits="0" />원</td>
+                <td><fmt:formatNumber value="${product.discountedPrice}" type="number" maxFractionDigits="0" />원</td>
+                <td>${product.discountRate }%</td>
+                <c:choose>
+                    <c:when test="${product.stockQuantity == 0}">
+                        <td>품절</td>
+                    </c:when>
+                    <c:otherwise>
+                        <td>${product.stockQuantity } EA</td>
+                    </c:otherwise>
+                </c:choose>
+                <td>${product.saleStatus }</td>
+                <td>${product.earlySoldOut }</td>
+                <td><button onclick="editProduct(${product.idx })">관리</button></td>
+            </tr>
+            </c:forEach>
+            <c:if test="${empty productList}">
+                <tr>
+                    <td colspan="12" style="text-align: center;">등록된 상품이 없습니다.</td>
+                </tr>
+            </c:if>
+        </tbody>
+    </table>
 </div>
+<!-- 테이블 구조 끝 -->
+
 <div class="subpage_view3">
 <ul id="pagination" class="pageing">
     <li id="goFirstPage"><img src="/resources/ico/double_left.svg" onclick="goToPage(1)" /></li>
     <li id="leftArrow"><img src="/resources/ico/left.svg" onclick="goToPage(${currentPage - 1})" /></li>
-    <!-- 페이지 버튼 추가 -->
 	<div id="pageButtons"></div>
     <li id="rightArrow"><img src="/resources/ico/right.svg" onclick="goToPage(${currentPage + 1})" /></li>
     <li id="goLastPage"><img src="/resources/ico/double_right.svg" onclick="goToPage(${totalPages})" /></li>
