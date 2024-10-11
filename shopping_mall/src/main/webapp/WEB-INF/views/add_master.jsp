@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>관리자 등록 페이지</title>
     <link rel="stylesheet" type="text/css" href="/resources/css/basic.css">
-    <link rel="stylesheet" type="text/css" href="/resources/css/login.css?v=2">
+    <link rel="stylesheet" type="text/css" href="/resources/css/login.css?<%= System.currentTimeMillis() %>">
     <link rel="icon" href="/resources/img/logo.png" sizes="128x128">
     <link rel="icon" href="/resources/img/logo.png" sizes="64x64">
     <link rel="icon" href="/resources/img/logo.png" sizes="32x32">
@@ -82,5 +82,5 @@
         </div>
     </footer>
 </body>
-<script src="/resources/js/admin/add_master.js?v=5"></script>
+<script src="/resources/js/admin/add_master.js?<%= System.currentTimeMillis() %>"></script>
 </html>

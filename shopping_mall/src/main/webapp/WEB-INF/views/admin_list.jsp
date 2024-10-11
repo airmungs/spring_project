@@ -10,8 +10,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>쇼핑몰 관리자 리스트</title>
     <link rel="stylesheet" type="text/css" href="/resources/css/basic.css">
-    <link rel="stylesheet" type="text/css" href="/resources/css/login.css?v=1">
-    <link rel="stylesheet" type="text/css" href="/resources/css/main.css?v=1">
+    <link rel="stylesheet" type="text/css" href="/resources/css/login.css?<%= System.currentTimeMillis() %>">
+    <link rel="stylesheet" type="text/css" href="/resources/css/main.css?<%= System.currentTimeMillis() %>">
     <link rel="icon" href="/resources/img/logo.png" sizes="128x128">
     <link rel="icon" href="/resources/img/logo.png" sizes="64x64">
     <link rel="icon" href="/resources/img/logo.png" sizes="32x32">
@@ -75,5 +75,5 @@
 </main>
 <%@ include file="../copyright_admin.jsp" %>
 </body>
-<script src="/resources/js/admin/admin_list.js?v=3"></script>
+<script src="/resources/js/admin/admin_list.js?<%= System.currentTimeMillis() %>"></script>
 </html>

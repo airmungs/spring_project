@@ -54,7 +54,7 @@
     text-decoration: none;
     color: white;
     text-align: center;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .nav_div ol li a:hover {

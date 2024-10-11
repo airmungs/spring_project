@@ -8,9 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>공지사항 리스트 페이지</title>
     <link rel="stylesheet" type="text/css" href="/resources/css/basic.css">
-    <link rel="stylesheet" type="text/css" href="/resources/css/login.css?v=1">
-    <link rel="stylesheet" type="text/css" href="/resources/css/main.css?v=1">
-    <link rel="stylesheet" type="text/css" href="/resources/css/notice.css?v=11">
+    <link rel="stylesheet" type="text/css" href="/resources/css/login.css?<%= System.currentTimeMillis() %>">
+    <link rel="stylesheet" type="text/css" href="/resources/css/main.css?<%= System.currentTimeMillis() %>">
+    <link rel="stylesheet" type="text/css" href="/resources/css/notice.css?<%= System.currentTimeMillis() %>">
     <link rel="icon" href="/resources/img/logo.png" sizes="128x128">
     <link rel="icon" href="/resources/img/logo.png" sizes="64x64">
     <link rel="icon" href="/resources/img/logo.png" sizes="32x32">
