@@ -27,9 +27,9 @@ document.getElementById("adminlogin_form").addEventListener("submit", function(e
         if (data.success) {
             // adname을 확인하여 리디렉션할 URL을 결정
             if (data.admin.adname === "최고관리자") {
-                location.href = "./admin_list.do";
+                location.href = "./admin_list";
             } else {
-                location.href = "./shop_member_list.do";
+                location.href = "./shop_member_list";
             }
         } else {
             alert(data.message);

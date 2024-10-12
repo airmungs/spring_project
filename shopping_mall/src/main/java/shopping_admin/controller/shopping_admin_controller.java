@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import shopping_admin.dto.shopping_admin_dto;
 import shopping_admin.dto.shopping_cate_dto;
+import shopping_admin.dto.shopping_notice_dto;
 import shopping_admin.dto.shopping_product_dto;
 import shopping_admin.dto.shopping_siteinfo_dto;
 import shopping_admin.service.shopping_admin_service;
@@ -34,19 +35,51 @@ public class shopping_admin_controller {
 	@Autowired
 	private shopping_admin_service adminService;
 	
-	
 	//공지사항 등록
-	@GetMapping("notice_write.do")
+	@PostMapping("/insertNotice")
+	public String insertNotice(@RequestParam boolean notify, @RequestParam String noticeTitle, 
+	                           @RequestParam String noticeWriter, @RequestParam String noticeText) {
+	    boolean isInserted = adminService.insertNotice(notify, noticeTitle, noticeWriter, noticeText);
+	    if (isInserted) {
+	        return "redirect:/notice_list"; // 성공 시 공지 목록으로 이동
+	    } else {
+	        return "error"; // 실패 시 에러 페이지로 이동
+	    }
+	}
+	//공지사항 쓰기 페이지
+	@GetMapping("notice_write")
 	public String notice_write() {
 		return "notice_write";
 	}
 	//공지사항 목록
-	@GetMapping("/notice_list.do")
-	public String notice_list(){
-		return "notice_list";
+	@GetMapping("notice_list")
+	public String noticeList(Model model, 
+	                         @RequestParam(value = "page", defaultValue = "1") int page, 
+	                         @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+		
+		
+	    // 총 게시물 수 조회
+	    int totalNotices = adminService.countTotalNotices();
+	    
+	    // 페이징에 따른 시작 위치 계산
+	    int offset = (page - 1) * pageSize;
+	    // 게시물 리스트 조회 (공지사항 우선순위로, 최신순으로)
+	    List<shopping_notice_dto> noticeList = adminService.getNoticesWithPaging(offset, pageSize);
+	    
+	    // 페이지 계산
+	    int totalPages = (int) Math.ceil((double) totalNotices / pageSize);
+	    
+	    // Model에 데이터 추가
+	    model.addAttribute("noticeList", noticeList);
+	    model.addAttribute("currentPage", page);
+	    model.addAttribute("totalPages", totalPages);
+	    model.addAttribute("totalNotices", totalNotices);
+	    
+	    return "notice_list";
 	}
+
 	//카테고리리스트 검색
-	@PostMapping("/search_category")
+	@PostMapping("search_category")
 	public String searchCategory(@RequestParam("searchType") String searchType,
 	                            @RequestParam("searchKeyword") String searchKeyword,
 	                            Model model) {
@@ -56,7 +89,7 @@ public class shopping_admin_controller {
 	}
 	
 	//카테고리 생성
-	@PostMapping("/create_cate")
+	@PostMapping("create_cate")
 	public ResponseEntity<Map<String, Object>> create_cate(@RequestBody shopping_cate_dto cateDTO){
 		Map<String, Object> response=new HashMap<>();
 		try {
@@ -75,7 +108,7 @@ public class shopping_admin_controller {
 	}
 	
 	//카테고리 분류코드 중복확인
-	@PostMapping("/checkCategoryCode")
+	@PostMapping("checkCategoryCode")
 	@ResponseBody
 	public Map<String, Object> checkCategoryCode(@RequestBody Map<String, String> requestBody) {
 	    String categoryCode = requestBody.get("categoryCode");
@@ -87,13 +120,13 @@ public class shopping_admin_controller {
 	}
 	
 	//쇼핑몰 상품관리 - 카테고리등록 페이지
-	@GetMapping("/cate_write.do")
+	@GetMapping("cate_write")
 	public String cate_write(){
 		return "cate_write";
 	}
 
 	//쇼핑몰 상품관리 - 카테고리 리스트
-	@GetMapping("/cate_list.do")
+	@GetMapping("cate_list")
 	public String cate_list(Model model){
 		List<shopping_cate_dto> cate_list=adminService.cateList();
 		model.addAttribute("cate_list",cate_list);
@@ -120,7 +153,7 @@ public class shopping_admin_controller {
 	}
 	
 	//상품리스트
-	@GetMapping("/product_list.do")
+	@GetMapping("product_list")
 	public String showProductList(@RequestParam(defaultValue = "1") int page, 
 	                              @RequestParam(defaultValue = "") String searchType, 
 	                              @RequestParam(defaultValue = "") String searchKeyword,
@@ -137,7 +170,7 @@ public class shopping_admin_controller {
 	    return "product_list";
 	}
 	//상품 검색
-	@PostMapping("/search_product")
+	@PostMapping("search_product")
 	public String searchProduct(@RequestParam(defaultValue = "1") int page, 
 	                            @RequestParam String searchType, 
 	                            @RequestParam String searchKeyword, 
@@ -146,7 +179,7 @@ public class shopping_admin_controller {
 	}
 	
 	//쇼핑몰 상품관리 - 신규상품등록
-	@GetMapping("/product_write.do")
+	@GetMapping("product_write")
 	public String product_write(Model model){
 		List<shopping_cate_dto> codes=adminService.lgMenuCode();
 		model.addAttribute("codes",codes);
@@ -154,7 +187,7 @@ public class shopping_admin_controller {
 	}
 	
 	//상품코드 중복체크
-    @PostMapping("/checkProductCode")
+    @PostMapping("checkProductCode")
     @ResponseBody
     public Map<String, Object> checkProductCode(@RequestParam String productCode) {
         boolean exists = adminService.checkProductCodeExists(productCode);
@@ -165,7 +198,7 @@ public class shopping_admin_controller {
     }
 	
 	//신규상품등록하기
-	@PostMapping("/save_product")
+	@PostMapping("save_product")
 	public ResponseEntity<Map<String, Object>> save_product(@RequestParam("productName") String productName, @RequestParam("productCode") String productCode, @RequestParam("productDescription") String productDescription, @RequestParam("productDetails") String productDetails, @RequestParam("discountRate") int discountRate, @RequestParam("salePrice") BigDecimal salePrice, @RequestParam("discountedPrice") BigDecimal discountedPrice, @RequestParam("saleStatus") String saleStatus, @RequestParam("stockQuantity") int stockQuantity, @RequestParam("mainCategory") String mainCategory, @RequestParam("earlySoldOut") String earlySoldOut, @RequestParam("mainImage") MultipartFile mainImage, @RequestParam("additionalImage1") MultipartFile additionalImage1, @RequestParam("additionalImage2") MultipartFile additionalImage2) {
 	    Map<String, Object> response = new HashMap<>();
 	    shopping_product_dto productDTO = new shopping_product_dto();
@@ -187,7 +220,7 @@ public class shopping_admin_controller {
 	
 	
 	// 이용 약관
-	@PostMapping("/updateUseAgree")
+	@PostMapping("updateUseAgree")
 	public ResponseEntity<Map<String, Object>> useAgree(@RequestBody Map<String, String> requestBody) {
 	    Map<String, Object> response = new HashMap<>();
 	    try {
@@ -207,7 +240,7 @@ public class shopping_admin_controller {
 	}
 
 	// 개인정보 이용 약관
-	@PostMapping("/updateInfoAgree")
+	@PostMapping("updateInfoAgree")
 	public ResponseEntity<Map<String, Object>> infoAgree(@RequestBody Map<String, String> requestBody) {
 	    Map<String, Object> response = new HashMap<>();
 	    try {
@@ -227,7 +260,7 @@ public class shopping_admin_controller {
 	}
 	
 	//쇼핑몰 기본설정
-	@GetMapping("/admin_siteinfo.do")
+	@GetMapping("admin_siteinfo")
 	public String admin_siteinfo(Model model){
 		 List<shopping_siteinfo_dto> siteinfo_list = adminService.siteinfoList();
 		    if (siteinfo_list != null && !siteinfo_list.isEmpty()) {
@@ -237,7 +270,7 @@ public class shopping_admin_controller {
 		return "admin_siteinfo";
 	}
 	//사이트 기본설정
-    @PostMapping("/save_siteinfo")
+    @PostMapping("save_siteinfo")
     public ResponseEntity<Map<String, Object>> save_siteinfo(@RequestBody shopping_siteinfo_dto siteDTO) {
 	    Map<String, Object> response = new HashMap<>();
         try {
@@ -256,7 +289,7 @@ public class shopping_admin_controller {
     }
     
 	//회원 로그인 상태
-    @PostMapping("/updateLoginStatus")
+    @PostMapping("updateLoginStatus")
     public ResponseEntity<Map<String, Object>> updateLoginStatus(@RequestBody Map<String, String> requestData) {
         Map<String, Object> response = new HashMap<>();
         try {
@@ -282,7 +315,7 @@ public class shopping_admin_controller {
     }
     
 	//쇼핑몰 회원관리
-	@GetMapping("/shop_member_list.do")
+	@GetMapping("shop_member_list")
 	public String shop_member_list(Model model){
 		model.addAttribute("clientList",adminService.showClients());
 		String useAgree = adminService.selectUseAgree();
@@ -294,7 +327,7 @@ public class shopping_admin_controller {
 	
 	
 	//관리자 로그인 승인
-	@GetMapping("/update_admin_status.do")
+	@GetMapping("update_admin_status")
 	public ResponseEntity<Map<String, Object>> update_admin_status(
 	        @RequestParam("adid") String adid,
 	        @RequestParam("status") String status) {
@@ -321,20 +354,20 @@ public class shopping_admin_controller {
     }
     
     //admin 등록 승인 페이지
-    @GetMapping("/admin_list.do")
+    @GetMapping("admin_list")
     public String admin_list(Model m) {
     	m.addAttribute("adminList", adminService.adminList());
     	return "admin_list";
     }
     
     //admin등록 신청 페이지
-    @GetMapping("/add_master.do")
+    @GetMapping("/add_master")
     public String add_master() {
     	return "add_master";
     }
     
     //admin 로그아웃
-    @GetMapping("/admin_logout")
+    @GetMapping("admin_logout")
     public String logout(HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.invalidate();
@@ -342,7 +375,7 @@ public class shopping_admin_controller {
     }
     
     //admin 로그인
-    @PostMapping("/login")
+    @PostMapping("login")
     public ResponseEntity<Map<String,Object>> admin_loginok (@RequestBody Map<String, String> loginData, HttpServletRequest request){
     	Map<String,Object> response=new HashMap<>();
     	String adid = loginData.get("adid");
@@ -368,7 +401,7 @@ public class shopping_admin_controller {
     }
     
   //admin등록 insert
-    @PostMapping("/add_masterok")
+    @PostMapping("add_masterok")
     public ResponseEntity<Map<String,Object>> admin_join(@RequestBody shopping_admin_dto adminDTO){
     	Map<String,Object> response=new HashMap<>();
     	try {
@@ -387,7 +420,7 @@ public class shopping_admin_controller {
     	return ResponseEntity.ok(response);
     }
   //admin등록신청 id check
-    @GetMapping("/idcheck")
+    @GetMapping("idcheck")
     public ResponseEntity<String> check_id(@RequestParam("adid") String adid) {
         try {
             boolean isAvailable = adminService.isIdAvailable(adid);

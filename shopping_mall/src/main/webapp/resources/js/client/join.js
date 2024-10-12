@@ -120,7 +120,7 @@ document.querySelector('input[name="userId"]').addEventListener("input", functio
         .then(data => {
             if (data.success) {
                 alert("회원가입이 완료되었습니다.");
-				location.href="./login.do";
+				location.href="./login";
             } else {
                 alert("회원가입에 실패했습니다: " + data.message);
             }

@@ -1,6 +1,6 @@
 function updateApprovalStatus(adid, newStatus, message) {
     if (confirm(message)) {
-        fetch(`/update_admin_status.do?adid=${adid}&status=${newStatus}`, {
+        fetch(`/update_admin_status?adid=${adid}&status=${newStatus}`, {
             method: 'GET',
         })
         .then(response => response.json())

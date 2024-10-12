@@ -86,20 +86,20 @@
         <ol>
             <%if(admin != null && admin.getAdname().equals("최고관리자")){ %>
             <li title="쇼핑몰 관리자 리스트" class="<%= (request.getRequestURI().contains("admin_list") ? "active" : "") %>">
-                <a href="./admin_list.do">쇼핑몰 관리자 리스트</a>
+                <a href="./admin_list">쇼핑몰 관리자 리스트</a>
             </li>
             <%} %>
             <li title="쇼핑몰 회원관리" class="<%= (request.getRequestURI().contains("shop_member_list") ? "active" : "") %>">
-                <a href="./shop_member_list.do">쇼핑몰 회원관리</a>
+                <a href="./shop_member_list">쇼핑몰 회원관리</a>
             </li>
             <li title="쇼핑몰 상품관리" class="<%= (request.getRequestURI().contains("product_list") ? "active" : "") %>">
-                <a href="./product_list.do">쇼핑몰 상품관리</a>
+                <a href="./product_list">쇼핑몰 상품관리</a>
             </li>
             <li title="쇼핑몰 기본설정" class="<%= (request.getRequestURI().contains("admin_siteinfo") ? "active" : "") %>">
-                <a href="./admin_siteinfo.do">쇼핑몰 기본설정</a>
+                <a href="./admin_siteinfo">쇼핑몰 기본설정</a>
             </li>
             <li title="쇼핑몰 공지사항" class="<%= (request.getRequestURI().contains("notice_list") ? "active" : "") %>">
-                <a href="./notice_list.do">쇼핑몰 공지사항</a>
+                <a href="./notice_list">쇼핑몰 공지사항</a>
             </li>
         </ol>
     </div>

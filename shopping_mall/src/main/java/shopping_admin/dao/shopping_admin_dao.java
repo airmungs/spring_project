@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import shopping_admin.dto.shopping_admin_dto;
 import shopping_admin.dto.shopping_cate_dto;
+import shopping_admin.dto.shopping_notice_dto;
 import shopping_admin.dto.shopping_product_dto;
 import shopping_admin.dto.shopping_siteinfo_dto;
 import shopping_client.dto.shopping_clients_dto;
@@ -18,6 +19,22 @@ import shopping_client.dto.shopping_clients_dto;
 public class shopping_admin_dao {
 	@Resource(name="template2")
 	private SqlSessionTemplate sqlTemplate;
+	
+	//공지사항 목록 페이지
+	public List<shopping_notice_dto> getNoticesWithPaging(int offset, int pageSize) {
+	    Map<String, Object> params = Map.of("offset", offset, "pageSize", pageSize);
+	    return sqlTemplate.selectList("sailmallDB.getNoticesWithPaging", params);
+	}
+	// 공지사항 총 개수 조회
+	public int countTotalNotices() {
+	    return sqlTemplate.selectOne("sailmallDB.countTotalNotices");
+	}
+	
+	
+	//공지사항 등록
+	public int insertNotice(Map<String, Object> noticeData) {
+	    return sqlTemplate.insert("sailmallDB.insertNotice", noticeData);
+	}
 	
 	//고객정보 이용약관
 	public int infoAgree(String infoAgree) {

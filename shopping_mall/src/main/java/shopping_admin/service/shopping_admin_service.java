@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import shopping_admin.dao.shopping_admin_dao;
 import shopping_admin.dto.shopping_admin_dto;
 import shopping_admin.dto.shopping_cate_dto;
+import shopping_admin.dto.shopping_notice_dto;
 import shopping_admin.dto.shopping_product_dto;
 import shopping_admin.dto.shopping_siteinfo_dto;
 import shopping_client.dto.shopping_clients_dto;
@@ -33,7 +34,32 @@ public class shopping_admin_service {
 	@Autowired
 	private shopping_admin_dao adminDao;
 		
+	    // 공지사항 리스트 페이징 처리
+		public List<shopping_notice_dto> getNoticesWithPaging(int offset, int pageSize) {
+		    return adminDao.getNoticesWithPaging(offset, pageSize);
+		}
 	
+	    // 총 공지사항 수 계산
+	    public int countTotalNotices() {
+	        return adminDao.countTotalNotices();
+	    }
+	
+	    // 공지사항 등록
+	    public boolean insertNotice(Map<String, Object> noticeData) {
+	        return adminDao.insertNotice(noticeData) > 0;
+	    }
+	
+		//공지사항 등록
+		public boolean insertNotice(boolean notify, String title, String writer, String content) {
+		    Map<String, Object> noticeData = new HashMap<>();
+		    noticeData.put("notify", notify ? 1 : 0);
+		    noticeData.put("noticeTitle", title);
+		    noticeData.put("noticeWriter", writer);
+		    noticeData.put("noticeText", content);
+	
+		    return adminDao.insertNotice(noticeData) > 0;
+		}
+		
 		//이용약관
 		public boolean useAgree(String useAgree) {
 			return adminDao.useAgree(useAgree)>0;

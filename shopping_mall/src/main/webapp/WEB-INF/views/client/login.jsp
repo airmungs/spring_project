@@ -11,7 +11,7 @@
 
   <body>
     <div class="navbar">
-      <a href="#" id="logo">
+      <a href="main" id="logo">
         <img src="/resources/client/images/logo.jpg" width="149">
         </a>
         <ul id="menu">

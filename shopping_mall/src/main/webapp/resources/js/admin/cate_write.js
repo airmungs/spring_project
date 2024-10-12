@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(data => {
             if (data.success) {
                 alert('카테고리가 성공적으로 생성되었습니다.');
-                location.href = 'cate_list.do';
+                location.href = 'cate_list';
             } else {
                 alert(data.message || '');
             }

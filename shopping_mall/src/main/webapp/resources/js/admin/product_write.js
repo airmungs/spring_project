@@ -135,7 +135,7 @@ function submitProduct() {
     .then(responseData => {
         if (responseData.success) {
             alert('상품 등록 완료');
-            location.href = "./product_list.do";
+            location.href = "./product_list";
         } else {
             alert('상품 등록 실패: ' + responseData.message);
         }

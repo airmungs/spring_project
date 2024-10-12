@@ -12,35 +12,42 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import shopping_client.dto.shopping_clients_dto;
 import shopping_client.service.shopping_client_service;
 
 @Controller
+@RequestMapping("sailmall")
 public class shopping_client_controller {
 	
 	@Autowired
 	private shopping_client_service clientService;
 	
+	//메인페이지
+	@GetMapping("main")
+	public String index() {
+		return "client/index";
+	}
 	
 	//약관동의
-	@GetMapping("/sailmall/agree.do")
+	@GetMapping("agree")
 	public String agree() {
-		return "/client/agree";
+		return "client/agree";
 	}
 	//로그인
-	@GetMapping("/sailmall/login.do")
+	@GetMapping("login")
 	public String login() {
-		return "/client/login";
+		return "client/login";
 	}
 	//회원가입
-	@GetMapping("/sailmall/join.do")
+	@GetMapping("join")
 	public String join() {
-		return "/client/join";
+		return "client/join";
 	}
 	//회원가입 완료
-	@PostMapping("/sailmall/joinOk")
+	@PostMapping("joinOk")
 	public ResponseEntity<Map<String, Object>> joinOk(@RequestBody shopping_clients_dto clientsDTO){
 		Map<String, Object> response = new HashMap<>();
 		try {
@@ -60,7 +67,7 @@ public class shopping_client_controller {
 		return ResponseEntity.ok(response);
 	}
 	//아이디 중복확인
-	@GetMapping("/sailmall/idcheck")
+	@GetMapping("idcheck")
     public ResponseEntity<String> check_id(@RequestParam("userId") String userId) {
         try {
             boolean isAvailable = clientService.isIdAvailable(userId);
